@@ -1,0 +1,1453 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title data-i18n="JFrog AI Catalog Workshop">JFrog AI Catalog Workshop</title>
+  <style>
+    :root {
+      --ink: #152c2b;
+      --muted: #637573;
+      --green: #167a4c;
+      --lime: #cbf47a;
+      --line: #dce5df;
+      --paper: #f6f8f4;
+      --dark: #142e2b
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 15px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif
+    }
+
+    button,
+    input {
+      font: inherit
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .48
+    }
+
+    a {
+      color: var(--green);
+      text-underline-offset: 3px
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid #65b57c;
+      outline-offset: 4px
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      min-height: 100vh
+    }
+
+    .sidebar {
+      background: var(--dark);
+      color: #e8f1e9;
+      padding: 35px 26px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 25px;
+      letter-spacing: -1px
+    }
+
+    .brand span {
+      color: var(--lime)
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-transform: uppercase
+    }
+
+    .sidebar .eyebrow {
+      color: #92b2a7;
+      margin: 8px 0 40px
+    }
+
+    .navstep {
+      padding: 16px 13px;
+      border-radius: 10px;
+      display: flex;
+      gap: 12px;
+      color: #a0b8ad;
+      margin-bottom: 9px
+    }
+
+    .navstep.active {
+      background: #2d4b3e;
+      color: white
+    }
+
+    .navnum {
+      font: 13px ui-monospace, monospace;
+      color: var(--lime);
+      padding-top: 5px
+    }
+
+    .navstep strong {
+      font-size: 14px
+    }
+
+    .navstep small {
+      display: block;
+      font-size: 11px;
+      color: #9bb5a6
+    }
+
+    .navstep.future {
+      opacity: .65
+    }
+
+    .sidefoot {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      border-top: 1px solid #385048;
+      padding-top: 20px;
+      font-size: 12px;
+      color: #a8bdb1
+    }
+
+    .sidefoot-logo {
+      display: block;
+      width: 20%;
+      height: auto;
+      flex-shrink: 0;
+      mix-blend-mode: lighten;
+    }
+
+    .sidefoot .copyright {
+      color: #e8f1e9;
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .sidefoot .copyright:hover {
+      text-decoration: underline;
+    }
+
+    .sidefoot b {
+      color: #e8f1e9
+    }
+
+    .workspace {
+      min-width: 0
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 6%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      background: #ffffffaa
+    }
+
+    .badge {
+      background: #e8f1df;
+      color: #426339;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px
+    }
+
+    .content {
+      max-width: 1100px;
+      padding: 40px 6% 130px;
+      margin: auto
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 145px;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 30px
+    }
+
+    .hero .eyebrow {
+      color: var(--green)
+    }
+
+    h1 {
+      font-size: 40px;
+      line-height: 1.3;
+      letter-spacing: -1.2px;
+      margin: 10px 0 14px
+    }
+
+    h2 {
+      font-size: 21px;
+      margin: 0
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 16px 0 8px
+    }
+
+    p {
+      margin: 9px 0
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 650px
+    }
+
+    .heroart {
+      border-radius: 24px;
+      background: var(--lime);
+      height: 135px;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      transform: rotate(4deg)
+    }
+
+    .heroart b {
+      font: 600 41px ui-monospace, monospace
+    }
+
+    .heroart small {
+      font-size: 11px;
+      letter-spacing: 2px
+    }
+
+    .meta {
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 15px
+    }
+
+    .notice {
+      padding: 14px 18px;
+      border: 1px solid #d1dfc1;
+      background: #eef5e6;
+      border-radius: 10px;
+      font-size: 13px;
+      margin: 18px 0
+    }
+
+    .notice b {
+      color: #35572e
+    }
+
+    .osbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 27px 0 18px
+    }
+
+    .tabs {
+      display: flex;
+      background: #e7ede6;
+      border-radius: 9px;
+      padding: 4px;
+      gap: 3px
+    }
+
+    .tabs button {
+      border: 0;
+      background: none;
+      padding: 8px 19px;
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .tabs button[aria-pressed=true] {
+      background: white;
+      box-shadow: 0 1px 4px #19352917;
+      color: var(--ink);
+      font-weight: 700
+    }
+
+    .section {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin: 16px 0;
+      overflow: hidden
+    }
+
+    .section-head {
+      padding: 23px 25px 14px;
+      display: flex;
+      align-items: center;
+      gap: 13px
+    }
+
+    .number {
+      background: #edf4e9;
+      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-content: center;
+      font: 600 12px ui-monospace, monospace;
+      color: var(--green)
+    }
+
+    .body {
+      padding: 0 25px 24px
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px
+    }
+
+    .twocol {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px
+    }
+
+    .codebox {
+      background: #162c2b;
+      border-radius: 9px;
+      margin: 12px 0;
+      color: #e5f5e9;
+      overflow: hidden
+    }
+
+    .codehead {
+      padding: 6px 13px;
+      background: #213936;
+      font-size: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #a5c3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px
+    }
+
+    .copy {
+      background: transparent;
+      color: #d6e9df;
+      border: 1px solid #587168;
+      border-radius: 5px;
+      padding: 2px 10px;
+      font-size: 11px;
+      letter-spacing: 0
+    }
+
+    pre {
+      font: 12px/1.85 ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow: auto;
+      padding: 13px 16px;
+      margin: 0;
+      white-space: pre
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace
+    }
+
+    p code,
+    li code,
+    td code {
+      background: #eef2ed;
+      border-radius: 4px;
+      padding: 2px 5px;
+      font-size: 12px
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+      margin: 10px 0
+    }
+
+    li {
+      margin: 6px 0
+    }
+
+    .expect {
+      font-size: 12px;
+      color: #42694b;
+      border-left: 3px solid #8fbe67;
+      padding-left: 11px;
+      margin-top: 10px
+    }
+
+    .help {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 13px;
+      margin: 15px 0
+    }
+
+    td,
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    th {
+      font-size: 11px;
+      color: var(--muted);
+      background: #f7f9f5
+    }
+
+    .tablewrap {
+      overflow: auto
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+      padding: 13px 0
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px
+    }
+
+    details p,
+    details li {
+      font-size: 13px
+    }
+
+    .checks {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 18px
+    }
+
+    .check {
+      display: flex;
+      gap: 10px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 13px;
+      align-items: flex-start
+    }
+
+    .check:has(input:checked) {
+      background: #f0f7e9;
+      border-color: #9fc77e
+    }
+
+    .check input {
+      accent-color: var(--green);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      margin-top: 3px
+    }
+
+    .progress {
+      height: 5px;
+      background: #e3eade;
+      border-radius: 9px;
+      margin: 18px 0;
+      overflow: hidden
+    }
+
+    .progress div {
+      height: 100%;
+      background: var(--green);
+      transition: width .2s
+    }
+
+    .completion {
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .quiet {
+      background: none;
+      border: 0;
+      color: var(--muted);
+      text-decoration: underline;
+      font-size: 12px
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 330px;
+      right: 0;
+      padding: 15px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fffefcf5;
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+      z-index: 10
+    }
+
+    .footer small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px
+    }
+
+    .primary {
+      border: 0;
+      background: var(--green);
+      color: white;
+      border-radius: 8px;
+      padding: 12px 25px;
+      font-weight: 650
+    }
+
+    .secondary {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 20px
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--dark);
+      color: white;
+      border-radius: 8px;
+      padding: 10px 18px;
+      z-index: 20;
+      font-size: 13px
+    }
+
+    .sources {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 22px
+    }
+
+    .sources a {
+      margin-right: 13px
+    }
+
+    .ready {
+      padding: 55px 30px;
+      text-align: center
+    }
+
+    .ready .big {
+      font-size: 48px;
+      color: var(--green)
+    }
+
+    .ready h1 {
+      font-size: 32px
+    }
+
+    .ready p {
+      max-width: 580px;
+      margin: 15px auto
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 5px;
+      background: #eff4eb;
+      color: var(--green);
+      font-size: 12px
+    }
+
+    @media(max-width:1000px) {
+      .layout {
+        grid-template-columns: 300px 1fr
+      }
+
+      .sidebar {
+        padding: 26px 17px
+      }
+
+      .footer {
+        left: 300px
+      }
+
+      .twocol {
+        grid-template-columns: 1fr
+      }
+
+      .heroart {
+        display: none
+      }
+
+      .hero {
+        grid-template-columns: 1fr
+      }
+
+      .content {
+        padding-left: 5%;
+        padding-right: 5%
+      }
+
+      .checks {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:700px) {
+      .layout {
+        display: block
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+        padding: 16px 22px
+      }
+
+      .sidebar .eyebrow,
+      .navstep,
+      .sidefoot {
+        display: none
+      }
+
+      .brand {
+        font-size: 20px
+      }
+
+      .topbar {
+        padding: 12px 20px
+      }
+
+      .content {
+        padding: 26px 18px 130px
+      }
+
+      h1 {
+        font-size: 32px
+      }
+
+      .body {
+        padding: 0 17px 20px
+      }
+
+      .section-head {
+        padding: 20px 17px 12px
+      }
+
+      .footer {
+        left: 0;
+        padding: 12px 18px
+      }
+
+      .osbar {
+        display: block
+      }
+
+      .tabs {
+        margin-top: 10px;
+        width: max-content
+      }
+
+      .tabs button {
+        padding: 8px 14px
+      }
+
+      .footer strong {
+        font-size: 12px
+      }
+
+      .primary {
+        padding: 11px 18px
+      }
+
+      .meta {
+        gap: 12px
+      }
+    }
+
+    @media print {
+
+      .sidebar,
+      .footer,
+      .copy,
+      .tabs,
+      .quiet {
+        display: none !important
+      }
+
+      .layout {
+        display: block
+      }
+
+      .content {
+        max-width: none;
+        padding: 10px
+      }
+
+      .section {
+        break-inside: avoid
+      }
+
+      .topbar {
+        display: none
+      }
+
+      pre {
+        white-space: pre-wrap
+      }
+
+      .codebox {
+        color: black;
+        background: #eee
+      }
+
+      .codehead {
+        color: black;
+        background: #ddd
+      }
+    }
+
+    .init-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 14px
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 7px
+    }
+
+    .field input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d3ddd5;
+      border-radius: 8px;
+      font: inherit;
+      background: white
+    }
+
+    .field input[readonly] {
+      background: #f0f3ef;
+      color: #526458
+    }
+
+    .init-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0 18px
+    }
+
+    .init-actions .primary:disabled {
+      opacity: .55;
+      cursor: wait
+    }
+
+    .statusbox {
+      padding: 12px 16px;
+      background: #edf3ed;
+      border-left: 3px solid var(--green);
+      border-radius: 4px;
+      margin: 15px 0
+    }
+
+    .statusbox.error {
+      background: #fff1e8;
+      border-color: #bd6128
+    }
+
+    .logs {
+      min-height: 160px;
+      max-height: 330px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 12px;
+      line-height: 1.8;
+      padding: 18px;
+      background: #14251c;
+      color: #d7eadc;
+      border-radius: 8px
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: #edf3ed;
+      color: #376744
+    }
+
+    .pill.fail {
+      background: #fff0e8;
+      color: #ad5720
+    }
+
+    .toolpath {
+      font-size: 11px;
+      word-break: break-all;
+      color: #617065
+    }
+
+    .tablewrap td {
+      vertical-align: top
+    }
+
+    .connect-note {
+      border: 1px dashed #b7c8b7;
+      border-radius: 9px;
+      padding: 16px;
+      margin: 16px 0
+    }
+
+    .init-help {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    @media(min-width:751px) and (max-width:1100px) {
+      .init-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:750px) {
+      .init-grid {
+        grid-template-columns: 1fr
+      }
+
+      .init-actions {
+        align-items: stretch;
+        flex-direction: column
+      }
+    }
+
+    .labfigure {
+      margin: 20px 0
+    }
+
+    .labfigure-small {
+      width: 66.6667%;
+    }
+
+    .labfigure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--line);
+      border-radius: 9px
+    }
+
+    .labfigure figcaption {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 7px
+    }
+
+    #page2 h1, #page3 h1 {
+      font-size: 34px
+    }
+
+    #page2 .body h3, #page3 .body h3 {
+      margin-top: 26px
+    }
+
+    #page2 pre, #page3 pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere
+    }
+      .celebration-page { min-height: 80vh; display: grid; align-items: center; }
+    .celebration-card { text-align: center; padding: 55px 20px; }
+    .celebration-icon { font-size: 80px; margin-bottom: 18px; }
+    .celebration-card h1 { font-size: clamp(32px, 5vw, 64px); color: var(--green); }
+    .celebration-card .lead { margin: 18px auto; }
+    .celebration-card button { margin-top: 24px; }
+    #confettiLayer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 100; }
+    .confetti-piece { position: absolute; top: -24px; width: 9px; height: 16px; border-radius: 2px; }
+      .language-picker { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .language-picker select { color: var(--ink); background: white; border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; font: inherit; cursor: pointer; }
+    html[lang="en"] .navstep strong { font-size: 13px; }
+    html[lang="en"] .hero h1 { overflow-wrap: normal; }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">JFrog<span> / </span>Workshop</div>
+      <div class="eyebrow">AI CATALOG · HANDS-ON LAB</div>
+      <nav aria-label="实验进度" data-i18n-aria-label="实验进度">
+        <div class="navstep active"><span class="navnum">01</span>
+          <div><strong><span data-i18n="环境准备">环境准备</span></strong><small><span data-i18n="一键初始化 · 自动验证">一键初始化 · 自动验证</span></small></div>
+        </div>
+        <div class="navstep future"><span class="navnum">02</span>
+          <div><strong><span data-i18n="Lab 01: MCP Server 治理">Lab 01: MCP Server 治理</span></strong><small><span data-i18n="准入 · Agent Guard · 权限验证">准入 · Agent Guard · 权限验证</span></small></div>
+        </div>
+        <div class="navstep future"><span class="navnum">03</span>
+          <div><strong><span data-i18n="Lab 02: Skills 管理">Lab 02: Skills 管理</span></strong><small><span data-i18n="创建仓库 · 上传 · 扫描">创建仓库 · 上传 · 扫描</span></small></div>
+        </div>
+      </nav>
+      <div class="sidefoot">
+        <img class="sidefoot-logo" src="instructions/images/jfrog.png" alt="JFrog">
+        <a class="copyright" href="https://www.jfrog.com/" target="_blank" rel="noopener noreferrer"><strong>© Copyright 2026 JFrog Ltd</strong></a>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span><span data-i18n="实操指南 /">实操指南 / </span><span id="crumb"><span data-i18n="环境准备">环境准备</span></span></span><label class="language-picker"><span data-i18n="语言">语言</span><select id="languageSelect" aria-label="Language"><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="en">English</option></select></label></header>
+      <main class="content" id="page1">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">STEP 01 / GET READY</div>
+            <h1 tabindex="-1" id="heading">JFrog AI Catalog Workshop</h1>
+            <p class="lead"><span data-i18n="领取自己的账号，点击初始化环境。程序会检测工具版本，优先使用本地安装包，缺包时自动从官网下载，并完成安装与验证。">领取自己的账号，点击初始化环境。程序会检测工具版本，优先使用本地安装包，缺包时自动从官网下载，并完成安装与验证。</span></p>
+            <div class="meta"><span><span data-i18n="约 5–10 分钟">约 5–10 分钟</span></span><span><span data-i18n="无需逐个安装工具">无需逐个安装工具</span></span></div>
+          </div>
+          <div class="heroart" aria-hidden="true"><b>&gt;_</b><small>INITIALIZE ENVIRONMENT</small>
+          </div>
+        </div>
+        <section class="section">
+          <div class="section-head"><span class="number">01</span>
+            <h2><span data-i18n="初始化环境">初始化环境</span></h2>
+          </div>
+          <div class="body">
+            <p class="sub"><span data-i18n="按讲师分配的信息填写。输入本人密码，初始化时自动获取 24 小时有效的本人 Access Token，配置 JFrog CLI，并验证项目访问与连接。密码不会保存到页面记录或安装日志。">按讲师分配的信息填写。输入本人密码，初始化时自动获取 24 小时有效的本人 Access Token，配置 JFrog CLI，并验证项目访问与连接。密码不会保存到页面记录或安装日志。</span></p>
+            <div class="init-grid">
+              <div class="field"><label for="platform">JFrog Platform URL</label><input
+                  id="platform" type="url" placeholder="https://your-company.jfrog.io"
+                  autocomplete="off" spellcheck="false" data-i18n-placeholder="https://your-company.jfrog.io"></div>
+              <div class="field"><label for="username"><span data-i18n="用户账号">用户账号</span></label><input id="username"
+                  placeholder="user1" autocomplete="off" spellcheck="false" data-i18n-placeholder="user1"></div>
+              <div class="field"><label for="password"><span data-i18n="密码">密码</span></label><input id="password"
+                  type="password" placeholder="输入本人密码" autocomplete="off" data-i18n-placeholder="输入本人密码"></div>
+              <div class="field"><label for="project"><span data-i18n="对应 Project">对应 Project</span></label><input id="project"
+                  placeholder="project1" readonly data-i18n-placeholder="project1"></div>
+            </div>
+            <div class="init-actions"><button class="primary" id="initialize"
+                disabled><span data-i18n="初始化环境">初始化环境</span></button><span class="init-help"><span data-i18n="自动识别操作系统与 CPU；已满足版本的工具自动跳过。">自动识别操作系统与 CPU；已满足版本的工具自动跳过。</span></span>
+            </div>
+            <div class="statusbox" id="status" role="status"><span data-i18n="等待连接本机启动器。">等待连接本机启动器。</span></div>
+            <pre class="logs" id="logs" aria-label="初始化日志" data-i18n-aria-label="初始化日志"><span data-i18n="尚未开始初始化。">尚未开始初始化。</span></pre>
+            <p class="help"><span data-i18n="优先使用本地">优先使用本地 </span><code>tools</code><span data-i18n="中对应系统与架构的安装包；缺少时从工具官网下载到"> 中对应系统与架构的安装包；缺少时从工具官网下载到
+              </span><code>tools</code><span data-i18n="，校验后再安装。工具安装在本人的">，校验后再安装。工具安装在本人的 </span><code>~/.jfrog-workshop</code><span data-i18n="，程序会配置 PATH、实验目录以及本人的项目环境信息。无需 sudo。">，程序会配置
+              PATH、实验目录以及本人的项目环境信息。无需 sudo。</span></p>
+            <details>
+              <summary><span data-i18n="按钮会自动做哪些操作？">按钮会自动做哪些操作？</span></summary>
+              <ol>
+                <li><span data-i18n="检查 OpenCode、Node.js、npx、JFrog CLI、jq、curl 的版本。">检查 OpenCode、Node.js、npx、JFrog CLI、jq、curl 的版本。</span></li>
+                <li><span data-i18n="跳过符合要求的工具；需要安装时先查 tools，本地有包直接使用，缺包则从官网下载并缓存到 tools，校验 SHA256 后安装。">跳过符合要求的工具；需要安装时先查 tools，本地有包直接使用，缺包则从官网下载并缓存到 tools，校验 SHA256 后安装。</span></li>
+                <li><span data-i18n="配置用户 PATH；准备实验目录与">配置用户 PATH；准备实验目录与 </span><code>readme.txt</code><span data-i18n="（保留已有文件）。">（保留已有文件）。</span></li>
+                <li><span data-i18n="保存本人的平台 URL、userN 与 projectN 配置；配置中不包含密码或 Token。">保存本人的平台 URL、userN 与 projectN 配置；配置中不包含密码或 Token。</span></li>
+                <li><span data-i18n="使用本人账号和密码配置">使用本人账号和密码配置 </span><code>workshop-userN</code><span data-i18n="，设为当前 JFrog CLI Server，验证 CLI 配置及">，设为当前 JFrog CLI Server，验证 CLI 配置及
+                  </span><code>jf rt ping</code><span data-i18n="。密码仅交给 JFrog CLI 管理认证配置；自动签发 24 小时有效的本人 Access Token 并替换密码配置；使用 Token 验证本人项目访问及 ping，全部通过后开放 Next。">。密码仅交给 JFrog CLI 管理认证配置；自动签发 24 小时有效的本人 Access Token 并替换密码配置；使用 Token 验证本人项目访问及 ping，全部通过后开放 Next。</span></li>
+              </ol>
+            </details>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">02</span>
+            <h2><span data-i18n="查看自动验证结果">查看自动验证结果</span></h2>
+          </div>
+          <div class="body">
+            <p><span data-i18n="下表来自本机脚本的实际检测；按钮执行失败时，请查看上方错误信息并联系讲师，修复后可重试。">下表来自本机脚本的实际检测；按钮执行失败时，请查看上方错误信息并联系讲师，修复后可重试。</span></p>
+            <div class="tablewrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th><span data-i18n="工具">工具</span></th>
+                    <th><span data-i18n="要求">要求</span></th>
+                    <th><span data-i18n="本机结果">本机结果</span></th>
+                    <th><span data-i18n="状态">状态</span></th>
+                  </tr>
+                </thead>
+                <tbody id="results"></tbody>
+              </table>
+            </div>
+            <div class="completion"><b id="count"><span data-i18n="0 / 6 个工具通过">0 / 6 个工具通过</span></b><button class="quiet"
+                id="refresh"><span data-i18n="刷新状态">刷新状态</span></button></div>
+            <div class="progress" role="progressbar" aria-label="工具验证进度" aria-valuemin="0"
+              aria-valuemax="6" aria-valuenow="0" data-i18n-aria-label="工具验证进度">
+              <div id="fill"></div>
+            </div>
+            <div class="expect" id="resultSummary"><span data-i18n="初始化成功后，这里会显示实验目录和环境配置文件的位置。">初始化成功后，这里会显示实验目录和环境配置文件的位置。</span></div>
+            <div class="codebox" id="envCommand" hidden>
+              <div class="codehead"><span data-i18n="新开终端使用环境">新开终端使用环境 </span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code id="envCode"></code></pre>
+            </div>
+          </div>
+        </section>
+
+        <div class="sources"><span data-i18n="工具最低版本来自 JFrog 插件要求与讲师脚本约定。JFrog CLI ≥ 2.100.0，支持后续自动化 API 操作。">工具最低版本来自 JFrog 插件要求与讲师脚本约定。JFrog CLI ≥ 2.100.0，支持后续自动化 API 操作。</span><br><a
+            href="https://github.com/jfrog/opencode-jfrog-plugin" target="_blank"
+            rel="noopener noreferrer"><span data-i18n="JFrog 插件前提">JFrog 插件前提</span></a><a href="https://opencode.ai/docs/"
+            target="_blank" rel="noopener noreferrer">OpenCode</a><a
+            href="https://nodejs.org/en/download" target="_blank"
+            rel="noopener noreferrer">Node.js</a><a
+            href="https://docs.jfrog.com/integrations/docs/use-api-endpoints-via-cli"
+            target="_blank" rel="noopener noreferrer">JFrog CLI</a><a
+            href="https://jqlang.org/download/" target="_blank" rel="noopener noreferrer">jq</a>
+        </div>
+      </main>
+      <main class="content" id="page2" hidden>
+        <div class="eyebrow">LAB 01 / MCP GOVERNANCE</div>
+        <h1 tabindex="-1" id="nextHeading"><span data-i18n="Lab 01: MCP Server 治理">Lab 01: MCP Server 治理</span></h1>
+        <p class="lead"><span data-i18n="将 filesystem-mcp 加入本人项目，仅开放 view；通过 OpenCode 和 Agent Guard 验证服务器准入与工具权限。">将 filesystem-mcp 加入本人项目，仅开放 view；通过 OpenCode 和 Agent Guard 验证服务器准入与工具权限。</span></p>
+        <div class="notice" id="labIdentity"><span data-i18n="使用讲师分配的本人账号和对应 Project。">使用讲师分配的本人账号和对应 Project。</span></div>
+        <section class="section">
+          <div class="section-head"><span class="number">01</span>
+            <h2><span data-i18n="MCP Marketplace 准入配置">MCP Marketplace 准入配置</span></h2>
+          </div>
+          <div class="body">
+            <p><span class="tag"><span data-i18n="管理员操作">管理员操作</span></span><span data-i18n="使用"> 使用 </span><b>workshopadmin</b><span data-i18n="账号登录 JFrog。"> 账号登录 JFrog。</span></p>
+            <ol>
+              <li><span data-i18n="进入">进入 </span><b>AI/ML → AI Catalog → Marketplace → MCP Servers</b>。</li>
+              <li><span data-i18n="搜索">搜索 </span><code>filesystem-mcp</code><span data-i18n="，点击">，点击 </span><b>Add to Registry</b>。
+              </li>
+            </ol>
+            <figure class="labfigure"><a href="instructions/images/mcp-server.png" target="_blank"
+                rel="noopener"><img src="instructions/images/mcp-server.png"
+                  alt="搜索 filesystem-mcp 并添加到 Registry" loading="lazy" data-i18n-alt="搜索 filesystem-mcp 并添加到 Registry"></a>
+              <figcaption><span data-i18n="搜索 filesystem-mcp 并添加到 Registry · 点击查看大图">搜索 filesystem-mcp 并添加到 Registry · 点击查看大图</span></figcaption>
+            </figure>
+            <ol start="3">
+              <li><span data-i18n="选择本人对应的">选择本人对应的 </span><code>projectN</code><span data-i18n="，不要选择其他项目。">，不要选择其他项目。</span></li>
+              <li><span data-i18n="选择">选择 </span><b>Select tools manually → Allow List</b><span data-i18n="，仅填写或选择">，仅填写或选择 </span><code>view</code><span data-i18n="；不要选择 Allow all tools。">；不要选择 Allow all tools。</span></li>
+            </ol>
+            <figure class="labfigure labfigure-small">
+              <a href="instructions/images/tools_read.png" target="_blank" rel="noopener">
+                <img src="instructions/images/tools_read.png" alt="仅允许 view 工具" loading="lazy" data-i18n-alt="仅允许 view 工具">
+              </a>
+              <figcaption><span data-i18n="仅允许 view 工具 · 点击查看大图">仅允许 view 工具 · 点击查看大图</span></figcaption>
+            </figure>
+            <ol start="5">
+              <li><span data-i18n="按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放">按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放 </span><code>view</code>。</li>
+            </ol>
+            <figure class="labfigure">
+              <a href="instructions/images/registry.png" target="_blank" rel="noopener">
+                <img src="instructions/images/registry.png" alt="在 Registry 中确认 filesystem-mcp 准入配置" loading="lazy" data-i18n-alt="在 Registry 中确认 filesystem-mcp 准入配置">
+              </a>
+              <figcaption><span data-i18n="在 Registry 中确认准入配置 · 点击查看大图">在 Registry 中确认准入配置 · 点击查看大图</span></figcaption>
+            </figure>
+            <div class="expect"><span data-i18n="检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。">检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。</span></div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">02</span>
+            <h2><span data-i18n="配置 OpenCode 与 JFrog Agent Guard">配置 OpenCode 与 JFrog Agent Guard</span></h2>
+          </div>
+          <div class="body">
+            <h3><span data-i18n="Step 1 · 打开实验目录并选择模型">Step 1 · 打开实验目录并选择模型</span></h3>
+            <p><span data-i18n="新开终端，进入">新开终端，进入 </span><code>jfrog-ai-workshop/user</code><span data-i18n="目录。将下面的路径替换为本机实际路径；Windows 可在该文件夹打开 PowerShell 后执行"> 目录。将下面的路径替换为本机实际路径；Windows 可在该文件夹打开
+              PowerShell 后执行 </span><code>opencode</code>。</p>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="终端 · macOS / Linux">终端 · macOS / Linux</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>cd &quot;<span data-i18n="/您的工作路径/jfrog-ai-workshop/user">/您的工作路径/jfrog-ai-workshop/user</span>&quot;
+opencode</code></pre>
+            </div>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 内输入">OpenCode 内输入</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>/models</code></pre>
+            </div>
+            <p><span data-i18n="参考以下截图选择指定模型；。模型不可用时先联系讲师，确认能正常对话后再继续。">参考以下截图选择指定模型；。模型不可用时先联系讲师，确认能正常对话后再继续。</span></p>
+            <p><span data-i18n="如您有自用模型，可以自行选择。">如您有自用模型，可以自行选择。</span></p>
+            <figure class="labfigure labfigure-small"><a href="instructions/images/opencode.png" target="_blank"
+                rel="noopener"><img src="instructions/images/opencode.png" alt="在 OpenCode 中选择实验模型"
+                  loading="lazy" data-i18n-alt="在 OpenCode 中选择实验模型"></a>
+              <figcaption><span data-i18n="在 OpenCode 中选择实验模型 · 点击查看大图">在 OpenCode 中选择实验模型 · 点击查看大图</span></figcaption>
+            </figure>
+            <h3><span data-i18n="Step 2 · 添加项目级配置 JFrog Agent Guard">Step 2 · 添加项目级配置 JFrog Agent Guard</span></h3>
+            <p><span data-i18n="退出 OpenCode，在">退出 OpenCode，在 </span><code>user</code><span data-i18n="目录创建"> 目录创建 </span><code>opencode.json</code><span data-i18n="，填写以下内容。已有配置时，将插件合并到现有">，填写以下内容。已有配置时，将插件合并到现有
+              </span><code>plugin</code><span data-i18n="数组，保留其他配置。"> 数组，保留其他配置。</span></p>
+            <div class="codebox">
+              <div class="codehead">opencode.json<button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>{
+  &quot;plugin&quot;: [&quot;@jfrog/opencode-jfrog-plugin&quot;]
+}</code></pre>
+            </div>
+            <p><span data-i18n="保存后，在同一目录的终端执行认证命令；按浏览器提示使用本人 JFrog 账号登录并授权。这一步是插件的 MCP 认证，与第一页 CLI 配置分别验证。">保存后，在同一目录的终端执行认证命令；按浏览器提示使用本人 JFrog 账号登录并授权。这一步是插件的 MCP 认证，与第一页 CLI 配置分别验证。</span></p>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>opencode mcp auth jfrog</code></pre>
+            </div>
+            <p><span data-i18n="认证成功后重新启动 OpenCode，接受需要的插件或工作区信任提示。分别查看以下列表。">认证成功后重新启动 OpenCode，接受需要的插件或工作区信任提示。分别查看以下列表。</span></p>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>opencode</code></pre>
+            </div>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 内输入 · 分别执行">OpenCode 内输入 · 分别执行</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>/skills
+
+/mcps</code></pre>
+            </div>
+            <figure class="labfigure labfigure-small"><a href="instructions/images/jfrog-mcp.png" target="_blank"
+                rel="noopener"><img src="instructions/images/jfrog-mcp.png"
+                  alt="检查 JFrog 插件、Skills 与 MCP 状态" loading="lazy" data-i18n-alt="检查 JFrog 插件、Skills 与 MCP 状态"></a>
+              <figcaption><span data-i18n="检查 JFrog 插件、Skills 与 MCP 状态 · 点击查看大图">检查 JFrog 插件、Skills 与 MCP 状态 · 点击查看大图</span></figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">03</span>
+            <h2><span data-i18n="通过提示词验证 MCP 治理">通过提示词验证 MCP 治理</span></h2>
+          </div>
+          <div class="body">
+            <p><span data-i18n="以下提示词依次输入 OpenCode，每条完成后再执行下一条。涉及文件的操作只允许使用">以下提示词依次输入 OpenCode，每条完成后再执行下一条。涉及文件的操作只允许使用 </span><code>filesystem-mcp</code><span data-i18n="，不要改用内置文件工具或 shell 完成。">，不要改用内置文件工具或
+              shell 完成。</span></p>
+            <h3><span data-i18n="1. 查看本人项目可用的服务器">1. 查看本人项目可用的服务器</span></h3>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="我所在项目有哪些 MCP server 可以使用？">我所在项目有哪些 MCP server 可以使用？</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：确认当前项目为本人 projectN，列表包含 filesystem-mcp。项目不正确时先联系讲师修正，不继续安装。">预期结果：确认当前项目为本人 projectN，列表包含 filesystem-mcp。项目不正确时先联系讲师修正，不继续安装。
+            </span></div>
+            <h3><span data-i18n="2. 安装已准入的服务器">2. 安装已准入的服务器</span></h3>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="为当前项目安装 filesystem-mcp">为当前项目安装 filesystem-mcp</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：安装成功。按插件提示重启 OpenCode，并确认服务器实际提供 view 工具。">预期结果：安装成功。按插件提示重启 OpenCode，并确认服务器实际提供 view 工具。</span></div>
+            <h3><span data-i18n="3. 验证服务器准入限制">3. 验证服务器准入限制</span></h3>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="为当前项目安装 mongodb MCP server">为当前项目安装 mongodb MCP server</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：应拒绝安装。此测试的前提是讲师确认本人项目未准入 MongoDB MCP；如果已准入，先让讲师检查实验配置。">预期结果：应拒绝安装。此测试的前提是讲师确认本人项目未准入 MongoDB MCP；如果已准入，先让讲师检查实验配置。</span></div>
+            <h3><span data-i18n="4. 验证读取成功">4. 验证读取成功</span></h3>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="读取 lab_dir/workshop.md，显示实际文件内容。">读取 lab_dir/workshop.md，显示实际文件内容。</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：读取成功，内容包含 Welcome to the JFrog Workshop 和 Hello JFrog AI Platform。">预期结果：读取成功，内容包含 Welcome to the JFrog Workshop 和 Hello JFrog AI
+              Platform。</span></div>
+            <h3><span data-i18n="5. 验证写入被拒绝">5. 验证写入被拒绝</span></h3>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：create 未开放，应被拒绝或提示工具不可用，test.txt 不应被创建。这是预期结果。">预期结果：create 未开放，应被拒绝或提示工具不可用，test.txt 不应被创建。这是预期结果。</span></div>
+            
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">04</span>
+            <h2><span data-i18n="开放 MCP 所有 tools">开放 MCP 所有 tools</span></h2>
+          </div>
+          <div class="body">
+            <h3><span data-i18n="Step 1 · 管理员开放全部工具">Step 1 · 管理员开放全部工具</span></h3>
+            <ol>
+              <li><span data-i18n="使用">使用 </span><b>workshopadmin</b><span data-i18n="登录平台，进入"> 登录平台，进入 </span><b>AI/ML → AI Catalog → Registry → MCP Servers</b>。</li>
+              <li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li>
+              <li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li>
+            </ol>
+            <figure class="labfigure labfigure-small">
+              <a href="instructions/images/tools_all.png" target="_blank" rel="noopener">
+                <img src="instructions/images/tools_all.png" alt="管理员为本人项目开放 filesystem-mcp 所有 tools" loading="lazy" data-i18n-alt="管理员为本人项目开放 filesystem-mcp 所有 tools">
+              </a>
+              <figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption>
+            </figure>
+            <h3><span data-i18n="Step 2 · 客户端再次验证创建文件">Step 2 · 客户端再次验证创建文件</span></h3>
+            <p><span data-i18n="回到本人 OpenCode，在同一实验目录再次输入下面的提示词。保留此前的文件路由规则和内置工具限制，不需要在提示词中指定 MCP 名称。">回到本人 OpenCode，在同一实验目录再次输入下面的提示词。保留此前的文件路由规则和内置工具限制，不需要在提示词中指定 MCP 名称。</span></p>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：通过 Agent Guard 调用 filesystem-mcp 的创建工具成功，生成 lab_dir/test.txt。检查调用记录，不能是内置 write、edit 或 bash 创建。">预期结果：通过 Agent Guard 调用 filesystem-mcp 的创建工具成功，生成 lab_dir/test.txt。检查调用记录，不能是内置 write、edit 或 bash 创建。</span></div>
+            <p class="help"><span data-i18n="如果仍提示没有创建工具，重启 OpenCode 后重新查看 MCP 工具列表，再执行同一提示词；无需取消客户端的内置工具限制。若 test.txt 已存在，先联系讲师确认并恢复实验状态。">如果仍提示没有创建工具，重启 OpenCode 后重新查看 MCP 工具列表，再执行同一提示词；无需取消客户端的内置工具限制。若 test.txt 已存在，先联系讲师确认并恢复实验状态。</span></p>
+            <p><span data-i18n="继续读取文件，确认实际内容：">继续读取文件，确认实际内容：</span></p>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code><span data-i18n="读取 lab_dir/test.txt，显示实际文件内容。">读取 lab_dir/test.txt，显示实际文件内容。</span></code></pre>
+            </div>
+            <div class="expect"><span data-i18n="预期结果：通过 filesystem-mcp 读回 Hello JFrog Workshop。同一创建请求在只开放 view 时不可执行，开放全部 tools 后执行成功。">预期结果：通过 filesystem-mcp 读回 Hello JFrog Workshop。同一创建请求在只开放 view 时不可执行，开放全部 tools 后执行成功。</span></div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">05</span>
+            <h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2>
+          </div>
+          <div class="body">
+            <div class="checks"><label class="check"><input type="checkbox"
+                  class="labcheck"><span><span data-i18n="第一轮 filesystem-mcp 已加入本人项目，且只开放 view">第一轮 filesystem-mcp 已加入本人项目，且只开放 view</span></span></label><label
+                class="check"><input type="checkbox" class="labcheck"><span><span data-i18n="OpenCode 的 JFrog 集成可用，服务器通过 Agent Guard 安装">OpenCode 的 JFrog
+                  集成可用，服务器通过 Agent Guard 安装</span></span></label><label class="check"><input
+                  type="checkbox" class="labcheck"><span><span data-i18n="未准入的 MongoDB MCP 安装被拒绝">未准入的 MongoDB MCP 安装被拒绝</span></span></label><label
+                class="check"><input type="checkbox" class="labcheck"><span><span data-i18n="workshop.md 读取成功，创建 test.txt 被拒绝">workshop.md 读取成功，创建
+                  test.txt 被拒绝</span></span></label>
+              <label class="check"><input type="checkbox" class="labcheck"><span><span data-i18n="开放全部 tools 后，同一提示词通过 filesystem-mcp 创建 test.txt 成功，并读回确认内容">开放全部 tools 后，同一提示词通过 filesystem-mcp 创建 test.txt 成功，并读回确认内容</span></span></label>
+            </div>
+            <div class="expect" id="labProgress"><span data-i18n="0 / 5 项完成">0 / 5 项完成</span></div>
+          </div>
+        </section>
+      </main>
+      <main class="content" id="page3" hidden>
+        <div class="eyebrow">LAB 02 / SKILLS MANAGEMENT</div>
+        <h1 tabindex="-1" id="skillsHeading"><span data-i18n="Lab 02 Skills 管理">Lab 02 Skills 管理</span></h1>
+        <p class="lead"><span data-i18n="在本人项目中创建 Skills 仓库，上传准备好的 Skill，并查看安全扫描结果。">在本人项目中创建 Skills 仓库，上传准备好的 Skill，并查看安全扫描结果。</span></p>
+        <div class="notice" id="skillsIdentity"><span data-i18n="使用本人 userN 账号和 projectN 项目。">使用本人 userN 账号和 projectN 项目。</span></div>
+        <section class="section">
+          <div class="section-head"><span class="number">01</span><h2><span data-i18n="创建 skills 仓库">创建 skills 仓库</span></h2></div>
+          <div class="body">
+            <ol>
+              <li><span data-i18n="使用本人">使用本人 </span><code>userN</code><span data-i18n="账号登录平台，在左上角选择本人的"> 账号登录平台，在左上角选择本人的 </span><code>projectN</code>。</li>
+              <li><span data-i18n="进入">进入 </span><b>Administration → Repositories → Create a Repository</b><span data-i18n="，选择">，选择 </span><b>Local</b>。</li>
+              <li><span data-i18n="Package Type 选择">Package Type 选择 </span><b>Skills</b><span data-i18n="，仓库名称填写">，仓库名称填写 </span><code>workshop-skills</code><span data-i18n="，确认归属本人项目。">，确认归属本人项目。</span></li>
+              <li><span data-i18n="创建仓库，并记录列表中显示的完整">创建仓库，并记录列表中显示的完整 </span><b>Repository Key</b><span data-i18n="。如界面自动添加项目名前缀，保留该前缀。">。如界面自动添加项目名前缀，保留该前缀。</span></li>
+            </ol>
+            <figure class="labfigure">
+              <a href="instructions/images/skills-repo.png" target="_blank" rel="noopener">
+                <img src="instructions/images/skills-repo.png" alt="在本人项目中创建 Skills 仓库" loading="lazy" data-i18n-alt="在本人项目中创建 Skills 仓库">
+              </a>
+              <figcaption><span data-i18n="创建 Skills 仓库 · 点击查看大图">创建 Skills 仓库 · 点击查看大图</span></figcaption>
+            </figure>
+            
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">02</span><h2><span data-i18n="上传 skills">上传 skills</span></h2></div>
+          <div class="body">
+            <p><span data-i18n="本次使用的 Skills demo 目录：">本次使用的 Skills demo 目录：</span><code>skills/skills-e2e-single</code><span data-i18n="，名称为">，名称为 </span><code>skills-e2e-single</code><span data-i18n="，版本为">，版本为 </span><code>0.0.1</code>。</p>
+            <div class="notice"><span data-i18n="此样例含要求将 .env 发送到外部地址的风险指令，用于扫描演示。只上传并查看报告，不安装、不执行，也不要让 Agent 按该 Skill 的正文操作。">此样例含要求将 .env 发送到外部地址的风险指令，用于扫描演示。只上传并查看报告，不安装、不执行，也不要让 Agent 按该 Skill 的正文操作。</span></div>
+            <ol>
+              <li><span data-i18n="新开终端，进入">新开终端，进入 </span><code>jfrog-ai-workshop/user</code><span data-i18n="目录。上传在终端执行，不在 OpenCode 对话框输入。"> 目录。上传在终端执行，不在 OpenCode 对话框输入。</span></li>
+              <li><span data-i18n="在下面填写第一步记录的完整 Repository Key，复制命令到终端执行。使用第一页配置的本人 CLI Server。">在下面填写第一步记录的完整 Repository Key，复制命令到终端执行。使用第一页配置的本人 CLI Server。</span></li>
+            </ol>
+            <div class="field"><label for="skillsRepo"><span data-i18n="本人 Skills Repository Key">本人 Skills Repository Key</span></label><input id="skillsRepo" placeholder="例如 project1-workshop-skills" autocomplete="off" spellcheck="false" data-i18n-placeholder="例如 project1-workshop-skills"></div>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="终端 · 发布 Skill">终端 · 发布 Skill</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code id="skillsPublishCode"><span data-i18n="请先填写本人仓库的完整 Repository Key。">请先填写本人仓库的完整 Repository Key。</span></code></pre>
+            </div>
+            <figure class="labfigure">
+              <a href="instructions/images/skills-upload.png" target="_blank" rel="noopener">
+                <img src="instructions/images/skills-upload.png" alt="上传 skills-e2e-single 到本人 Skills 仓库" loading="lazy" data-i18n-alt="上传 skills-e2e-single 到本人 Skills 仓库">
+              </a>
+              <figcaption><span data-i18n="上传 Skill · 点击查看大图">上传 Skill · 点击查看大图</span></figcaption>
+            </figure>
+            <p><span data-i18n="CLI 会打包、上传，并等待或报告安全扫描结果。若显示风险或扫描失败，先在仓库确认包是否已经上传，再进入第 03 部分查看报告，不要通过跳过扫描或删除制品来隐藏结果。">CLI 会打包、上传，并等待或报告安全扫描结果。若显示风险或扫描失败，先在仓库确认包是否已经上传，再进入第 03 部分查看报告，不要通过跳过扫描或删除制品来隐藏结果。</span></p>
+            <div class="expect"><span data-i18n="检查点：在本人 Skills 仓库中找到 skills-e2e-single 的 0.0.1 版本，记录制品路径。若版本已存在，不覆盖，联系讲师确认是否使用已有结果。">检查点：在本人 Skills 仓库中找到 skills-e2e-single 的 0.0.1 版本，记录制品路径。若版本已存在，不覆盖，联系讲师确认是否使用已有结果。</span></div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">03</span><h2><span data-i18n="Skills 扫描">Skills 扫描</span></h2></div>
+          <div class="body">
+            <ol>
+              <li><span data-i18n="进入">进入 </span><b>Xray → Scans List</b><span data-i18n="，按本人 Repository Key 和">，按本人 Repository Key 和 </span><code>skills-e2e-single</code><span data-i18n="查找刚上传的包。"> 查找刚上传的包。</span></li>
+              <li><span data-i18n="若仍在扫描，等待后刷新。打开该制品的扫描结果，查看状态、严重程度及风险详情。">若仍在扫描，等待后刷新。打开该制品的扫描结果，查看状态、严重程度及风险详情。</span></li>
+              <li><span data-i18n="阅读命中行为、扫描器判定原因和证据，重点检查是否识别到敏感信息外泄或提示词注入。记录实际结果，不预设一定命中某条规则。">阅读命中行为、扫描器判定原因和证据，重点检查是否识别到敏感信息外泄或提示词注入。记录实际结果，不预设一定命中某条规则。</span></li>
+              <li><span data-i18n="如环境提供">如环境提供 </span><b>AI/ML → AI Catalog → Registry → Skills</b><span data-i18n="，也可在本人项目中查看该 Skill 的版本和扫描状态。">，也可在本人项目中查看该 Skill 的版本和扫描状态。</span></li>
+            </ol>
+            <div class="tablewrap"><table>
+              <thead><tr><th><span data-i18n="结果">结果</span></th><th><span data-i18n="如何理解">如何理解</span></th></tr></thead>
+              <tbody>
+                <tr><td>Malicious / Critical</td><td><span data-i18n="扫描识别为恶意行为，打开风险详情和证据。">扫描识别为恶意行为，打开风险详情和证据。</span></td></tr>
+                <tr><td>Suspicious / High</td><td><span data-i18n="存在可疑行为，需要查看上下文并人工评审。">存在可疑行为，需要查看上下文并人工评审。</span></td></tr>
+                <tr><td><span data-i18n="Not malicious / 无风险发现">Not malicious / 无风险发现</span></td><td><span data-i18n="本次扫描未报告风险，不代表可忽略样例中的风险指令。">本次扫描未报告风险，不代表可忽略样例中的风险指令。</span></td></tr>
+                <tr><td>Not scanned / Scanning</td><td><span data-i18n="扫描尚未完成，不能作为已通过扫描的结果。">扫描尚未完成，不能作为已通过扫描的结果。</span></td></tr>
+              </tbody>
+            </table></div>
+            <details><summary><span data-i18n="一直没有扫描结果怎么办？">一直没有扫描结果怎么办？</span></summary><p><span data-i18n="请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。您先不要关闭扫描。">请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。您先不要关闭扫描。</span></p></details>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">04</span>
+            <h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2>
+          </div>
+          <div class="body">
+            <div class="checks">
+              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="本人项目中已创建 Local / Skills 仓库，并确认实际 Repository Key">本人项目中已创建 Local / Skills 仓库，并确认实际 Repository Key</span></span></label>
+              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已上传 skills-e2e-single 0.0.1，并确认制品所在仓库">已上传 skills-e2e-single 0.0.1，并确认制品所在仓库</span></span></label>
+              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据">已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据</span></span></label>
+            </div>
+            <div class="expect" id="skillsProgress"><span data-i18n="0 / 3 项完成">0 / 3 项完成</span></div>
+            <div class="sources"><a href="https://docs.jfrog.com/artifactory/docs/skills-repositories" target="_blank" rel="noopener"><span data-i18n="Skills 仓库与发布说明">Skills 仓库与发布说明</span></a><a href="https://docs.jfrog.com/security/docs/skill-scanning" target="_blank" rel="noopener"><span data-i18n="Skills 扫描说明">Skills 扫描说明</span></a></div>
+          </div>
+        </section>
+      </main>
+      <main class="content celebration-page" id="page4" hidden>
+        <section class="celebration-card">
+          <div class="celebration-icon" aria-hidden="true">🎉</div>
+          <div class="eyebrow">JFROG AI CATALOG WORKSHOP</div>
+          <h1 id="congratulationsHeading" tabindex="-1">Congratulations!</h1>
+          <p class="lead"><span data-i18n="你已完成本次 Workshop！">你已完成本次 Workshop！</span></p>
+          <p><span data-i18n="从 MCP 工具权限治理，到自建 Skills 的上传与安全扫描，感谢你的参与。">从 MCP 工具权限治理，到自建 Skills 的上传与安全扫描，感谢你的参与。</span></p>
+          <button class="primary" id="celebrateAgain"><span data-i18n="再撒一次花 🎊">再撒一次花 🎊</span></button>
+        </section>
+      </main>
+      <div id="confettiLayer" aria-hidden="true"></div>
+      <footer class="footer">
+        <button class="primary" id="back" hidden><span data-i18n="← Previous · 上一步">← Previous · 上一步</span></button>
+        <div id="footerInfo"><strong id="footTitle"><span data-i18n="环境准备">环境准备</span></strong><small id="footNote"><span data-i18n="初始化成功后继续">初始化成功后继续</span></small></div><button
+          class="primary" id="next" disabled><span data-i18n="Next · 下一步 →">Next · 下一步 →</span></button>
+      </footer>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="scripts/i18n.js"></script>
+  <script>
+    const $ = s => document.querySelector(s);
+    const t = source => window.WorkshopI18n.t(source);
+    const tools = [['opencode', 'OpenCode 1.x ≥ 1.17.7'], ['node', 'Node.js ≥ 18'], ['npx', t("npx ≥ 6（随 Node 提供）")], ['jf', 'JFrog CLI 2.x ≥ 2.100.0'], ['jq', 'jq ≥ 1.6'], ['curl', 'curl ≥ 7.64']];
+    const esc = s => String(s ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+    const session = new URLSearchParams(location.hash.slice(1)).get('session');
+    let ready = false, timer = null, last = null;
+    let currentPage = 1;
+    let lastStatus = null;
+    function status(s, error = false) {lastStatus = { source: window.WorkshopI18n.source(s), error };$('#status').textContent = s; $('#status').classList.toggle('error', error)}
+    function table(report) {const rows = report?.tools || []; $('#results').innerHTML = tools.map(([name, min]) => {const r = rows.find(t => t.name === name); return `<tr><td><b>${esc(name)}</b></td><td>${esc(t(min))}</td><td>${esc(r?.version || t("等待检测"))}<div class="toolpath">${esc(r?.path || '')}</div></td><td><span class="pill ${r && !r.ok ? 'fail' : ''}">${r ? (r.ok ? t("通过") : t("未通过")) : t("待初始化")}</span></td></tr>`}).join(''); const n = rows.filter(t => t.ok).length; $('#count').textContent = (t("") + (n) + t(" / 6 个工具通过")); $('#fill').style.width = (n / 6 * 100) + '%'; $('.progress').setAttribute('aria-valuenow', n)}
+    async function api(url, options = {}) {const r = await fetch(url, {...options, headers: {Authorization: 'Bearer ' + session, ...options.headers}, cache: 'no-store'}); const data = await r.json(); if (!r.ok) throw Error(t(data.error) || t("本机服务返回错误")); return data}
+    function apply(data) {last = data; $('#logs').textContent = data.logs.join('\n') || t("尚未开始初始化。"); table(data.report); ready = data.state === 'success' && data.report?.tools.every(t => t.ok) && data.report?.authentication?.ok === true && data.report.authentication.ping === 'OK' && data.report.authentication.authType === 'access-token' && data.report.authentication.projectVerified === true; updateNavigation(); $('#initialize').disabled = data.state === 'running'; $('#initialize').textContent = data.state === 'running' ? t("正在初始化……") : ready ? t("重新检测环境") : t("初始化环境"); $('#password').disabled = data.state === 'running'; $('#platform').disabled = data.state === 'running' || ready; $('#username').disabled = data.state === 'running' || ready; $('#footNote').textContent = ready ? t("初始化成功，可以继续") : t("初始化成功后继续"); if (data.state === 'running') {status(t("正在初始化，请保持启动器和页面打开。")); timer = setTimeout(poll, 1000)} else if (ready) {status(t("环境初始化成功。基础工具和 JFrog CLI 配置和连接验证已通过，jf rt ping 返回 OK。")); const r = data.report; $('#resultSummary').textContent = t("系统：") + data.platform + t("；实验目录：") + r.lab + t("；当前账号：") + (data.identity?.user || '') + t("；项目：") + (data.identity?.project || '') + '；Server ID：' + r.authentication.serverId + t("；认证：Access Token；项目访问：通过；jf rt ping：OK"); $('#envCommand').hidden = false; $('#envCode').textContent = data.platform.startsWith('win32') ? `. '${r.envFile}'` : `source '${r.envFile.replaceAll("'", "'\\''")}'`;} else if (data.state === 'failed') status(t("初始化失败。请根据日志检查账号密码、网络或安装包，修复后重试。"), true); else status(t("已连接本机启动器，请填写平台 URL、用户账号和密码，然后点击初始化环境。"))}
+    async function poll() {clearTimeout(timer); try {const data = await api('/api/status'); if (data.identity) {$('#platform').value = data.identity.url; $('#username').value = data.identity.user; $('#project').value = data.identity.project} apply(data)} catch (e) {ready = false; $('#next').disabled = true; $('#initialize').disabled = true; status(t("无法连接本机启动器：") + e.message + t("。请确认启动器窗口仍在运行。"), true)} }
+    $('#username').addEventListener('input', () => {$('#project').value = /^user[1-9][0-9]*$/.test($('#username').value.trim()) ? 'project' + $('#username').value.trim().slice(4) : ''});
+    $('#initialize').onclick = async () => {const user = $('#username').value.trim(); let url; try {url = new URL($('#platform').value.trim()); if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || !['', '/'].includes(url.pathname)) throw Error('bad')} catch {return status(t("请填写平台根地址，例如 https://your-company.jfrog.io，不含 /artifactory。"), true)} if (!/^user[1-9][0-9]*$/.test(user)) return status(t("账号格式应为 user1、user2……请使用讲师分配的本人账号。"), true); const password = $('#password').value; if (!password || /[\r\n\0]/.test(password)) return status(t("请输入有效的本人密码。"), true); $('#initialize').disabled = true; try {await api('/api/init', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({url: url.origin, user, password})}); $('#password').value = ''; await poll()} catch (e) {$('#initialize').disabled = false; status(e.message, true)} };
+    $('#refresh').onclick = () => {if (session) poll()};
+    function updateSkillsCommand() {
+      const repo = $('#skillsRepo').value.trim();
+      const identity = last?.identity;
+      if (!/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(repo) || !identity) {
+        $('#skillsPublishCode').textContent = t("请先完成第一页初始化，并填写本人仓库的完整 Repository Key。");
+        return;
+      }
+      $('#skillsPublishCode').textContent = 'jf skills publish --server-id=workshop-' + identity.user + ' --repo=' + repo + ' --project=' + identity.project + ' ./skills/skills-e2e-single';
+    }
+    function canAdvance() {
+      if (currentPage === 1) return ready;
+      const selector = currentPage === 2 ? '.labcheck' : currentPage === 3 ? '.skillscheck' : null;
+      if (!selector) return false;
+      const checks = [...document.querySelectorAll(selector)];
+      return checks.length > 0 && checks.every(check => check.checked);
+    }
+    function updateNavigation() {
+      $('#next').disabled = !canAdvance();
+      $('#next').title = currentPage === 2 || currentPage === 3
+        ? (canAdvance() ? '' : t("请先勾选本页全部实际验证结果")) : '';
+    }
+    function showPage(page) {
+      const pageChanged = currentPage !== page;
+      currentPage = page;
+      for (let i = 1; i <= 4; i++) $('#page' + i).hidden = i !== page;
+      $('#back').hidden = page === 1;
+      $('#footerInfo').hidden = page !== 1;
+      $('#next').hidden = page === 4;
+      $('#next').textContent = page === 3 ? t("完成 ✓") : t("Next · 下一步 →");
+      updateNavigation();
+      const names = [t("环境准备"), t("Lab 01 MCP Server 治理"), t("Lab 02 Skills 管理"), t("Workshop 完成")];
+      $('#crumb').textContent = names[page - 1];
+      $('#footTitle').textContent = names[page - 1];
+      $('#footNote').textContent = page === 1 ? (ready ? t("初始化成功，可以继续") : t("初始化成功后继续")) : t("按顺序完成本页操作与验证");
+      document.querySelectorAll('.navstep').forEach((e, i) => {
+        e.classList.toggle('active', i === page - 1);
+        e.classList.toggle('future', i > page - 1);
+      });
+      const identity = last?.identity;
+      const description = identity ? t("当前账号：") + identity.user + ' · Project：' + identity.project + ' · CLI Server：workshop-' + identity.user : t("使用讲师分配的本人账号和对应 Project。");
+      $('#labIdentity').textContent = description;
+      $('#skillsIdentity').textContent = description;
+      updateSkillsCommand();
+      window.scrollTo(0, 0);
+      $(['#heading', '#nextHeading', '#skillsHeading', '#congratulationsHeading'][page - 1]).focus();
+      if (page === 4 && pageChanged) celebrate();
+      else $('#confettiLayer').replaceChildren();
+    }
+    function celebrate() {
+      const layer = $('#confettiLayer');
+      layer.replaceChildren();
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const colors = ['#167a4c', '#cbf47a', '#f5bc42', '#f28ca8', '#69b8ee', '#a891ed'];
+      for (let i = 0; i < 120; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.background = colors[i % colors.length];
+        layer.appendChild(piece);
+        const animation = piece.animate([
+          { transform: 'translate(0, -30px) rotate(0deg)', opacity: 1 },
+          { transform: 'translate(' + (Math.random() * 360 - 180) + 'px, ' + (window.innerHeight + 60) + 'px) rotate(' + (Math.random() * 1080 - 540) + 'deg)', opacity: 0 }
+        ], { duration: 2400 + Math.random() * 1800, delay: Math.random() * 700, easing: 'cubic-bezier(.2,.5,.5,1)', fill: 'forwards' });
+        animation.onfinish = () => piece.remove();
+      }
+    }
+    $('#celebrateAgain').onclick = celebrate;
+    $('#skillsRepo').addEventListener('input', updateSkillsCommand);
+    $('#next').onclick = () => { if (!canAdvance()) return; if (currentPage < 4) showPage(currentPage + 1); };
+    $('#back').onclick = () => { if (currentPage > 1) showPage(currentPage - 1); };
+    document.querySelectorAll('.skillscheck').forEach(c => c.addEventListener('change', () => {
+      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(" / 3 项完成");
+      updateNavigation();
+    }));
+    document.addEventListener('click', async e => {if (!e.target.closest('.copy')) return; try {await navigator.clipboard.writeText(e.target.closest('.codebox').querySelector('code').textContent); $('#toast').textContent = t("已复制"); $('#toast').hidden = false; setTimeout(() => $('#toast').hidden = true, 2000)} catch {status(t("复制不可用，请选择命令后手动复制。"))} });
+    document.querySelectorAll('.labcheck').forEach(c => c.addEventListener('change', () => {$('#labProgress').textContent = document.querySelectorAll('.labcheck:checked').length + ' / ' + document.querySelectorAll('.labcheck').length + t(" 项完成"); updateNavigation();}));
+    window.WorkshopI18n.onChange = () => {
+      clearTimeout(timer);
+      if (last) apply(last);
+      else {
+        table();
+        if (lastStatus) status(t(lastStatus.source), lastStatus.error);
+      }
+      showPage(currentPage);
+      $('#labProgress').textContent = document.querySelectorAll('.labcheck:checked').length + ' / ' + document.querySelectorAll('.labcheck').length + t(' 项完成');
+      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(' / 3 项完成');
+    };
+    window.WorkshopI18n.ready.then(() => {
+      table();
+      if (session && location.protocol === 'http:' && location.hostname === '127.0.0.1') poll();
+      else status(t('请通过 start-workshop 启动器打开页面，随后即可使用初始化按钮。'));
+    });
+  </script>
+</body>
+
+</html>

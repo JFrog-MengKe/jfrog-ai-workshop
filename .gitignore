@@ -1,0 +1,31 @@
+# OpenCode local configuration and runtime data (all directories)
+opencode.json
+opencode.jsonc
+.opencode/
+
+# Workshop-generated test files
+test.txt
+
+# Generated participant credentials and workbook backups
+workshop_users*.xlsx
+workshop_users*.state.json
+workshop_users.state.json
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example
+.jfrog/
+
+# Local dependency and OS files
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Downloaded installers: recreated automatically by environment initialization
+/user/tools/darwin-*/
+/user/tools/linux-*/
+/user/tools/win32-*/
+
+# Local cleanup execution records
+/manager/cleanup-*.jsonl
