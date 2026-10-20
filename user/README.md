@@ -2,7 +2,35 @@
 
 本目录包含学员操作页面、启动器、初始化脚本、工具安装包以及原有 OpenCode 配置和实验文件。
 
-## 开始操作
+## 默认使用 GitHub Codespaces
+
+第一页默认显示 Codespaces 指南：创建或打开 Codespace、配置 `JFROG_URL` / `JFROG_ACCESS_TOKEN` / `JF_PROJECT` 三个 Secrets、验证 Agent Guard，并配置本人 CLI Server。按页面完成全部验证勾选后进入 Lab 01。后续 OpenCode 与上传命令均在 Codespaces 终端执行。
+
+三种语言仍由 `locales/zh-CN.json`、`locales/zh-TW.json`、`locales/en.json` 分别管理。截图保持原图。
+
+### 在 HTML 中切换准备方式
+
+在 `workshop.html` 搜索 `SETUP VISIBILITY`，找到两个容器。`hidden` 是布尔属性：**有 hidden 就隐藏，删除 hidden 就显示**。不要使用 `hidden="false"`，它仍会隐藏。
+
+默认显示 Codespaces、隐藏原本机页面：
+
+```html
+<div class="setup-variant" id="setup-local" hidden>
+<div class="setup-variant" id="setup-codespaces">
+```
+
+恢复原本机页面、隐藏 Codespaces：
+
+```html
+<div class="setup-variant" id="setup-local">
+<div class="setup-variant" id="setup-codespaces" hidden>
+```
+
+保存 HTML 并刷新页面即可。JavaScript 不会重置这两个容器的 hidden 属性。两者都显示时，必须完成两套验证；两者都隐藏时不能进入下一步。原本机页面的内容完整保留，切回后继续使用下面的启动器流程。
+
+Codespaces 第一页的验证勾选是学员对终端结果的确认，网页不会远程读取 Token 或代执行安装命令。讲师需提前准备符合版本要求的 Node.js、OpenCode 和 JFrog CLI；如工具缺失，先补齐讲师环境。
+
+## 本机准备（可选）
 
 1. 领取讲师分配的平台 URL、本人账号与密码，对应关系为 `userN → projectN`。
 2. 将完整学员文件夹复制到自己的电脑并解压。
