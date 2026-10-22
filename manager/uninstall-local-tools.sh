@@ -8,7 +8,8 @@ TASK_PROJECT="$(dirname "$TASK_MANAGER")"
 
 if [[ "${1:-}" == '--help' || "${1:-}" == '-h' ]]; then
   echo 'Usage: bash uninstall-local-tools.sh'
-  echo 'Close OpenCode first. Removes tools, credentials, caches and sessions.'
+  echo 'Close OpenCode and the workshop launcher first. Removes tools, credentials, caches and sessions.'
+  echo 'Deletes all of ~/.jfrog-workshop, including environment settings and lab files.'
   echo 'Keeps workshop documents, account Excel files and provisioning records.'
   exit 0
 fi
@@ -28,7 +29,7 @@ command -v python3 >/dev/null 2>&1 || { echo 'Python 3 is required.' >&2; exit 1
 
 # Obtain OS permission before making changes if root-owned binaries remain.
 TASK_SYSTEM_FILES=()
-for TASK_FILE in /usr/local/bin/jf /usr/local/bin/jfrog /usr/local/bin/jfcm; do
+for TASK_FILE in /usr/local/bin/jf /usr/local/bin/jfrog /usr/local/bin/jfcm /usr/local/bin/opencode; do
   if [[ -e "$TASK_FILE" || -L "$TASK_FILE" ]]; then
     TASK_SYSTEM_FILES+=("$TASK_FILE")
   fi
@@ -59,7 +60,11 @@ import sys
 
 home = Path.home()
 project = Path(sys.argv[1])
-paths = [
+# Reset the complete workshop runtime, including tools, identity and lab data.
+paths = [home / '.jfrog-workshop']
+paths += [home / '.local/bin' / name
+          for name in ('opencode', 'jf', 'jfrog', 'jfcm')]
+paths += [
     home / '.jfrog', home / '.jfcm', home / '.opencode',
     home / '.config/opencode', home / '.cache/opencode',
     home / '.local/share/opencode', home / '.local/state/opencode',
@@ -81,7 +86,7 @@ for path in paths:
 
 setting = re.compile(
     r'^\s*#?\s*(?:export\s+)?'
-    r'(?:JFROG_\w+|JF_PROJECT|OPENCODE_\w+|jfcm_\w+)\s*='
+    r'(?:JFROG_\w+|JF_PROJECT|WORKSHOP_\w+|OPENCODE_\w+|jfcm_\w+)\s*='
 )
 alias = re.compile(r'^\s*alias\s+(?:opencode|jf|jfrog|jfcm)=')
 for name in ['.zshrc', '.zprofile', '.bashrc', '.bash_profile', '.profile']:
@@ -93,15 +98,28 @@ for name in ['.zshrc', '.zprofile', '.bashrc', '.bash_profile', '.profile']:
     cleaned = ''.join(
         line for line in lines
         if not setting.match(line) and not alias.match(line) and 'jfcm' not in line
+        and '.jfrog-workshop' not in line
+        and line.strip() != '# JFrog workshop tools'
     )
     if cleaned != original:
         path.write_text(cleaned)
         print('Cleaned shell settings:', path)
 PY
 
+hash -r 2>/dev/null || true
+printf '\nRemoved the complete ~/.jfrog-workshop runtime, environment settings and lab files.\n'
 printf '\nCleanup completed. Close the old terminal and open a new one.\n'
 printf 'Workshop documents, account Excel files and provisioning records are retained.\n'
 printf '\nExecutable paths still present, if any:\n'
+TASK_REMAINING=0
 for TASK_TOOL in opencode jf jfrog jfcm; do
-  command -v "$TASK_TOOL" || true
+  if TASK_FOUND="$(command -v "$TASK_TOOL")"; then
+    printf 'STILL PRESENT: %s\n' "$TASK_FOUND"
+    TASK_REMAINING=1
+  fi
 done
+if [[ "$TASK_REMAINING" -ne 0 ]]; then
+  echo 'Uninstall incomplete: another installation remains at the path above.' >&2
+  exit 1
+fi
+echo 'Verified: opencode, jf, jfrog and jfcm are no longer on this script PATH.'

@@ -19,7 +19,6 @@ def main():
     parser.add_argument('--server-id', required=True, help='平台管理员 CLI Server ID（Access Token 认证）')
     parser.add_argument('--platform-url', required=True, help='平台根地址，必须与创建记录和 CLI 配置一致')
     parser.add_argument('--state-file', type=Path, default=ROOT/'workshop_users.state.json')
-    parser.add_argument('--agent-guard', type=Path, help='已安装的 agent-guard 可执行文件，或其 bin/cli.js')
     parser.add_argument('--apply', action='store_true', help='执行清理；不提供时仅预览')
     args = parser.parse_args()
     if set(args.targets) - {'user', 'project'}:
@@ -105,6 +104,18 @@ def main():
         if response.returncode or (code and code >= 400):
             if missing and code == 404:
                 return None
+            # Only expose validated resource identifiers, never the raw API body.
+            if method == 'DELETE' and endpoint.startswith('/access/api/v1/projects/') and code in (400, 409):
+                project = endpoint.rsplit('/', 1)[-1]
+                combined = response.stdout + '\n' + response.stderr
+                blocked = re.search(r"Project containing resources can't be removed:\s*\[([^]\r\n]+)\]", combined, re.I)
+                if blocked:
+                    resources = blocked.group(1).split(',')
+                    safe = [value.strip() for value in resources if re.fullmatch(r'[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+', value.strip())]
+                    if safe and len(safe) == len(resources):
+                        raise RuntimeError(project+' 仍关联资源: '+', '.join(safe)+
+                            '。仓库删除不能保证解除 AI/ML 资源关联；请由平台管理员联系 JFrog Support 核对并清理这些关联，再重新运行。'
+                            '不会尝试未验证的解除关联接口。本次后续用户删除未执行。')
             hints = {401:'认证失败', 403:'需要平台管理员权限', 404:'接口或资源不存在，请核对当前版本接口，不会尝试猜测其他路径', 409:'资源仍有依赖', 429:'请求被限流'}
             raise RuntimeError(f'{method} {endpoint}: HTTP {code or "unknown"}; CLI exit {response.returncode}; '+hints.get(code, '请检查平台日志；响应原文已隐藏'))
         if method == 'DELETE':
@@ -154,42 +165,7 @@ def main():
         if str(detail.get('rclass', '')).lower() == 'federated':
             raise RuntimeError(key+' 是 Federated 仓库，需要单独处理，已停止')
         delete_repos.append({'key':key, 'project':owner, 'type':detail.get('rclass'), 'packageType':detail.get('packageType')})
-    guard = args.agent_guard
-    if active and guard is None:
-        found = shutil.which('agent-guard')
-        if found:
-            guard = Path(found)
-        else:
-            cached = list(Path.home().glob('.npm/_npx/*/node_modules/@jfrog/agent-guard/bin/cli.js'))
-            if cached:
-                guard = max(cached, key=lambda p:p.stat().st_mtime)
-    if active and (guard is None or not guard.is_file()):
-        raise RuntimeError('找不到已安装的 Agent Guard。请用 --agent-guard 指定已有可执行文件或 bin/cli.js；脚本不会下载软件')
-    mcp_entries = []
-    for project in active:
-        command = [str(guard)]
-        if guard.suffix == '.js':
-            if not shutil.which('node'):
-                raise RuntimeError('运行已安装的 Agent Guard 需要 node')
-            command.insert(0, 'node')
-        result = subprocess.run(command+['--list-available','--server',args.server_id,'--project',project], capture_output=True, text=True, env=env, timeout=120)
-        if result.returncode:
-            raise RuntimeError(project+' MCP 准入列表查询失败；停止，不删除仓库')
-        names = []
-        meaningful = [line for line in result.stdout.splitlines() if line.strip() and not re.match(r'^\s*(?:\d{2}:\d{2}:\d{2}\s+)?\[', line)]
-        if not meaningful:
-            raise RuntimeError(project+' MCP 列表为空响应，无法确认是否完整，已停止')
-        for line in meaningful:
-            cells = line.split('\t')
-            if cells[0].strip().lower() == 'name':
-                continue
-            if re.fullmatch(r'no (?:mcp(?: servers)?|servers|mcps)(?: are)? available\.?', line.strip(), re.I):
-                continue
-            if len(cells) < 4 or not re.fullmatch(r'[A-Za-z0-9@][A-Za-z0-9@._:/+ -]*', cells[0]):
-                raise RuntimeError(project+' MCP 列表格式不受支持，已停止')
-            names.append(cells[0].strip())
-        mcp_entries.extend({'project':project, 'name':name} for name in sorted(set(names)))
-    plan = {'platform':url, 'server_id':args.server_id, 'projects_in_scope':sorted(active), 'mcp_approvals':mcp_entries,
+    plan = {'platform':url, 'server_id':args.server_id, 'projects_in_scope':sorted(active),
             'repositories':delete_repos, 'delete_users':delete_users, 'delete_projects':sorted(active) if 'project' in args.targets else []}
     print(json.dumps(plan, ensure_ascii=False, indent=2))
     if not args.apply:
@@ -200,12 +176,6 @@ def main():
         with audit.open('a', encoding='utf-8') as out:
             out.write(json.dumps({'at':datetime.datetime.now(datetime.timezone.utc).isoformat(), 'kind':kind, 'resource':value}, ensure_ascii=False)+'\n')
     record('plan', plan)
-    for entry in mcp_entries:
-        # Documented project-scoped unregister API. A 404 fails closed; no guessed fallback.
-        endpoint = '/api/v1/ml/registry/mcp/unregister?name='+quote(entry['name'], safe='')
-        api('DELETE', endpoint, headers=('JFrog-Project-Key: '+entry['project'],))
-        record('mcp_unregistered', entry)
-        print('REMOVED MCP approval:', entry['project'], entry['name'])
     delete_repos.sort(key=lambda entry: (entry['type'] != 'virtual', entry['key']))
     for entry in delete_repos:
         key = entry['key']
@@ -216,13 +186,6 @@ def main():
         api('DELETE', '/artifactory/api/repositories/'+quote(key, safe=''))
         record('repository_deleted', entry)
         print('DELETED repo and all content:', key)
-    for user in delete_users:
-        detail = api('GET', '/access/api/v2/users/'+user)
-        if detail.get('username') != user or detail.get('email') != users[user].get('email') or detail.get('admin') or detail.get('is_admin'):
-            raise RuntimeError(user+' 在预览后身份或角色发生变化，已停止')
-        api('DELETE', '/access/api/v2/users/'+user)
-        record('user_deleted', user)
-        print('DELETED user:', user)
     for project in plan['delete_projects']:
         detail = api('GET', '/access/api/v1/projects/'+project)
         if detail.get('project_key') != project or detail.get('description') != MARKER:
@@ -230,9 +193,16 @@ def main():
         api('DELETE', '/access/api/v1/projects/'+project)
         record('project_deleted', project)
         print('DELETED project:', project)
+    for user in delete_users:
+        detail = api('GET', '/access/api/v2/users/'+user)
+        if detail.get('username') != user or detail.get('email') != users[user].get('email') or detail.get('admin') or detail.get('is_admin'):
+            raise RuntimeError(user+' 在预览后身份或角色发生变化，已停止')
+        api('DELETE', '/access/api/v2/users/'+user)
+        record('user_deleted', user)
+        print('DELETED user:', user)
     record('complete', True)
-    print('SUCCESS: 平台清理完成。执行记录:', audit)
-    print('学员电脑的 OpenCode/MCP/Skills 安装及缓存、共享公共缓存和本地账号 Excel/创建记录未删除。')
+    print('SUCCESS: 仓库及所选测试用户/项目清理完成。执行记录:', audit)
+    print('不调用 MCP Registry 注销接口；保留项目时，其 MCP 准入策略不变。学员本机缓存及本地 Excel/创建记录未删除。')
 
 try:
     main()

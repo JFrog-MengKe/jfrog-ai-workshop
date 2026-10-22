@@ -52,36 +52,47 @@ bash uninstall-local-tools.sh
 
 ```bash
 bash cleanup-workshop.sh \
-  --server-id workshop \
-  --platform-url https://alexwangtrial.jfrog.io
+  --server-id SERVER_ID \
+  --platform-url https://YOUR-PLATFORM.jfrog.io
 ```
 
-确认清单后执行。默认撤销这些项目的 MCP 准入、删除这些项目拥有的所有仓库及其中的 MCP/Skills 包和缓存；保留测试用户和项目：
+确认清单后执行。默认删除这些项目拥有的所有仓库及其中的 MCP/Skills 包和缓存；保留测试用户和项目：
 
 ```bash
-bash cleanup-workshop.sh --server-id workshop --platform-url https://alexwangtrial.jfrog.io --apply
+bash cleanup-workshop.sh --server-id SERVER_ID --platform-url https://YOUR-PLATFORM.jfrog.io --apply
 ```
 
 额外删除所有记录中的测试用户：
 
 ```bash
-bash cleanup-workshop.sh user --server-id workshop --platform-url https://alexwangtrial.jfrog.io --apply
+bash cleanup-workshop.sh user --server-id SERVER_ID --platform-url https://YOUR-PLATFORM.jfrog.io --apply
 ```
 
 额外删除所有记录中的测试项目：
 
 ```bash
-bash cleanup-workshop.sh project --server-id workshop --platform-url https://alexwangtrial.jfrog.io --apply
+bash cleanup-workshop.sh project --server-id SERVER_ID --platform-url https://YOUR-PLATFORM.jfrog.io --apply
 ```
 
 同时删除测试用户和项目：
 
 ```bash
-bash cleanup-workshop.sh user project --server-id workshop --platform-url https://alexwangtrial.jfrog.io --apply
+bash cleanup-workshop.sh user project --server-id SERVER_ID --platform-url https://YOUR-PLATFORM.jfrog.io --apply
 ```
 
 **仓库和仓库内容会永久删除。** 不加 `--apply` 始终只预览；`user`、`project` 参数不提供时，两者都保留。默认范围来自创建记录，不按模糊名称全平台删除，也不包含 `workshopadmin`。非 workshop 项目、无项目归属的公共仓库及共享给其他项目的仓库不清理；发现目标仓库跨项目共享或为 Federated 时停止。保留本地 Excel 和创建记录。
 
-前提：`jf`、`jq`、Python 3.9+，以及已安装的 Agent Guard。脚本自动查找 PATH 或 npm 现有缓存中的 Agent Guard，不下载软件。找不到时使用 `--agent-guard /已安装路径/agent-guard`（也支持其 `bin/cli.js`）；删除失败时停止，不会自动更换服务器或猜测接口。平台 MCP 撤销使用官方登记的 unregister 接口；如果租户版本不支持该接口，需核对版本或在平台手动 Block，本次不会继续删仓库。
+前提：`jf`、`jq`、Python 3.9+。不依赖 Agent Guard，不再查询或调用 MCP Registry 注销接口。保留项目时，项目已有 MCP 准入策略不变。指定 `project` 时才删除测试项目；脚本不会单独修改其 MCP 策略。删除失败时立即停止，不自动更换服务器。
 
 执行记录保存在 `cleanup-时间-进程号.jsonl`，不含密码或 Token。若中断，先核对已记录结果，再重新预览并执行。学员电脑上的 MCP/Skills 安装、下载目录和本地缓存无法由讲师平台脚本远程清除，需要在各学员电脑另行处理。Skills 在 Catalog 中的元数据可能随制品删除异步更新；脚本不清空平台级历史扫描与审计日志。
+
+
+### 项目因 `ml_model/projectN` 无法删除
+
+若平台提示 `Project containing resources can't be removed: [ml_model/project1]`，表示项目仍关联 AI/ML 类型资源。这个标识本身不能证明存在一个叫 `project1` 的模型；仓库删除也不能保证该关联已解除。
+
+脚本会显示经过过滤的阻塞资源标识并停止，不会猜测接口或强制解除关联。同时指定 `user project` 时，顺序为 **仓库 → 项目 → 用户**；所有目标项目删除成功后才删除用户。
+
+请联系 JFrog Support，提供平台地址、项目 Key、上述报错、发生时间及平台版本，要求核对并清理阻止项目删除的 AI/ML 资源关联。确认关联清理后，重新预览并运行原命令。已不存在的项目和用户会跳过。已经删除的用户不会自动恢复；本地 Excel 和创建记录保留。
+
+卸载脚本同时删除整个 `~/.jfrog-workshop`（包括安装的工具、`env.sh`、`workshop.json` 和 `lab_dir` 实验文件），并移除 shell 配置中的加载设置。执行前先关闭 OpenCode 和本机 Workshop 启动器；执行后关闭旧终端并打开新终端，再从第一页重新初始化。讲师账号 Excel、创建记录、操作文档和仓库中的 `user/tools` 安装包保留。
