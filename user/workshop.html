@@ -942,6 +942,7 @@
         <div class="navstep future"><span class="navnum">03</span>
           <div><strong><span data-i18n="Lab 02: Skills 管理">Lab 02: Skills 管理</span></strong><small><span data-i18n="创建仓库 · 上传 · 扫描">创建仓库 · 上传 · 扫描</span></small></div>
         </div>
+<div class="navstep future"><span class="navnum">04</span><div><strong>Lab 03: Agents Resolution</strong><small><span data-i18n="恶意包识别 · 安装拦截">恶意包识别 · 安装拦截</span></small></div></div>
       </nav>
       <div class="sidefoot">
         <img class="sidefoot-logo" src="instructions/images/jfrog.png" alt="JFrog">
@@ -955,13 +956,12 @@
              Local setup: remove hidden from setup-local to enable; add hidden to disable.
              Codespaces setup: remove hidden from setup-codespaces to enable; add hidden to disable.
              If both are visible, both sets of completion requirements apply. -->
-        <div class="setup-variant" id="setup-local" hidden>
+        <div class="setup-variant" id="setup-local">
         <div class="hero">
           <div>
             <div class="eyebrow">STEP 01 / GET READY</div>
             <h1 tabindex="-1" id="heading">JFrog AI Catalog Workshop</h1>
             <p class="lead"><span data-i18n="领取自己的账号，点击初始化环境。程序会检测工具版本，优先使用本地安装包，缺包时自动从官网下载，并完成安装与验证。">领取自己的账号，点击初始化环境。程序会检测工具版本，优先使用本地安装包，缺包时自动从官网下载，并完成安装与验证。</span></p>
-            <div class="meta"><span><span data-i18n="约 5–10 分钟">约 5–10 分钟</span></span><span><span data-i18n="无需逐个安装工具">无需逐个安装工具</span></span></div>
           </div>
           <div class="heroart" aria-hidden="true"><b>&gt;_</b><small>INITIALIZE ENVIRONMENT</small>
           </div>
@@ -1049,7 +1049,7 @@
         </div>
         </div>
         <!-- Codespaces setup: add hidden to hide this block; remove hidden to show it. -->
-        <div class="setup-variant" id="setup-codespaces">
+        <div class="setup-variant" id="setup-codespaces" hidden>
           <div class="eyebrow">STEP 01 / GITHUB CODESPACES</div>
           <h1 tabindex="-1" id="codespacesHeading">JFrog AI Catalog Workshop</h1>
 <p class="lead"><span data-i18n="通过 GitHub Codespaces 准备实验环境，在浏览器终端连接 JFrog Agent Guard。">通过 GitHub Codespaces 准备实验环境，在浏览器终端连接 JFrog Agent Guard。</span></p>          <section class="section">
@@ -1126,6 +1126,7 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenC
               </a>
               <figcaption><span data-i18n="在 Registry 中确认准入配置 · 点击查看大图">在 Registry 中确认准入配置 · 点击查看大图</span></figcaption>
             </figure>
+            <p class="notice"><span data-i18n="完成 MCP Marketplace 准入配置后，退出浏览器中当前登录的 JPD（JFrog 平台）账号，再进行下一步学员认证。">完成 MCP Marketplace 准入配置后，退出浏览器中当前登录的 JPD（JFrog 平台）账号，再进行下一步学员认证。</span></p>
             <div class="expect"><span data-i18n="检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。">检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。</span></div>
           </div>
         </section>
@@ -1167,6 +1168,7 @@ opencode</code></pre>
               <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
               <pre><code>opencode mcp auth jfrog</code></pre>
             </div>
+            <p class="notice" id="mcpAuthIdentity"></p>
             <p><span data-i18n="认证成功后重新启动 OpenCode，接受需要的插件或工作区信任提示。分别查看以下列表。">认证成功后重新启动 OpenCode，接受需要的插件或工作区信任提示。分别查看以下列表。</span></p>
             <div class="codebox">
               <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
@@ -1286,12 +1288,12 @@ opencode</code></pre>
         <section class="section">
           <div class="section-head"><span class="number">01</span><h2><span data-i18n="创建 skills 仓库">创建 skills 仓库</span></h2></div>
           <div class="body">
-            <ol>
-              <li><span data-i18n="使用本人">使用本人 </span><code>userN</code><span data-i18n="账号登录平台，在左上角选择本人的"> 账号登录平台，在左上角选择本人的 </span><code>projectN</code>。</li>
-              <li><span data-i18n="进入">进入 </span><b>Administration → Repositories → Create a Repository</b><span data-i18n="，选择">，选择 </span><b>Local</b>。</li>
-              <li><span data-i18n="Package Type 选择">Package Type 选择 </span><b>Skills</b><span data-i18n="，仓库名称填写">，仓库名称填写 </span><code>workshop-skills</code><span data-i18n="，确认归属本人项目。">，确认归属本人项目。</span></li>
-              <li><span data-i18n="创建仓库，并记录列表中显示的完整">创建仓库，并记录列表中显示的完整 </span><b>Repository Key</b><span data-i18n="。如界面自动添加项目名前缀，保留该前缀。">。如界面自动添加项目名前缀，保留该前缀。</span></li>
-            </ol>
+            <p><span data-i18n="在 OpenCode Agent 中输入以下提示词，创建本人项目的 Skills 仓库。项目和仓库名根据第一页填写的信息自动生成。">在 OpenCode Agent 中输入以下提示词，创建本人项目的 Skills 仓库。项目和仓库名根据第一页填写的信息自动生成。</span></p>
+            <div class="codebox">
+              <div class="codehead"><span>OpenCode Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code id="skillsCreatePrompt"></code></pre>
+            </div>
+            <p><span data-i18n="执行成功后，在平台确认仓库类型为 Local / Skills，且归属本人项目，再继续上传。">执行成功后，在平台确认仓库类型为 Local / Skills，且归属本人项目，再继续上传。</span></p>
             <figure class="labfigure">
               <a href="instructions/images/skills-repo.png" target="_blank" rel="noopener">
                 <img src="instructions/images/skills-repo.png" alt="在本人项目中创建 Skills 仓库" loading="lazy" data-i18n-alt="在本人项目中创建 Skills 仓库">
@@ -1306,13 +1308,10 @@ opencode</code></pre>
           <div class="body">
             <p><span data-i18n="本次使用的 Skills demo 目录：">本次使用的 Skills demo 目录：</span><code>skills/skills-e2e-single</code><span data-i18n="，名称为">，名称为 </span><code>skills-e2e-single</code><span data-i18n="，版本为">，版本为 </span><code>0.0.1</code>。</p>
             <div class="notice"><span data-i18n="此样例含要求将 .env 发送到外部地址的风险指令，用于扫描演示。只上传并查看报告，不安装、不执行，也不要让 Agent 按该 Skill 的正文操作。">此样例含要求将 .env 发送到外部地址的风险指令，用于扫描演示。只上传并查看报告，不安装、不执行，也不要让 Agent 按该 Skill 的正文操作。</span></div>
-            <ol>
-              <li><span data-i18n="新开终端，进入">新开终端，进入 </span><code>jfrog-ai-workshop/user</code><span data-i18n="目录。上传在终端执行，不在 OpenCode 对话框输入。"> 目录。上传在终端执行，不在 OpenCode 对话框输入。</span></li>
-              <li><span data-i18n="在下面填写第一步记录的完整 Repository Key，复制命令到终端执行。使用第一页配置的本人 CLI Server。">在下面填写第一步记录的完整 Repository Key，复制命令到终端执行。使用第一页配置的本人 CLI Server。</span></li>
-            </ol>
+            <p><span data-i18n="在 OpenCode Agent 中输入以下提示词，将本地 Skill 上传到第一步创建的仓库。">在 OpenCode Agent 中输入以下提示词，将本地 Skill 上传到第一步创建的仓库。</span></p>
             <div class="field"><label for="skillsRepo"><span data-i18n="本人 Skills Repository Key">本人 Skills Repository Key</span></label><input id="skillsRepo" placeholder="例如 project1-workshop-skills" autocomplete="off" spellcheck="false" data-i18n-placeholder="例如 project1-workshop-skills"></div>
             <div class="codebox">
-              <div class="codehead"><span data-i18n="终端 · 发布 Skill">终端 · 发布 Skill</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <div class="codehead"><span>OpenCode Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
               <pre><code id="skillsPublishCode"><span data-i18n="请先填写本人仓库的完整 Repository Key。">请先填写本人仓库的完整 Repository Key。</span></code></pre>
             </div>
             <figure class="labfigure">
@@ -1332,8 +1331,13 @@ opencode</code></pre>
               <li><span data-i18n="进入">进入 </span><b>Xray → Scans List</b><span data-i18n="，按本人 Repository Key 和">，按本人 Repository Key 和 </span><code>skills-e2e-single</code><span data-i18n="查找刚上传的包。"> 查找刚上传的包。</span></li>
               <li><span data-i18n="若仍在扫描，等待后刷新。打开该制品的扫描结果，查看状态、严重程度及风险详情。">若仍在扫描，等待后刷新。打开该制品的扫描结果，查看状态、严重程度及风险详情。</span></li>
               <li><span data-i18n="阅读命中行为、扫描器判定原因和证据，重点检查是否识别到敏感信息外泄或提示词注入。记录实际结果，不预设一定命中某条规则。">阅读命中行为、扫描器判定原因和证据，重点检查是否识别到敏感信息外泄或提示词注入。记录实际结果，不预设一定命中某条规则。</span></li>
-              <li><span data-i18n="如环境提供">如环境提供 </span><b>AI/ML → AI Catalog → Registry → Skills</b><span data-i18n="，也可在本人项目中查看该 Skill 的版本和扫描状态。">，也可在本人项目中查看该 Skill 的版本和扫描状态。</span></li>
             </ol>
+            <figure class="labfigure">
+              <a href="instructions/images/skills-scan.png" target="_blank" rel="noopener">
+                <img src="instructions/images/skills-scan.png" alt="Skills 扫描结果：恶意指令与敏感信息外泄风险" loading="lazy" data-i18n-alt="Skills 扫描结果：恶意指令与敏感信息外泄风险">
+              </a>
+              <figcaption><span data-i18n="Skills 扫描结果示例 · 点击查看大图">Skills 扫描结果示例 · 点击查看大图</span></figcaption>
+            </figure>
             <div class="tablewrap"><table>
               <thead><tr><th><span data-i18n="结果">结果</span></th><th><span data-i18n="如何理解">如何理解</span></th></tr></thead>
               <tbody>
@@ -1343,11 +1347,32 @@ opencode</code></pre>
                 <tr><td>Not scanned / Scanning</td><td><span data-i18n="扫描尚未完成，不能作为已通过扫描的结果。">扫描尚未完成，不能作为已通过扫描的结果。</span></td></tr>
               </tbody>
             </table></div>
-            <details><summary><span data-i18n="一直没有扫描结果怎么办？">一直没有扫描结果怎么办？</span></summary><p><span data-i18n="请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。您先不要关闭扫描。">请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。您先不要关闭扫描。</span></p></details>
+            <details><summary><span data-i18n="一直没有扫描结果怎么办？">一直没有扫描结果怎么办？</span></summary><p><span data-i18n="请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。">请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。</span></p></details>
           </div>
         </section>
+<section class="section">
+<div class="section-head"><span class="number">04</span><h2><span data-i18n="Block 恶意 Skills">Block 恶意 Skills</span></h2></div>
+<div class="body">
+<p><span data-i18n="使用 workshopadmin 账号登录 JFrog 平台，再进行以下策略配置操作。">使用 workshopadmin 账号登录 JFrog 平台，再进行以下策略配置操作。</span></p>
+<p><b>1. </b><span data-i18n="进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。">进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。</span></p>
+<p><code id="skillsPolicyName">projectN-skills-policy</code></p>
+<figure class="labfigure"><a href="instructions/images/skills-policy-1.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-1.png" alt="Policy — 1" loading="lazy"></a></figure>
+<p><b>2. </b><span data-i18n="Scope：AI assets 选择 Skills；范围选择 Projects，仅勾选本人项目，不选择 Global，然后点击 Next。">Scope：AI assets 选择 Skills；范围选择 Projects，仅勾选本人项目，不选择 Global，然后点击 Next。</span></p>
+<figure class="labfigure"><a href="instructions/images/skills-policy-2.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-2.png" alt="Policy — 2" loading="lazy"></a></figure>
+<p><b>3. </b><span data-i18n="Rule：选择 Block malicious（Scan result = Malicious），点击 Next。">Rule：选择 Block malicious（Scan result = Malicious），点击 Next。</span></p>
+<figure class="labfigure"><a href="instructions/images/skills-policy-3.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-3.png" alt="Policy — 3" loading="lazy"></a></figure>
+<p><b>4. </b><span data-i18n="Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。">Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。</span></p>
+<figure class="labfigure"><a href="instructions/images/skills-policy-4.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-4.png" alt="Policy — 4" loading="lazy"></a></figure>
+<h3><span data-i18n="查看 Skill 适用的 Policy">查看 Skill 适用的 Policy</span></h3>
+<p><span data-i18n="策略配置完成后，退出 workshopadmin，使用普通用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Catalog → Registry → Skills，找到已上传的 skills-e2e-single。">策略配置完成后，退出 workshopadmin，使用普通用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Catalog → Registry → Skills，找到已上传的 skills-e2e-single。</span></p>
+<figure class="labfigure"><a href="instructions/images/skills-catalog-list.png" target="_blank" rel="noopener"><img src="instructions/images/skills-catalog-list.png" alt="Skills 列表 · 点击查看大图" data-i18n-alt="Skills 列表 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skills 列表 · 点击查看大图">Skills 列表 · 点击查看大图</span></figcaption></figure>
+<p><span data-i18n="点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。">点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。</span></p>
+<figure class="labfigure"><a href="instructions/images/skills-applicable-policy.png" target="_blank" rel="noopener"><img src="instructions/images/skills-applicable-policy.png" alt="Skill 适用策略 · 点击查看大图" data-i18n-alt="Skill 适用策略 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skill 适用策略 · 点击查看大图">Skill 适用策略 · 点击查看大图</span></figcaption></figure>
+<p><span data-i18n="完成配置后，在 OpenCode Agent 输入以下提示词，验证恶意 Skill 的安装下载被策略拦截。">完成配置后，在 OpenCode Agent 输入以下提示词，验证恶意 Skill 的安装下载被策略拦截。</span></p>
+<div class="codebox"><div class="codehead"><span>OpenCode Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsInstallPrompt"></code></pre></div>
+<div class="expect"><span data-i18n="预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。">预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。</span></div></div></section>
         <section class="section">
-          <div class="section-head"><span class="number">04</span>
+          <div class="section-head"><span class="number">05</span>
             <h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2>
           </div>
           <div class="body">
@@ -1355,13 +1380,18 @@ opencode</code></pre>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="本人项目中已创建 Local / Skills 仓库，并确认实际 Repository Key">本人项目中已创建 Local / Skills 仓库，并确认实际 Repository Key</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已上传 skills-e2e-single 0.0.1，并确认制品所在仓库">已上传 skills-e2e-single 0.0.1，并确认制品所在仓库</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据">已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据</span></span></label>
+              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已配置本人项目的 Block malicious 策略，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截">已配置本人项目的 Block malicious 策略，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截</span></span></label>
             </div>
-            <div class="expect" id="skillsProgress"><span data-i18n="0 / 3 项完成">0 / 3 项完成</span></div>
+            <div class="expect" id="skillsProgress"><span data-i18n="0 / 4 项完成">0 / 4 项完成</span></div>
             <div class="sources"><a href="https://docs.jfrog.com/artifactory/docs/skills-repositories" target="_blank" rel="noopener"><span data-i18n="Skills 仓库与发布说明">Skills 仓库与发布说明</span></a><a href="https://docs.jfrog.com/security/docs/skill-scanning" target="_blank" rel="noopener"><span data-i18n="Skills 扫描说明">Skills 扫描说明</span></a></div>
           </div>
         </section>
       </main>
-      <main class="content celebration-page" id="page4" hidden>
+      <main class="content" id="page4" hidden><div class="hero"><div><div class="eyebrow">STEP 04 / LAB 03</div><h1 id="resolutionHeading" tabindex="-1">Lab 03: Agents Resolution</h1><p class="lead"><span data-i18n="通过 Catalog 查看恶意包信息，再通过 OpenCode Agent 验证 JFrog 对安装恶意包请求的拦截。">通过 Catalog 查看恶意包信息，再通过 OpenCode Agent 验证 JFrog 对安装恶意包请求的拦截。</span></p></div></div>
+<section class="section"><div class="section-head"><span class="number">01</span><h2><span data-i18n="在 Catalog 中查看恶意包">在 Catalog 中查看恶意包</span></h2></div><div class="body"><ol><li><span data-i18n="打开 Catalog → Explore，搜索 npm 包 axios。">打开 Catalog → Explore，搜索 npm 包 axios。</span></li><li><span data-i18n="Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。">Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。</span></li></ol><figure class="labfigure"><a href="instructions/images/axios-catalog.png" target="_blank" rel="noopener"><img src="instructions/images/axios-catalog.png" alt="Catalog — axios 1.14.1" loading="lazy"></a><figcaption><span data-i18n="axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图">axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图</span></figcaption></figure></div></section>
+<section class="section"><div class="section-head"><span class="number">02</span><h2><span data-i18n="通过 Agent 验证安装拦截">通过 Agent 验证安装拦截</span></h2></div><div class="body"><p><span data-i18n="在工程 jfrog-ai-workshop 的 user 目录启动 OpenCode，在 Agent 对话中输入：">在工程 jfrog-ai-workshop 的 user 目录启动 OpenCode，在 Agent 对话中输入：</span></p><div class="codebox"><div class="codehead"><span>OpenCode Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="在 npm 目录下安装 axios 1.14.1">在 npm 目录下安装 axios 1.14.1</span></code></pre></div><div class="expect"><span data-i18n="预期结果：Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。记录实际拦截信息。">预期结果：Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。记录实际拦截信息。</span></div></div></section>
+<section class="section"><div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div><div class="body"><div class="checks"><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已在 Catalog 查看 axios 1.14.1 的恶意判定">已在 Catalog 查看 axios 1.14.1 的恶意判定</span></span></label><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i₁8n]="已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios ₁.₁₄.₁ 的安装请求">已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios ₁.₁₄.₁ 的安装请求</span></span></label></div><div class="expect" id="resolutionProgress">0 / 2</div></div></section></main>
+<main class="content celebration-page" id="page5" hidden>
         <section class="celebration-card">
           <div class="celebration-icon" aria-hidden="true">🎉</div>
           <div class="eyebrow">JFROG AI CATALOG WORKSHOP</div>
@@ -1432,24 +1462,34 @@ opencode</code></pre>
       updateNavigation();
     }
     function updateSkillsCommand() {
-      const repo = $('#skillsRepo').value.trim();
       const identity = workshopIdentity();
+      $('#mcpAuthIdentity').textContent = t('弹出 JPD 登录页面后，请使用当前学员账号 {user} 登录并授权。').replaceAll('{user}', identity?.user || 'userN');
+      $('#skillsCreatePrompt').textContent = identity
+        ? t('在 {project} 中创建 skills 仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', identity.project + '-workshop-skills')
+        : t('请先在第一页填写本人账号和对应 Project。');
+      const suggestedRepo = identity ? identity.project + '-workshop-skills' : '';
+      const repoInput = $('#skillsRepo');
+      if (!repoInput.value || repoInput.value === repoInput.dataset.suggested) repoInput.value = suggestedRepo;
+      repoInput.dataset.suggested = suggestedRepo;
+      const repo = repoInput.value.trim();
+      $('#skillsPolicyName').textContent = identity ? identity.project + '-skills-policy' : 'projectN-skills-policy';
+      $('#skillsInstallPrompt').textContent = identity && /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(repo) ? t('从 {repo} 安装 skills-e2e-single@0.0.1 到 skills/download 目录。').replaceAll('{repo}', repo) : t('请先在第一页填写本人账号和对应 Project。');
       if (!/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(repo) || !identity) {
         $('#skillsPublishCode').textContent = t("请先完成第一页初始化，并填写本人仓库的完整 Repository Key。");
         return;
       }
-      $('#skillsPublishCode').textContent = 'jf skills publish --server-id=workshop-' + identity.user + ' --repo=' + repo + ' --project=' + identity.project + ' ./skills/skills-e2e-single';
+      $('#skillsPublishCode').textContent = t('将 skills/skills-e2e-single 上传到 {repo}。').replaceAll('{repo}', repo);
     }
     function canAdvance() {
       if (currentPage === 1) return setupComplete();
-      const selector = currentPage === 2 ? '.labcheck' : currentPage === 3 ? '.skillscheck' : null;
+      const selector = currentPage === 2 ? '.labcheck' : currentPage === 3 ? '.skillscheck' : currentPage === 4 ? '.resolutioncheck' : null;
       if (!selector) return false;
       const checks = [...document.querySelectorAll(selector)];
       return checks.length > 0 && checks.every(check => check.checked);
     }
     function updateNavigation() {
       $('#next').disabled = !canAdvance();
-      $('#next').title = currentPage === 2 || currentPage === 3
+      $('#next').title = currentPage >= 2 && currentPage <= 4
         ? (canAdvance() ? '' : t("请先勾选本页全部实际验证结果")) : '';
       if (currentPage === 1 && codespacesSetupVisible()) {
         $('#footNote').textContent = setupComplete() ? t('Codespaces 准备完成，可以继续') : t('请完成 Codespaces 准备并勾选全部验证结果');
@@ -1458,13 +1498,13 @@ opencode</code></pre>
     function showPage(page) {
       const pageChanged = currentPage !== page;
       currentPage = page;
-      for (let i = 1; i <= 4; i++) $('#page' + i).hidden = i !== page;
+      for (let i = 1; i <= 5; i++) $('#page' + i).hidden = i !== page;
       $('#back').hidden = page === 1;
       $('#footerInfo').hidden = page !== 1;
-      $('#next').hidden = page === 4;
-      $('#next').textContent = page === 3 ? t("完成 ✓") : t("Next · 下一步 →");
+      $('#next').hidden = page === 5;
+      $('#next').textContent = page === 4 ? t("完成 ✓") : t("Next · 下一步 →");
       updateNavigation();
-      const names = [t("环境准备"), t("Lab 01 MCP Server 治理"), t("Lab 02 Skills 管理"), t("Workshop 完成")];
+      const names = [t("环境准备"), t("Lab 01 MCP Server 治理"), t("Lab 02 Skills 管理"), "Lab 03 Agents Resolution", t("Workshop 完成")];
       $('#crumb').textContent = names[page - 1];
       $('#footTitle').textContent = names[page - 1];
       $('#footNote').textContent = page === 1 ? (setupComplete() ? (codespacesSetupVisible() ? t('Codespaces 准备完成，可以继续') : t("初始化成功，可以继续")) : codespacesSetupVisible() ? t('请完成 Codespaces 准备并勾选全部验证结果') : t("初始化成功后继续")) : t("按顺序完成本页操作与验证");
@@ -1478,8 +1518,8 @@ opencode</code></pre>
       $('#skillsIdentity').textContent = description;
       updateSkillsCommand();
       window.scrollTo(0, 0);
-      $(page === 1 && codespacesSetupVisible() ? '#codespacesHeading' : ['#heading', '#nextHeading', '#skillsHeading', '#congratulationsHeading'][page - 1]).focus();
-      if (page === 4 && pageChanged) celebrate();
+      $(page === 1 && codespacesSetupVisible() ? '#codespacesHeading' : ['#heading', '#nextHeading', '#skillsHeading', '#resolutionHeading', '#congratulationsHeading'][page - 1]).focus();
+      if (page === 5 && pageChanged) celebrate();
       else $('#confettiLayer').replaceChildren();
     }
     function celebrate() {
@@ -1507,13 +1547,36 @@ opencode</code></pre>
     });
     document.querySelectorAll('.codespacescheck').forEach(check => check.addEventListener('change', updateCodespacesSetup));
     $('#skillsRepo').addEventListener('input', updateSkillsCommand);
-    $('#next').onclick = () => { if (!canAdvance()) return; if (currentPage < 4) showPage(currentPage + 1); };
+    $('#next').onclick = () => { if (!canAdvance()) return; if (currentPage < 5) showPage(currentPage + 1); };
+    document.querySelectorAll('.resolutioncheck').forEach(check => check.addEventListener('change', () => { $('#resolutionProgress').textContent = document.querySelectorAll('.resolutioncheck:checked').length + ' / 2'; updateNavigation(); }));
     $('#back').onclick = () => { if (currentPage > 1) showPage(currentPage - 1); };
     document.querySelectorAll('.skillscheck').forEach(c => c.addEventListener('change', () => {
-      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(" / 3 项完成");
+      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(" / 4 项完成");
       updateNavigation();
     }));
-    document.addEventListener('click', async e => {if (!e.target.closest('.copy')) return; try {await navigator.clipboard.writeText(e.target.closest('.codebox').querySelector('code').textContent); $('#toast').textContent = t("已复制"); $('#toast').hidden = false; setTimeout(() => $('#toast').hidden = true, 2000)} catch {status(t("复制不可用，请选择命令后手动复制。"))} });
+    const copyResetTimers = new WeakMap();
+    document.addEventListener('click', async e => {
+      const button = e.target.closest('.copy');
+      if (!button) return;
+      const code = button.closest('.codebox')?.querySelector('code');
+      if (!code) return;
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        clearTimeout(copyResetTimers.get(button));
+        button.textContent = '✓';
+        button.setAttribute('aria-label', t('已复制'));
+        copyResetTimers.set(button, setTimeout(() => {
+          const label = document.createElement('span');
+          label.dataset.i18n = '复制';
+          label.textContent = t('复制');
+          button.replaceChildren(label);
+          button.removeAttribute('aria-label');
+          copyResetTimers.delete(button);
+        }, 2000));
+      } catch {
+        status(t('复制不可用，请选择命令后手动复制。'));
+      }
+    });
     document.querySelectorAll('.labcheck').forEach(c => c.addEventListener('change', () => {$('#labProgress').textContent = document.querySelectorAll('.labcheck:checked').length + ' / ' + document.querySelectorAll('.labcheck').length + t(" 项完成"); updateNavigation();}));
     window.WorkshopI18n.onChange = () => {
       clearTimeout(timer);
@@ -1525,7 +1588,7 @@ opencode</code></pre>
       updateCodespacesSetup();
       showPage(currentPage);
       $('#labProgress').textContent = document.querySelectorAll('.labcheck:checked').length + ' / ' + document.querySelectorAll('.labcheck').length + t(' 项完成');
-      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(' / 3 项完成');
+      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(' / 4 项完成');
     };
     window.WorkshopI18n.ready.then(() => {
       table();
