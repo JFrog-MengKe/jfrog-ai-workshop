@@ -1,0 +1,26 @@
+{
+  "name": "JFrog Workshop",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
+  "remoteEnv": {
+    "JFROG_URL": "https://alexwangtrial.jfrog.io",
+    "JFROG_PLATFORM_URL": "alexwangtrial.jfrog.io",
+    "JFROG_SERVER_ID": "workshop",
+    "JF_PROJECT": "workshop"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ],
+      "settings": {
+        "chat.plugins.enabled": true,
+        "chat.useHooks": true,
+        "chat.plugins.marketplaces": [
+          "https://github.com/jfrog/vscode-plugin/"
+        ]
+      }
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup-jfrog-plugin.sh"
+}
