@@ -967,6 +967,17 @@
           </div>
         </div>
         <section class="section">
+          <div class="section-head"><h2><span data-i18n="获取 Workshop 文件">获取 Workshop 文件</span></h2></div>
+          <div class="body">
+            <p><span data-i18n="初始化环境前，先在终端执行以下命令，将 Workshop 仓库下载到本机并进入学员目录。">初始化环境前，先在终端执行以下命令，将 Workshop 仓库下载到本机并进入学员目录。</span></p>
+            <div class="codebox">
+              <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
+              <pre><code>git clone https://github.com/slash-l/jfrog-ai-workshop.git
+cd jfrog-ai-workshop/user</code></pre>
+            </div>
+          </div>
+        </section>
+        <section class="section">
           <div class="section-head"><span class="number">01</span>
             <h2><span data-i18n="初始化环境">初始化环境</span></h2>
           </div>
@@ -1390,7 +1401,7 @@ opencode</code></pre>
       <main class="content" id="page4" hidden><div class="hero"><div><div class="eyebrow">STEP 04 / LAB 03</div><h1 id="resolutionHeading" tabindex="-1">Lab 03: Agents Resolution</h1><p class="lead"><span data-i18n="通过 Catalog 查看恶意包信息，再通过 OpenCode Agent 验证 JFrog 对安装恶意包请求的拦截。">通过 Catalog 查看恶意包信息，再通过 OpenCode Agent 验证 JFrog 对安装恶意包请求的拦截。</span></p></div></div>
 <section class="section"><div class="section-head"><span class="number">01</span><h2><span data-i18n="在 Catalog 中查看恶意包">在 Catalog 中查看恶意包</span></h2></div><div class="body"><ol><li><span data-i18n="打开 Catalog → Explore，搜索 npm 包 axios。">打开 Catalog → Explore，搜索 npm 包 axios。</span></li><li><span data-i18n="Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。">Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。</span></li></ol><figure class="labfigure"><a href="instructions/images/axios-catalog.png" target="_blank" rel="noopener"><img src="instructions/images/axios-catalog.png" alt="Catalog — axios 1.14.1" loading="lazy"></a><figcaption><span data-i18n="axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图">axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图</span></figcaption></figure></div></section>
 <section class="section"><div class="section-head"><span class="number">02</span><h2><span data-i18n="通过 Agent 验证安装拦截">通过 Agent 验证安装拦截</span></h2></div><div class="body"><p><span data-i18n="在工程 jfrog-ai-workshop 的 user 目录启动 OpenCode，在 Agent 对话中输入：">在工程 jfrog-ai-workshop 的 user 目录启动 OpenCode，在 Agent 对话中输入：</span></p><div class="codebox"><div class="codehead"><span>OpenCode Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="在 npm 目录下安装 axios 1.14.1">在 npm 目录下安装 axios 1.14.1</span></code></pre></div><div class="expect"><span data-i18n="预期结果：Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。记录实际拦截信息。">预期结果：Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。记录实际拦截信息。</span></div></div></section>
-<section class="section"><div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div><div class="body"><div class="checks"><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已在 Catalog 查看 axios 1.14.1 的恶意判定">已在 Catalog 查看 axios 1.14.1 的恶意判定</span></span></label><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i₁8n]="已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios ₁.₁₄.₁ 的安装请求">已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios ₁.₁₄.₁ 的安装请求</span></span></label></div><div class="expect" id="resolutionProgress">0 / 2</div></div></section></main>
+<section class="section"><div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div><div class="body"><div class="checks"><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已在 Catalog 查看 axios 1.14.1 的恶意判定">已在 Catalog 查看 axios 1.14.1 的恶意判定</span></span></label><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios 1.14.1 的安装请求">已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios 1.14.1 的安装请求</span></span></label></div><div class="expect" id="resolutionProgress">0 / 2</div></div></section></main>
 <main class="content celebration-page" id="page5" hidden>
         <section class="celebration-card">
           <div class="celebration-icon" aria-hidden="true">🎉</div>

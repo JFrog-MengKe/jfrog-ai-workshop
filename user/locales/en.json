@@ -403,6 +403,13 @@
     "策略配置完成后，退出 workshopadmin，使用本人学员账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Catalog → Registry → Skills，找到已上传的 skills-e2e-single。": "After configuring the policy, sign out of workshopadmin, sign in to the JPD with your participant account, and select your Project. Open AI/ML → AI Catalog → Registry → Skills and locate the uploaded skills-e2e-single.",
     "点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。": "Open skills-e2e-single, select version 0.0.1, and open the Policies tab. Review the policies applicable to the current project and check Policy name, Scope, Rule, and Action. Action should be Block.",
     "Skills 列表 · 点击查看大图": "Skills list · Click to enlarge",
-    "Skill 适用策略 · 点击查看大图": "Applicable Skill policies · Click to enlarge"
+    "Skill 适用策略 · 点击查看大图": "Applicable Skill policies · Click to enlarge",
+    "获取 Workshop 文件": "Get the Workshop files",
+    "初始化环境前，先在终端执行以下命令，将 Workshop 仓库下载到本机并进入学员目录。": "Before initializing the environment, run these commands in a terminal to clone the Workshop repository and enter the participant directory.",
+    "策略配置完成后，退出 workshopadmin，使用普通用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Catalog → Registry → Skills，找到已上传的 skills-e2e-single。": "After configuring the policy, sign out of workshopadmin, sign in to the JPD with a regular user account, and select your Project. Open AI/ML → AI Catalog → Registry → Skills and locate the uploaded skills-e2e-single.",
+    "通过 Catalog 查看恶意包信息，再通过 OpenCode Agent 验证 JFrog 对安装恶意包请求的拦截。": "Inspect malicious package information in Catalog, then use OpenCode Agent to verify that JFrog blocks requests to install malicious packages.",
+    "在工程 jfrog-ai-workshop 的 user 目录启动 OpenCode，在 Agent 对话中输入：": "Start OpenCode in the user directory of jfrog-ai-workshop and enter the following in the Agent chat:",
+    "已在 Catalog 查看 axios 1.14.1 的恶意判定": "Reviewed the malicious verdict for axios 1.14.1 in Catalog",
+    "弹出 JPD 登录页面后，请使用当前学员账号 {user} 登录并授权。": "When the JPD sign-in page opens, sign in and authorize with your current participant account {user}."
   }
 }
