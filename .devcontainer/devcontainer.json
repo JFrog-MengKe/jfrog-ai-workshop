@@ -2,8 +2,8 @@
   "name": "JFrog Workshop",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
   "remoteEnv": {
-    "JFROG_URL": "https://alexwangtrial.jfrog.io",
-    "JFROG_PLATFORM_URL": "alexwangtrial.jfrog.io",
+    "JFROG_URL": "${localEnv:JFROG_URL}",
+    "JFROG_PLATFORM_URL": "${localEnv:JFROG_PLATFORM_URL}",
     "JFROG_SERVER_ID": "workshop",
     "JF_PROJECT": "${localEnv:JF_PROJECT}"
   },
