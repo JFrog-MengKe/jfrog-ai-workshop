@@ -5,7 +5,7 @@
     "JFROG_URL": "https://alexwangtrial.jfrog.io",
     "JFROG_PLATFORM_URL": "alexwangtrial.jfrog.io",
     "JFROG_SERVER_ID": "workshop",
-    "JF_PROJECT": "workshop"
+    "JF_PROJECT": "${localEnv:JF_PROJECT}"
   },
   "customizations": {
     "vscode": {
