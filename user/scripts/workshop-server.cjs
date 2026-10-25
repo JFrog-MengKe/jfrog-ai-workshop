@@ -30,7 +30,7 @@ const server=http.createServer(async(req,res)=>{
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
     return fs.createReadStream(path.join(env.ROOT, file)).pipe(res);
   }
-  const imageNames=['mcp-server.png','tools_read.png','tools_all.png','registry.png','skills-repo.png','skills-upload.png','skills-scan.png','axios-catalog.png','skills-policy-1.png','skills-policy-2.png','skills-policy-3.png','skills-policy-4.png','skills-catalog-list.png','skills-applicable-policy.png','jfrog-mcp.png','jfrog.png','settings.png'];
+  const imageNames=['mcp-server.png','tools_read.png','tools_all.png','registry.png','skills-repo.png','skills-upload.png','skills-scan.png','axios-catalog.png','skills-policy-1.png','skills-policy-2.png','skills-policy-3.png','skills-policy-4.png','skills-catalog-list.png','skills-applicable-policy.png','jfrog-mcp.png','jfrog.png','opencode.png','settings.png','codespaces-secrets-repository.png','codespaces-launch.png','agent-guard-browse-mcp.png'];
   if(req.method==='GET'&&imageNames.some(name=>req.url==='/instructions/images/'+name)){
     res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});
     return fs.createReadStream(path.join(env.ROOT,'instructions','images',req.url.split('/').pop())).pipe(res);
