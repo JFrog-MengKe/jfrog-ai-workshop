@@ -57,7 +57,7 @@
   };
   select.addEventListener('change', () => state.setLanguage(select.value));
   window.WorkshopI18n = state;
-  let initial = 'zh-CN';
+  let initial = 'zh-TW';
   try {
     const saved = localStorage.getItem('workshop.language');
     if (supported.includes(saved)) initial = saved;
