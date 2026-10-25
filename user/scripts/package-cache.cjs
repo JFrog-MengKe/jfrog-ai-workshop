@@ -7,7 +7,7 @@ const crypto = require('node:crypto');
 const cp = require('node:child_process');
 const https = require('node:https');
 const {pipeline} = require('node:stream/promises');
-const VERSIONS = {node:'24.22.0', opencode:'1.19.3', jf:'2.127.0', jq:'1.8.2', curl:'8.23.0'};
+const VERSIONS = {node:'24.22.0', jf:'2.127.0', jq:'1.8.2', curl:'8.23.0'};
 
 function createCache(options = {}) {
   const root = options.root || path.resolve(__dirname, '..', 'tools');
@@ -117,7 +117,6 @@ function createCache(options = {}) {
       if(!sha) throw Error('Node archive SHA256 not published for '+filename);
       return {url:base+filename,sha256:sha,version:VERSIONS.node};
     }
-    if(name==='opencode') return github('anomalyco/opencode','v'+VERSIONS.opencode,`opencode-${system==='win32'?'windows':system}-${arch}.${system==='linux'?'tar.gz':'zip'}`);
     if(name==='jq') return github('jqlang/jq','jq-'+VERSIONS.jq,`jq-${system==='darwin'?'macos':system==='win32'?'windows':'linux'}-${arch==='x64'?'amd64':'arm64'}${system==='win32'?'.exe':''}`);
     if(name==='jf') {
       const target=system==='darwin'?(arch==='x64'?'mac-386':'mac-arm64'):(system==='win32'?'windows':'linux')+'-'+(arch==='x64'?'amd64':'arm64');
@@ -141,7 +140,6 @@ function createCache(options = {}) {
   function candidates(name) {
     const exe=system==='win32'?'.exe':'';
     if(name==='node')return [system==='win32'?'node.zip':'node.tar.gz'];
-    if(name==='opencode')return ['opencode'+exe,'opencode.zip','opencode.tar.gz'];
     if(name==='curl')return [system==='win32'?'curl.zip':'curl.tar.gz'];
     return [name+exe];
   }
@@ -151,7 +149,7 @@ function createCache(options = {}) {
       const file=path.join(folder,filename);
       if(fs.existsSync(file))return local(file);
     }
-    const target=path.join(folder,name==='node'?(system==='win32'?'node.zip':'node.tar.gz'):name==='opencode'?(system==='linux'?'opencode.tar.gz':'opencode.zip'):name==='curl'?(system==='win32'?'curl.zip':'curl.tar.gz'):name+(system==='win32'?'.exe':''));
+    const target=path.join(folder,name==='node'?(system==='win32'?'node.zip':'node.tar.gz'):name==='curl'?(system==='win32'?'curl.zip':'curl.tar.gz'):name+(system==='win32'?'.exe':''));
     const info=await source(name),partial=target+'.partial';
     log(`DOWNLOAD ${name} ${info.version} → tools/${platform}/${path.basename(target)}`);
     try {

@@ -6,7 +6,7 @@
 <div class="setup-variant" id="setup-codespaces">
 ```
 
-显示 OpenCode 配置：
+显示本机准备页面：
 ```
 <div class="setup-variant" id="setup-local">
 <div class="setup-variant" id="setup-codespaces" hidden>

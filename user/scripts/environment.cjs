@@ -8,7 +8,7 @@ const BASE=path.resolve(process.env.WORKSHOP_HOME||path.join(os.homedir(),'.jfro
 const BIN=path.join(BASE,'bin');
 const PLATFORM=`${process.platform}-${process.arch}`;
 const EXT=process.platform==='win32'?'.exe':'';
-const MIN={opencode:'1.17.7',node:'18.0.0',npx:'6.0.0',jf:'2.100.0',jq:'1.6.0',curl:'7.64.0'};
+const MIN={node:'18.0.0',npx:'6.0.0',jf:'2.100.0',jq:'1.6.0',curl:'7.64.0'};
 const NAMES=Object.keys(MIN);
 const PATH_ENV=()=>({...process.env,PATH:BIN+path.delimiter+process.env.PATH,JFROG_CLI_OFFER_CONFIG:'false'});
 function log(s){console.log(s)}
@@ -16,7 +16,7 @@ function version(s){const m=String(s).match(/(?:^|[^\d])(\d+)\.(\d+)(?:\.(\d+))?
 function ge(a,b){a=version(a);b=version(b);if(!a||!b)return false;for(let i=0;i<3;i++){if(a[i]!==b[i])return a[i]>b[i]}return true}
 function run(file,args,options={}){const r=cp.spawnSync(file,args,{encoding:'utf8',env:PATH_ENV(),timeout:30000,windowsHide:true,...options});if(r.error||r.status!==0)throw Error(`${path.basename(file)} failed: ${r.error?.message||String(r.stderr).slice(0,700)}`);return String(r.stdout).trim()}
 function locate(name){const files=process.platform==='win32'?(name==='npx'?['npx.cmd']: [name+'.exe']):[name];for(const dir of PATH_ENV().PATH.split(path.delimiter)){for(const file of files){const p=path.join(dir,file);try{fs.accessSync(p,fs.constants.X_OK);return p}catch{}}}return null}
-function inspect(name){const file=locate(name);let output='',error='';try{if(!file)throw Error('not found on PATH');output=name==='npx'&&process.platform==='win32'?run('cmd.exe',['/d','/s','/c',`""${file}" --version"`]):run(file,['--version']);}catch(e){error=e.message}const v=version(output);let ok=!error&&ge(output,MIN[name]);if((name==='opencode'&&v?.[0]!==1)||(name==='jf'&&v?.[0]!==2))ok=false;return {name,path:file,version:v?.join('.')||null,minimum:MIN[name],ok,error}}
+function inspect(name){const file=locate(name);let output='',error='';try{if(!file)throw Error('not found on PATH');output=name==='npx'&&process.platform==='win32'?run('cmd.exe',['/d','/s','/c',`""${file}" --version"`]):run(file,['--version']);}catch(e){error=e.message}const v=version(output);let ok=!error&&ge(output,MIN[name]);if((name==='jf'&&v?.[0]!==2))ok=false;return {name,path:file,version:v?.join('.')||null,minimum:MIN[name],ok,error}}
 function report(){return {platform:PLATFORM,tools:NAMES.map(inspect),base:BASE,bin:BIN}}
 function hash(file){return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')}
 function checked(file){if(!fs.existsSync(file))throw Error('Missing package: '+file);return cache.local(file)}
@@ -40,7 +40,7 @@ try{
  else if(packageFile.endsWith('.tar.gz'))tarExecutable(packageFile,name+EXT,dest);
  else copyChecked(packageFile,dest);
  const output=run(dest,['--version']),v=version(output);
- if(!ge(output,MIN[name])||(name==='opencode'&&v?.[0]!==1)||(name==='jf'&&v?.[0]!==2))throw Error('Package '+name+' does not meet version requirement ('+output+')');
+ if(!ge(output,MIN[name])||(name==='jf'&&v?.[0]!==2))throw Error('Package '+name+' does not meet version requirement ('+output+')');
  fs.renameSync(dest,path.join(BIN,name+EXT));log('INSTALLED '+name+' '+v.join('.'));
 }finally{fs.rmSync(stage,{recursive:true,force:true})}
 }
@@ -141,6 +141,6 @@ function configureJFrog(password){
  log('PASS JFrog CLI configured: '+serverId+' / '+user);log('PASS jf rt ping --server-id '+serverId+': OK');
  return {ok:true,serverId,user,project,ping:'OK',authType:'access-token',projectVerified:true,tokenExpiresIn:86400};
 }
-async function install(credentials){if(!['darwin-arm64','darwin-x64','linux-arm64','linux-x64','win32-arm64','win32-x64'].includes(PLATFORM))throw Error('Unsupported OS/CPU: '+PLATFORM);fs.mkdirSync(BIN,{recursive:true});log('DETECTED '+PLATFORM);let node=inspect('node'),npx=inspect('npx');if(!node.ok||!npx.ok)installNode();else{log('SKIP node '+node.version);log('SKIP npx '+npx.version)}for(const name of ['opencode','jf','jq','curl']){const r=inspect(name);if(r.ok){log('SKIP '+name+' '+r.version);continue}log('INSTALL '+name+' (missing or incompatible)');if(name==='curl')await installCurl();else await installBinary(name)}const config=configure();const authentication=credentials?configureJFrog(credentials.password):null;if(credentials)credentials.password='';const result={...report(),...config,authentication,completedAt:new Date().toISOString()};result.ok=result.tools.every(t=>t.ok);fs.writeFileSync(path.join(BASE,'environment-report.json'),JSON.stringify(result,null,2),{mode:0o600});for(const t of result.tools)log(`${t.ok?'PASS':'FAIL'} ${t.name}: ${t.version||t.error}`);if(!result.ok)throw Error('Final verification failed');log('SUCCESS Environment initialized');return result}
+async function install(credentials){if(!['darwin-arm64','darwin-x64','linux-arm64','linux-x64','win32-arm64','win32-x64'].includes(PLATFORM))throw Error('Unsupported OS/CPU: '+PLATFORM);fs.mkdirSync(BIN,{recursive:true});log('DETECTED '+PLATFORM);let node=inspect('node'),npx=inspect('npx');if(!node.ok||!npx.ok)installNode();else{log('SKIP node '+node.version);log('SKIP npx '+npx.version)}for(const name of ['jf','jq','curl']){const r=inspect(name);if(r.ok){log('SKIP '+name+' '+r.version);continue}log('INSTALL '+name+' (missing or incompatible)');if(name==='curl')await installCurl();else await installBinary(name)}const config=configure();const authentication=credentials?configureJFrog(credentials.password):null;if(credentials)credentials.password='';const result={...report(),...config,authentication,completedAt:new Date().toISOString()};result.ok=result.tools.every(t=>t.ok);fs.writeFileSync(path.join(BASE,'environment-report.json'),JSON.stringify(result,null,2),{mode:0o600});for(const t of result.tools)log(`${t.ok?'PASS':'FAIL'} ${t.name}: ${t.version||t.error}`);if(!result.ok)throw Error('Final verification failed');log('SUCCESS Environment initialized');return result}
 module.exports={ROOT,BASE,BIN,PLATFORM,MIN,NAMES,report,install,hash,checked,configureJFrog};
 if(require.main===module){if(process.argv.includes('--check')){const r=report();console.log(JSON.stringify(r,null,2));process.exitCode=r.tools.every(t=>t.ok)?0:1}else (async()=>{let credentials;if(process.argv.includes('--credentials-stdin')){let input='';for await(const chunk of process.stdin){input+=chunk;if(input.length>4096)throw Error('Credential input too large')}credentials=JSON.parse(input);input=''}await install(credentials)})().catch(e=>{console.error('FAILED '+e.message);process.exitCode=1})}

@@ -100,5 +100,9 @@ jf --version
 if [ -z "${JFROG_ACCESS_TOKEN:-}" ]; then
   printf '%s\n' '找不到 JFROG_ACCESS_TOKEN；請確認 Codespaces Secret 已授權此 Repository，然後重建 Codespace。'
 else
-  bash .devcontainer/sync-jfrog-config.sh
+  printf '%s' "$JFROG_ACCESS_TOKEN" | jf config add workshop \
+    --url "$JFROG_URL" \
+    --access-token-stdin --interactive=false --overwrite &&
+    jf config use workshop &&
+    jf rt ping --server-id workshop
 fi

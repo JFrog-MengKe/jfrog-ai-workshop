@@ -1,10 +1,10 @@
 # JFrog AI Catalog Workshop（学员）
 
-本目录包含学员操作页面、启动器、初始化脚本、工具安装包以及原有 OpenCode 配置和实验文件。
+本目录包含学员操作页面、启动器、初始化脚本、工具安装包和实验文件。
 
 ## 默认使用 GitHub Codespaces
 
-第一页默认显示 Codespaces 指南：创建或打开 Codespace、配置 `JFROG_URL` / `JFROG_ACCESS_TOKEN` / `JF_PROJECT` 三个 Secrets、验证 Agent Guard，并配置本人 CLI Server。按页面完成全部验证勾选后进入 Lab 01。后续 OpenCode 与上传命令均在 Codespaces 终端执行。
+第一页默认显示 Codespaces 指南：创建或打开 Codespace、配置 `JFROG_URL` / `JFROG_ACCESS_TOKEN` / `JF_PROJECT` 三个 Secrets、验证 Agent Guard，并配置本人 CLI Server。按页面完成全部验证勾选后进入 Lab 01。后续命令均在 Codespaces 终端执行。
 
 三种语言仍由 `locales/zh-CN.json`、`locales/zh-TW.json`、`locales/en.json` 分别管理。截图保持原图。
 
@@ -28,7 +28,7 @@
 
 保存 HTML 并刷新页面即可。JavaScript 不会重置这两个容器的 hidden 属性。两者都显示时，必须完成两套验证；两者都隐藏时不能进入下一步。原本机页面的内容完整保留，切回后继续使用下面的启动器流程。
 
-Codespaces 第一页的验证勾选是学员对终端结果的确认，网页不会远程读取 Token 或代执行安装命令。讲师需提前准备符合版本要求的 Node.js、OpenCode 和 JFrog CLI；如工具缺失，先补齐讲师环境。
+Codespaces 第一页的验证勾选是学员对终端结果的确认，网页不会远程读取 Token 或代执行安装命令。讲师需提前准备符合版本要求的 Node.js、JFrog CLI、jq 和 curl；如工具缺失，先补齐讲师环境。
 
 ## 本机准备（可选）
 
@@ -47,11 +47,10 @@ Codespaces 第一页的验证勾选是学员对终端结果的确认，网页不
 - `scripts/`：本机页面服务及各系统的初始化实现。
 - `tools/`：本地安装包与自动下载缓存。
 - `lab_dir/`：保留的实验文件。
-- `opencode.json`、`.opencode/`：保留的 OpenCode 客户端配置与依赖。
 
 初始化程序默认把运行工具和新实验目录放在 `~/.jfrog-workshop`，实际位置以页面成功结果为准。
 
-官网下载使用固定版本：OpenCode 1.19.3、Node 24.22.0（含 npx）、JFrog CLI 2.127.0、jq 1.8.2、curl 8.23.0。网络不可用时，只要本地包齐全且已通过校验，仍可安装。
+官网下载使用固定版本：Node 24.22.0（含 npx）、JFrog CLI 2.127.0、jq 1.8.2、curl 8.23.0。网络不可用时，只要本地包齐全且已通过校验，仍可安装。
 
 macOS 通常复用系统 curl。Windows 缺少 curl 时自动下载官方二进制包；macOS / Linux 如需安装 curl 且没有便携包，则下载官方源码构建，需要事先具备 C 编译器、make 和 OpenSSL 开发文件，缺少依赖时会明确报错。
 

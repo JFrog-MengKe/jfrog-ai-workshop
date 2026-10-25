@@ -1,8 +1,3 @@
-# OpenCode local configuration and runtime data (all directories)
-opencode.json
-opencode.jsonc
-.opencode/
-
 # Workshop-generated test files
 test.txt
 
