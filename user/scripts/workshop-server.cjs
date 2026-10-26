@@ -40,6 +40,8 @@ const server=http.createServer(async(req,res)=>{
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",'Referrer-Policy':'no-referrer'});
     return fs.createReadStream(path.join(env.ROOT,'workshop.html')).pipe(res);
   }
+  // Non-secret page context also works when opened from the Codespaces Ports panel.
+  if(req.method==='GET'&&req.url==='/api/workshop-context')return json(res,200,{project:(process.env.JF_PROJECT||'').trim(),user:(process.env.JFROG_USERNAME||process.env.JFROG_USER||'').trim()});
   if(!equal(req.headers.authorization,'Bearer '+token))return json(res,403,{error:'Open the URL printed by the launcher, including #session=...'});
   if(req.method==='GET'&&req.url==='/api/status')return json(res,200,{...job,identity,platform:env.PLATFORM,base:env.BASE,codespacesProject:process.env.JF_PROJECT||'',codespacesUser:process.env.JFROG_USERNAME||process.env.JFROG_USER||''});
   if(req.method==='POST'&&req.url==='/api/init'){

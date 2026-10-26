@@ -8,6 +8,8 @@
 
 三种语言仍由 `locales/zh-CN.json`、`locales/zh-TW.json`、`locales/en.json` 分别管理。截图保持原图。
 
+通过启动器打开页面时，页面会读取启动器进程中的 `JF_PROJECT`，自动填入 Lab 02 的项目名、Skills 仓库名（`<JF_PROJECT>-workshop-skills`）和策略名。使用启动器打印的链接或 Codespaces 的端口转发链接均可；此接口仅返回项目名和可选用户名，不返回 Token。修改环境变量后，需要重启启动器并刷新页面。直接以文件方式打开 HTML 无法读取 Codespaces 环境变量。
+
 ### 在 HTML 中切换准备方式
 
 在 `workshop.html` 搜索 `SETUP VISIBILITY`，找到两个容器。`hidden` 是布尔属性：**有 hidden 就隐藏，删除 hidden 就显示**。不要使用 `hidden="false"`，它仍会隐藏。
