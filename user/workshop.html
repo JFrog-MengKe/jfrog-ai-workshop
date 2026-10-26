@@ -1544,6 +1544,7 @@ opencode</code></pre>
       codespacesIdentity = {url: parsed.origin, platformHost: parsed.host, user, project};
       $('#codespacesProject').value = project;
       $('#codespacesProfileStatus').textContent = t('参数已确认，后续说明将使用当前 JPD 地址、用户名和 Project。');
+      $('#codespacesConfirm').disabled = true;
       applyIdentityPlaceholders(codespacesIdentity);
       updateNavigation();
     };
