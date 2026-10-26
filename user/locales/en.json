@@ -91,6 +91,7 @@
     "填写 Workshop 参数": "Enter workshop parameters",
     "填写 JPD 平台地址和用户名，Project 将自动获取。填写完成后点击确定。": "Enter the JPD platform URL and username. The Project is obtained automatically. Click Confirm when finished.",
     "填写 JPD 平台地址、用户名和 Project Key，填写完成后点击确定。": "Enter the JPD platform URL, username, and Project Key, then click Confirm.",
+    "以上参数由讲师提供。": "The above parameters are provided by the instructor.",
     "JPD 平台地址": "JPD platform URL",
     "用户名": "Username",
     "Project": "Project",
