@@ -886,6 +886,10 @@
       width: 66.6667%;
     }
 
+    .labfigure-half {
+      width: 50%;
+    }
+
     .labfigure img {
       display: block;
       width: 100%;
@@ -1096,7 +1100,7 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenC
         <section class="section">
           <div class="section-head"><span class="number">01</span><h2><span data-i18n="MCP Marketplace 准入配置">MCP Marketplace 准入配置</span></h2></div>
           <div class="body">
-            <p><span class="tag"><span data-i18n="管理员操作">管理员操作</span></span><span data-i18n="使用"> 使用 </span><b>workshopadmin</b><span data-i18n="账号登录 JFrog。"> 账号登录 JFrog。</span></p>
+            <p><span class="tag"><span data-i18n="用户操作">用户操作</span></span><span data-i18n="使用当前用户账号登录 JFrog。">使用当前用户账号登录 JFrog。</span></p>
             <ol><li><span data-i18n="进入">进入 </span><b>AI/ML → AI Security → Marketplace → MCP Servers</b>。</li><li><span data-i18n="搜索">搜索 </span><code>filesystem-mcp</code><span data-i18n="，点击">，点击 </span><b>Add to Registry</b>。</li><li><span data-i18n="选择本人对应的">选择本人对应的 </span><code>projectN</code><span data-i18n="，不要选择其他项目。">，不要选择其他项目。</span></li><li><span data-i18n="选择">选择 </span><b>Select tools manually → Allow List</b><span data-i18n="，仅填写或选择">，仅填写或选择 </span><code>view</code><span data-i18n="；不要选择 Allow all tools。">；不要选择 Allow all tools。</span></li><li><span data-i18n="按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放">按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放 </span><code>view</code>。</li></ol>
             <figure class="labfigure"><a href="instructions/images/mcp-server.png" target="_blank" rel="noopener"><img src="instructions/images/mcp-server.png" alt="搜索 filesystem-mcp 并添加到 Registry" loading="lazy"></a><figcaption><span data-i18n="搜索 filesystem-mcp 并添加到 Registry · 点击查看大图">搜索 filesystem-mcp 并添加到 Registry · 点击查看大图</span></figcaption></figure>
             <figure class="labfigure labfigure-small"><a href="instructions/images/tools_read.png" target="_blank" rel="noopener"><img src="instructions/images/tools_read.png" alt="仅允许 view 工具" loading="lazy"></a><figcaption><span data-i18n="仅允许 view 工具 · 点击查看大图">仅允许 view 工具 · 点击查看大图</span></figcaption></figure>
@@ -1107,11 +1111,11 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenC
         <section class="section">
           <div class="section-head"><span class="number">02</span><h2><span data-i18n="客户端使用受限的 MCP Server">客户端使用受限的 MCP Server</span></h2></div>
           <div class="body">
-            <p><span data-i18n="在 Chat 中依次输入以下内容，并根据返回结果确认客户端只能使用管理员授权的 MCP tools。">在 Chat 中依次输入以下内容，并根据返回结果确认客户端只能使用管理员授权的 MCP tools。</span></p>
+            <p><span data-i18n="在 Chat 中依次输入以下内容，并根据返回结果确认客户端只能使用用户授权的 MCP tools。">在 Chat 中依次输入以下内容，并根据返回结果确认客户端只能使用用户授权的 MCP tools。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 1">Chat 输入 1</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>我的项目有哪些 mcp server 可以使用</code></pre></div>
             <p class="expect"><span data-i18n="验证效果：返回本人项目已授权的 MCP Server，包含 filesystem-mcp；未授权的服务器不应出现在可用列表中。">验证效果：返回本人项目已授权的 MCP Server，包含 filesystem-mcp；未授权的服务器不应出现在可用列表中。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 2">Chat 输入 2</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>安装 filesystem-mcp</code></pre></div>
-            <p class="expect"><span data-i18n="验证效果：filesystem-mcp 安装成功，并且客户端只能看到管理员授权的 view tool。">验证效果：filesystem-mcp 安装成功，并且客户端只能看到管理员授权的 view tool。</span></p>
+            <p class="expect"><span data-i18n="验证效果：filesystem-mcp 安装成功，并且客户端只能看到用户授权的 view tool。">验证效果：filesystem-mcp 安装成功，并且客户端只能看到用户授权的 view tool。</span></p>
             <p class="help"><span data-i18n="启动说明：安装成功后，客户端 Agent 会根据项目授权自动加载并启动 filesystem-mcp，无需在终端中单独运行服务器命令。等待客户端报告服务器已连接后，查看可用 tools，确认只有 view；如果服务器未连接，重新执行安装指令并检查 Agent Guard 的授权结果。">启动说明：安装成功后，客户端 Agent 会根据项目授权自动加载并启动 filesystem-mcp，无需在终端中单独运行服务器命令。等待客户端报告服务器已连接后，查看可用 tools，确认只有 view；如果服务器未连接，重新执行安装指令并检查 Agent Guard 的授权结果。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 3">Chat 输入 3</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>安装 mongodb mcp server</code></pre></div>
             <p class="expect"><span data-i18n="验证效果：安装被拒绝，因为 mongodb MCP Server 未获得管理员授权。">验证效果：安装被拒绝，因为 mongodb MCP Server 未获得管理员授权。</span></p>
@@ -1123,12 +1127,12 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenC
         </section>
         <section class="section">
           <div class="section-head"><span class="number">03</span><h2><span data-i18n="开放 MCP 所有 tools">开放 MCP 所有 tools</span></h2></div>
-          <div class="body"><ol><li><span data-i18n="使用">使用 </span><b>workshopadmin</b><span data-i18n="登录平台，进入"> 登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li><li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li><li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li></ol><figure class="labfigure labfigure-small"><a href="instructions/images/tools_all.png" target="_blank" rel="noopener"><img src="instructions/images/tools_all.png" alt="管理员为本人项目开放 filesystem-mcp 所有 tools" loading="lazy"></a><figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption></figure></div>
+          <div class="body"><ol><li><span data-i18n="使用当前用户账号登录平台，进入">使用当前用户账号登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li><li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li><li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li></ol><figure class="labfigure labfigure-small"><a href="instructions/images/tools_all.png" target="_blank" rel="noopener"><img src="instructions/images/tools_all.png" alt="用户为本人项目开放 filesystem-mcp 所有 tools" loading="lazy"></a><figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption></figure></div>
         </section>
         <section class="section">
           <div class="section-head"><span class="number">04</span><h2><span data-i18n="客户端 Agent 使用 tools 全开放的 MCP">客户端 Agent 使用 tools 全开放的 MCP</span></h2></div>
           <div class="body">
-            <p><span data-i18n="在 Chat 中输入以下内容，验证客户端 Agent 可以使用管理员开放的写入 tools。">在 Chat 中输入以下内容，验证客户端 Agent 可以使用管理员开放的写入 tools。</span></p>
+            <p><span data-i18n="在 Chat 中输入以下内容，验证客户端 Agent 可以使用用户开放的写入 tools。">在 Chat 中输入以下内容，验证客户端 Agent 可以使用用户开放的写入 tools。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入">Chat 输入</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</code></pre></div>
             <p class="expect"><span data-i18n="验证效果：客户端 Agent 通过 filesystem-mcp 的创建工具成功创建 lab_dir/test.txt，并可继续读取文件确认内容为 Hello JFrog Workshop。">验证效果：客户端 Agent 通过 filesystem-mcp 的创建工具成功创建 lab_dir/test.txt，并可继续读取文件确认内容为 Hello JFrog Workshop。</span></p>
           </div>
@@ -1145,7 +1149,7 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenC
             <h2><span data-i18n="MCP Marketplace 准入配置">MCP Marketplace 准入配置</span></h2>
           </div>
           <div class="body">
-            <p><span class="tag"><span data-i18n="管理员操作">管理员操作</span></span><span data-i18n="使用"> 使用 </span><b>workshopadmin</b><span data-i18n="账号登录 JFrog。"> 账号登录 JFrog。</span></p>
+            <p><span class="tag"><span data-i18n="用户操作">用户操作</span></span><span data-i18n="使用当前用户账号登录 JFrog。">使用当前用户账号登录 JFrog。</span></p>
             <ol>
               <li><span data-i18n="进入">进入 </span><b>AI/ML → AI Security → Marketplace → MCP Servers</b>。</li>
               <li><span data-i18n="搜索">搜索 </span><code>filesystem-mcp</code><span data-i18n="，点击">，点击 </span><b>Add to Registry</b>。
@@ -1283,15 +1287,15 @@ opencode</code></pre>
             <h2><span data-i18n="开放 MCP 所有 tools">开放 MCP 所有 tools</span></h2>
           </div>
           <div class="body">
-            <h3><span data-i18n="Step 1 · 管理员开放全部工具">Step 1 · 管理员开放全部工具</span></h3>
+            <h3><span data-i18n="Step 1 · 用户开放全部工具">Step 1 · 用户开放全部工具</span></h3>
             <ol>
-              <li><span data-i18n="使用">使用 </span><b>workshopadmin</b><span data-i18n="登录平台，进入"> 登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li>
+              <li><span data-i18n="使用当前用户账号登录平台，进入">使用当前用户账号登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li>
               <li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li>
               <li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li>
             </ol>
             <figure class="labfigure labfigure-small">
               <a href="instructions/images/tools_all.png" target="_blank" rel="noopener">
-                <img src="instructions/images/tools_all.png" alt="管理员为本人项目开放 filesystem-mcp 所有 tools" loading="lazy" data-i18n-alt="管理员为本人项目开放 filesystem-mcp 所有 tools">
+                <img src="instructions/images/tools_all.png" alt="用户为本人项目开放 filesystem-mcp 所有 tools" loading="lazy" data-i18n-alt="用户为本人项目开放 filesystem-mcp 所有 tools">
               </a>
               <figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption>
             </figure>
@@ -1400,7 +1404,7 @@ opencode</code></pre>
 <section class="section">
 <div class="section-head"><span class="number">04</span><h2><span data-i18n="Block 恶意 Skills">Block 恶意 Skills</span></h2></div>
 <div class="body">
-<p><span data-i18n="使用 workshopadmin 账号登录 JFrog 平台，再进行以下策略配置操作。">使用 workshopadmin 账号登录 JFrog 平台，再进行以下策略配置操作。</span></p>
+<p><span data-i18n="使用当前用户账号登录 JFrog 平台，再进行以下策略配置操作。">使用当前用户账号登录 JFrog 平台，再进行以下策略配置操作。</span></p>
 <p><b>1. </b><span data-i18n="进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。">进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。</span></p>
 <p><code id="skillsPolicyName">projectN-skills-policy</code></p>
 <figure class="labfigure"><a href="instructions/images/skills-policy-1.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-1.png" alt="Policy — 1" loading="lazy"></a></figure>
@@ -1411,7 +1415,7 @@ opencode</code></pre>
 <p><b>4. </b><span data-i18n="Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。">Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。</span></p>
 <figure class="labfigure"><a href="instructions/images/skills-policy-4.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-4.png" alt="Policy — 4" loading="lazy"></a></figure>
 <h3><span data-i18n="查看 Skill 适用的 Policy">查看 Skill 适用的 Policy</span></h3>
-<p><span data-i18n="策略配置完成后，退出 workshopadmin，使用普通用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。">策略配置完成后，退出 workshopadmin，使用普通用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。</span></p>
+<p><span data-i18n="策略配置完成后，继续使用本人用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。">策略配置完成后，继续使用本人用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。</span></p>
 <figure class="labfigure"><a href="instructions/images/skills-catalog-list.png" target="_blank" rel="noopener"><img src="instructions/images/skills-catalog-list.png" alt="Skills 列表 · 点击查看大图" data-i18n-alt="Skills 列表 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skills 列表 · 点击查看大图">Skills 列表 · 点击查看大图</span></figcaption></figure>
 <p><span data-i18n="点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。">点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。</span></p>
 <figure class="labfigure"><a href="instructions/images/skills-applicable-policy.png" target="_blank" rel="noopener"><img src="instructions/images/skills-applicable-policy.png" alt="Skill 适用策略 · 点击查看大图" data-i18n-alt="Skill 适用策略 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skill 适用策略 · 点击查看大图">Skill 适用策略 · 点击查看大图</span></figcaption></figure>
@@ -1435,7 +1439,7 @@ opencode</code></pre>
       </main>
       <main class="content" id="page4" hidden><div class="hero"><div><div class="eyebrow">STEP 04 / LAB 03</div><h1 id="resolutionHeading" tabindex="-1">Lab 03: Agents Package Resolution</h1><p class="lead"><span data-i18n="通过 JFrog Catalog 可以查看恶意组件信息，再通过客户端 Agent 验证 JFrog 对安装恶意包请求是否被拦截。">通过 JFrog Catalog 可以查看恶意组件信息，再通过客户端 Agent 验证 JFrog 对安装恶意包请求是否被拦截。</span></p></div></div>
 <section class="section"><div class="section-head"><span class="number">01</span><h2><span data-i18n="在 Catalog 中查看恶意包">在 Catalog 中查看恶意包</span></h2></div><div class="body"><ol><li><span data-i18n="打开 Catalog → Explore，搜索 npm 包 axios。">打开 Catalog → Explore，搜索 npm 包 axios。</span></li><li><span data-i18n="Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。">Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。</span></li></ol><figure class="labfigure"><a href="instructions/images/axios-catalog.png" target="_blank" rel="noopener"><img src="instructions/images/axios-catalog.png" alt="Catalog — axios 1.14.1" loading="lazy"></a><figcaption><span data-i18n="axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图">axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图</span></figcaption></figure></div></section>
-<section class="section"><div class="section-head"><span class="number">02</span><h2><span data-i18n="通过 Agent 验证安装拦截">通过 Agent 验证安装拦截</span></h2></div><div class="body"><p><span data-i18n="在 Chat 中输入以下内容">在 Chat 中输入以下内容</span></p><div class="codebox"><div class="codehead"><span>Chat / Client Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="在 npm 目录下安装 axios 1.14.1">在 npm 目录下安装 axios 1.14.1</span></code></pre></div><div class="expect"><span data-i18n="预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。">预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。</span></div></div></section>
+<section class="section"><div class="section-head"><span class="number">02</span><h2><span data-i18n="通过 Agent 验证安装拦截">通过 Agent 验证安装拦截</span></h2></div><div class="body"><p><span data-i18n="在 Chat 中输入以下内容">在 Chat 中输入以下内容</span></p><div class="codebox"><div class="codehead"><span>Chat / Client Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="在 npm 目录下安装 axios 1.14.1">在 npm 目录下安装 axios 1.14.1</span></code></pre></div><div class="expect"><span data-i18n="预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。">预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。</span></div><p class="help"><span data-i18n="预期结果示例：Agent 完成检查后不会安装 axios@1.14.1，并提示 JFrog Catalog 已将该版本标记为恶意（knownToBeMalicious: true）；由于该版本未出现在 Artifactory 的套件索引中，Agent 会停止安装。">预期结果示例：Agent 完成检查后不会安装 axios@1.14.1，并提示 JFrog Catalog 已将该版本标记为恶意（knownToBeMalicious: true）；由于该版本未出现在 Artifactory 的套件索引中，Agent 会停止安装。</span></p><figure class="labfigure labfigure-half"><a href="instructions/images/axios-agent-blocked.png" target="_blank" rel="noopener"><img src="instructions/images/axios-agent-blocked.png" alt="Agent 拦截 axios 1.14.1 安装" loading="lazy"></a><figcaption><span data-i18n="Agent 拦截 axios 1.14.1 安装 · 点击查看大图">Agent 拦截 axios 1.14.1 安装 · 点击查看大图</span></figcaption></figure></div></section>
 <section class="section"><div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div><div class="body"><div class="checks"><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已在 Catalog 查看 axios 1.14.1 的恶意判定">已在 Catalog 查看 axios 1.14.1 的恶意判定</span></span></label><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios 1.14.1 的安装请求">已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios 1.14.1 的安装请求</span></span></label></div><div class="expect" id="resolutionProgress">0 / 2</div></div></section></main>
 <main class="content celebration-page" id="page5" hidden>
         <section class="celebration-card">
@@ -1505,7 +1509,7 @@ opencode</code></pre>
       const identity = workshopIdentity() || {user: 'userN', project: 'projectKey'};
       $('#mcpAuthIdentity').textContent = t('弹出 JPD 登录页面后，请使用当前学员账号 {user} 登录并授权。').replaceAll('{user}', identity?.user || 'userN');
       const repo = identity.project + '-workshop-skills';
-      $('#skillsCreatePrompt').textContent = t('在 {project} 中创建 skills 仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', repo);
+      $('#skillsCreatePrompt').textContent = t('在 {project} 中创建 skills 类型仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', repo);
       $('#skillsPolicyName').textContent = identity.project + '-skills-policy';
       $('#skillsInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.1 到 skills/download 目录。').replaceAll('{repo}', repo);
       $('#skillsPublishCode').textContent = 'jf agent skills publish user/skills/skills-e2e-single --repo ' + repo;
