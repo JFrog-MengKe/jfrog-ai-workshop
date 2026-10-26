@@ -30,7 +30,7 @@ const server=http.createServer(async(req,res)=>{
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
     return fs.createReadStream(path.join(env.ROOT, file)).pipe(res);
   }
-  const imageNames=['mcp-server.png','tools_read.png','tools_all.png','registry.png','skills-repo.png','skills-upload.png','skills-scan.png','axios-catalog.png','skills-policy-1.png','skills-policy-2.png','skills-policy-3.png','skills-policy-4.png','skills-catalog-list.png','skills-applicable-policy.png','jfrog-mcp.png','jfrog.png','opencode.png','settings.png','codespaces-secrets-repository.png','codespaces-launch.png','agent-guard-browse-mcp.png'];
+  const imageNames=['mcp-server.png','tools_read.png','tools_all.png','registry.png','skills-repo.png','skills-upload.png','skills-scan.png','axios-catalog.png','skills-policy-1.png','skills-policy-2.png','skills-policy-3.png','skills-policy-4.png','skills-catalog-list.png','skills-applicable-policy.png','jfrog-mcp.png','jfrog.png','opencode.png','settings.png','codespaces-secrets-repository.png','codespaces-launch.png','agent-guard-browse-mcp.png','agent-guard-running.png','agent-guard-discovered-tools.png'];
   if(req.method==='GET'&&imageNames.some(name=>req.url==='/instructions/images/'+name)){
     res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});
     return fs.createReadStream(path.join(env.ROOT,'instructions','images',req.url.split('/').pop())).pipe(res);
@@ -41,7 +41,7 @@ const server=http.createServer(async(req,res)=>{
     return fs.createReadStream(path.join(env.ROOT,'workshop.html')).pipe(res);
   }
   if(!equal(req.headers.authorization,'Bearer '+token))return json(res,403,{error:'Open the URL printed by the launcher, including #session=...'});
-  if(req.method==='GET'&&req.url==='/api/status')return json(res,200,{...job,identity,platform:env.PLATFORM,base:env.BASE});
+  if(req.method==='GET'&&req.url==='/api/status')return json(res,200,{...job,identity,platform:env.PLATFORM,base:env.BASE,codespacesProject:process.env.JF_PROJECT||'',codespacesUser:process.env.JFROG_USERNAME||process.env.JFROG_USER||''});
   if(req.method==='POST'&&req.url==='/api/init'){
     if(!isAllowedOrigin(req.headers.origin)||req.headers['content-type']!=='application/json')return json(res,403,{error:'Same-origin JSON request required'});
     if(child||starting)return json(res,409,{error:'An initialization is already running'});

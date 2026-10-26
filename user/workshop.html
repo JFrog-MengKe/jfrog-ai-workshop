@@ -1062,25 +1062,9 @@ cd jfrog-ai-workshop/user</code></pre>
         <div class="setup-variant" id="setup-codespaces">
           <div class="eyebrow">STEP 01 / GITHUB CODESPACES</div>
           <h1 tabindex="-1" id="codespacesHeading">JFrog AI Security Workshop</h1>
-<p class="lead"><span data-i18n="本次 Workshop 通过 GitHub Codespaces 实验环境完成。">本次 Workshop 通过 GitHub Codespaces 实验环境完成。</span></p>          <section class="section">
-            <div class="section-head"><span class="number">01</span><h2><span data-i18n="填写 Workshop 参数">填写 Workshop 参数</span></h2></div>
-            <div class="body"><p><span data-i18n="填写 JPD 平台地址、用户名和 Project Key，填写完成后点击确定。">填写 JPD 平台地址、用户名和 Project Key，填写完成后点击确定。</span></p><p class="help"><span data-i18n="以上参数由讲师提供。">以上参数由讲师提供。</span></p><div class="init-grid"><div class="field"><label for="codespacesPlatform"><span data-i18n="JPD 平台地址">JPD 平台地址</span></label><input id="codespacesPlatform" type="url" placeholder="https://your-company.jfrog.io" autocomplete="off" spellcheck="false"></div><div class="field"><label for="codespacesUsername"><span data-i18n="用户名">用户名</span></label><input id="codespacesUsername" placeholder="user1" autocomplete="off" spellcheck="false"></div><div class="field"><label for="codespacesProject"><span data-i18n="Project Key">Project Key</span></label><input id="codespacesProject" placeholder="project1" autocomplete="off" spellcheck="false"></div></div><div class="init-actions"><button class="primary" id="codespacesConfirm"><span data-i18n="确定">确定</span></button><span class="init-help" id="codespacesProfileStatus"><span data-i18n="请先填写 JPD 平台地址、用户名和 Project Key。">请先填写 JPD 平台地址、用户名和 Project Key。</span></span></div></div>
-          </section>
+<p class="lead"><span data-i18n="本次 Workshop 通过 GitHub Codespaces 实验环境完成。">本次 Workshop 通过 GitHub Codespaces 实验环境完成。</span></p>
           <section class="section">
-            <div class="section-head"><span class="number">02</span><h2><span data-i18n="Fork Workshop 仓库">Fork Workshop 仓库</span></h2></div>
-            <div class="body"><p><span data-i18n="使用本人 GitHub 账号打开下方 Workshop 仓库并 Fork。">使用本人 GitHub 账号打开下方 Workshop 仓库并 Fork。</span></p><p><a href="https://github.com/slash-l/jfrog-ai-workshop" target="_blank" rel="noopener noreferrer">slash-l/jfrog-ai-workshop ↗</a></p></div>
-          </section>
-          <section class="section">
-            <div class="section-head"><span class="number">03</span><h2><span data-i18n="配置 Codespaces Secrets">配置 Codespaces Secrets</span></h2></div>
-            <div class="body"><p><span data-i18n="在本人 Fork 仓库的 Settings → Secrets and variables → Codespaces 中，点击 New repository secret。">在本人 Fork 仓库的 Settings → Secrets and variables → Codespaces 中，点击 New repository secret。</span></p><p><span data-i18n="添加下表四个 Secrets；它们只对当前仓库生效。">添加下表四个 Secrets；它们只对当前仓库生效。</span></p><div class="tablewrap"><table><thead><tr><th>Secret</th><th><span data-i18n="填写内容">填写内容</span></th></tr></thead><tbody><tr><td><code>JFROG_ACCESS_TOKEN</code></td><td><span data-i18n="本人 JFrog Access Token。向讲师领取或按平台流程生成，不填写登录密码。">本人 JFrog Access Token。向讲师领取或按平台流程生成，不填写登录密码。</span></td></tr><tr><td><code>JFROG_PLATFORM_URL</code></td><td><code id="codespacesPlatformSecret">your-company.jfrog.io</code></td></tr><tr><td><code>JFROG_URL</code></td><td><code id="codespacesUrlSecret">https://your-company.jfrog.io</code></td></tr><tr><td><code>JF_PROJECT</code></td><td><code id="codespacesProjectSecret">project1</code></td></tr></tbody></table></div><figure class="labfigure"><a href="instructions/images/codespaces-secrets-repository.png" target="_blank" rel="noopener"><img src="instructions/images/codespaces-secrets-repository.png" alt="GitHub 仓库 Codespaces Secrets" loading="lazy"></a><figcaption><span data-i18n="GitHub 仓库 Codespaces 设置 · 点击查看大图">GitHub 仓库 Codespaces 设置 · 点击查看大图</span></figcaption></figure></div>
-          </section>
-          <section class="section">
-            <div class="section-head"><span class="number">04</span><h2><span data-i18n="启动 GitHub Codespaces">启动 GitHub Codespaces</span></h2></div>
-            <div class="body"><ol><li><span data-i18n=" Fork 的仓库，点击 Code。">Fork 的仓库，点击 Code。</span></li><li><span data-i18n="切换到 Codespaces 标签，点击 Create codespace on main。">切换到 Codespaces 标签，点击 Create codespace on main。</span></li></ol><figure class="labfigure"><a href="instructions/images/codespaces-launch.png" target="_blank" rel="noopener"><img src="instructions/images/codespaces-launch.png" alt="GitHub Codespaces 启动入口" loading="lazy"></a><figcaption><span data-i18n="GitHub 仓库 Code → Codespaces · 点击查看大图">GitHub 仓库 Code → Codespaces · 点击查看大图</span></figcaption></figure>
-</div>
-          </section>
-          <section class="section">
-            <div class="section-head"><span class="number">05</span><h2><span data-i18n="检查环境和工具">检查环境和工具</span></h2></div>
+            <div class="section-head"><span class="number">01</span><h2><span data-i18n="检查环境和工具">检查环境和工具</span></h2></div>
             <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>node --version
 npx --version
 opencode --version
@@ -1095,11 +1079,11 @@ opencode --version
 jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenCode ≥ 1.17.7、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、OpenCode ≥ 1.17.7、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
           </section>
           <section class="section">
-            <div class="section-head"><span class="number">06</span><h2><span data-i18n="验证 JFrog Agent Guard">验证 JFrog Agent Guard</span></h2></div>
-            <div class="body"><ol><li><span data-i18n="在 Codespaces 左上角三横线主菜单中打开 Command Palette...，搜索并选择 Browse MCP Servers。">在 Codespaces 左上角三横线主菜单中打开 Command Palette...，搜索并选择 Browse MCP Servers。</span></li><li><span data-i18n="找到 JFrog Plugin，点击 Start。">找到 JFrog Plugin，点击 Start。</span></li><li><span data-i18n="按页面跳转到 JPD，使用本人账号完成认证授权。">按页面跳转到 JPD，使用本人账号完成认证授权。</span></li></ol><figure class="labfigure"><a href="instructions/images/agent-guard-browse-mcp.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-browse-mcp.png" alt="Browse MCP Servers 中启动 JFrog Plugin" loading="lazy"></a><figcaption><span data-i18n="Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图">Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="预期结果：JFrog Plugin 启动成功，show log 中显示已连接服务端并且获取到 tools。">预期结果：JFrog Plugin 启动成功，show log 中显示已连接服务端并且获取到 tools。</span></p></div>
+            <div class="section-head"><span class="number">02</span><h2><span data-i18n="验证 JFrog Agent Guard">验证 JFrog Agent Guard</span></h2></div>
+            <div class="body"><ol><li><span data-i18n="在 Codespaces 左上角三横线主菜单中打开 Command Palette...，搜索并选择 Browse MCP Servers。">在 Codespaces 左上角三横线主菜单中打开 Command Palette...，搜索并选择 Browse MCP Servers。</span></li><li><span data-i18n="找到 JFrog Plugin，点击 Start。">找到 JFrog Plugin，点击 Start。</span></li><li><span data-i18n="按页面跳转到 JPD，使用本人账号完成认证授权。">按页面跳转到 JPD，使用本人账号完成认证授权。</span></li></ol><figure class="labfigure"><a href="instructions/images/agent-guard-browse-mcp.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-browse-mcp.png" alt="Browse MCP Servers 中启动 JFrog Plugin" loading="lazy"></a><figcaption><span data-i18n="Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图">Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="判断安装并启动完成：在 MCP Server 列表中看到 jfrog，状态显示 Running，说明 JFrog Agent Plugin 已安装并启动。">判断安装并启动完成：在 MCP Server 列表中看到 jfrog，状态显示 Running，说明 JFrog Agent Plugin 已安装并启动。</span></p><figure class="labfigure labfigure-small"><a href="instructions/images/agent-guard-running.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-running.png" alt="JFrog Agent Plugin 状态为 Running" loading="lazy"></a><figcaption><span data-i18n="JFrog Agent Plugin 显示 Running · 点击查看大图">JFrog Agent Plugin 显示 Running · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="判断服务连接并获取 tools：打开 JFrog Plugin 的 show log，看到日志出现 Discovered tools（例如 Discovered 84 tools），说明服务端已连接并成功获取 tools。">判断服务连接并获取 tools：打开 JFrog Plugin 的 show log，看到日志出现 Discovered tools（例如 Discovered 84 tools），说明服务端已连接并成功获取 tools。</span></p><figure class="labfigure labfigure-small"><a href="instructions/images/agent-guard-discovered-tools.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-discovered-tools.png" alt="JFrog Agent Plugin 日志显示 Discovered tools" loading="lazy"></a><figcaption><span data-i18n="日志显示 Discovered tools · 点击查看大图">日志显示 Discovered tools · 点击查看大图</span></figcaption></figure></div>
           </section>
           <section class="section">
-            <div class="section-head"><span class="number">07</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div>
+            <div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div>
             <div class="body"><div class="checks"><label class="check"><input type="checkbox" class="codespacescheck"><span data-i18n="Codespaces 环境初始化完成，jf 验证通过">Codespaces 环境初始化完成，jf 验证通过</span></label><label class="check"><input type="checkbox" class="codespacescheck"><span data-i18n="JFrog Agent Plugin 已完成安装并启动">JFrog Agent Plugin 已完成安装并启动</span></label></div><div class="expect" id="codespacesProgress">0 / 2</div></div>
           </section>
         </div>
@@ -1478,7 +1462,7 @@ opencode</code></pre>
     const tools = [['opencode', 'OpenCode 1.x ≥ 1.17.7'], ['node', 'Node.js ≥ 18'], ['npx', t("npx ≥ 6（随 Node 提供）")], ['jf', 'JFrog CLI 2.x ≥ 2.100.0'], ['jq', 'jq ≥ 1.6'], ['curl', 'curl ≥ 7.64']];
     const esc = s => String(s ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
     const session = new URLSearchParams(location.hash.slice(1)).get('session');
-    let ready = false, timer = null, last = null, codespacesIdentity = null;
+    let ready = false, timer = null, last = null, codespacesIdentity = {user: 'userN', project: 'projectKey'};
     let currentPage = 1;
     let lastStatus = null;
     function status(s, error = false) {lastStatus = { source: window.WorkshopI18n.source(s), error };$('#status').textContent = s; $('#status').classList.toggle('error', error)}
@@ -1498,7 +1482,6 @@ opencode</code></pre>
       if (!localSetupVisible() && !codespacesSetupVisible()) return false;
       if (localSetupVisible() && !ready) return false;
       if (codespacesSetupVisible()) {
-        if (!codespacesIdentity) return false;
         const checks = [...document.querySelectorAll('.codespacescheck')];
         if (!checks.length || !checks.every(check => check.checked)) return false;
       }
@@ -1510,9 +1493,6 @@ opencode</code></pre>
     }
     function applyIdentityPlaceholders(identity) {
       if (!identity) return;
-      $('#codespacesPlatformSecret').textContent = identity.platformHost;
-      $('#codespacesUrlSecret').textContent = identity.url;
-      $('#codespacesProjectSecret').textContent = identity.project;
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       const nodes = [];
       while (walker.nextNode()) {
@@ -1521,47 +1501,22 @@ opencode</code></pre>
       }
       nodes.forEach(node => { node.nodeValue = node.nodeValue.replaceAll('projectN', identity.project).replaceAll('userN', identity.user); });
     }
-    $('#codespacesConfirm').onclick = () => {
-      const rawUrl = $('#codespacesPlatform').value.trim();
-      const user = $('#codespacesUsername').value.trim();
-      const project = $('#codespacesProject').value.trim();
-      let parsed;
-      try {
-        parsed = new URL(rawUrl);
-        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.search || parsed.hash || !['', '/'].includes(parsed.pathname)) throw Error('bad');
-      } catch {
-        $('#codespacesProfileStatus').textContent = t('请填写平台根地址，例如 https://your-company.jfrog.io，不含 /artifactory。');
-        return;
-      }
-      if (!/^[^\s\r\n\0]{1,128}$/.test(user)) {
-        $('#codespacesProfileStatus').textContent = t('请输入有效的用户名。');
-        return;
-      }
-      if (!/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(project)) {
-        $('#codespacesProfileStatus').textContent = t('请输入有效的 Project Key，例如 project1。');
-        return;
-      }
-      codespacesIdentity = {url: parsed.origin, platformHost: parsed.host, user, project};
-      $('#codespacesProject').value = project;
-      $('#codespacesProfileStatus').textContent = t('参数已确认，后续说明将使用当前 JPD 地址、用户名和 Project。');
-      $('#codespacesConfirm').disabled = true;
-      applyIdentityPlaceholders(codespacesIdentity);
-      updateNavigation();
-    };
     function updateSkillsCommand() {
-      const identity = workshopIdentity();
+      const identity = workshopIdentity() || {user: 'userN', project: 'projectKey'};
       $('#mcpAuthIdentity').textContent = t('弹出 JPD 登录页面后，请使用当前学员账号 {user} 登录并授权。').replaceAll('{user}', identity?.user || 'userN');
-      $('#skillsCreatePrompt').textContent = identity
-        ? t('在 {project} 中创建 skills 类型仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', identity.project + '-workshop-skills')
-        : t('请先在第一页填写本人账号和对应 Project。');
-      const repo = identity ? identity.project + '-workshop-skills' : '';
-      $('#skillsPolicyName').textContent = identity ? identity.project + '-skills-policy' : 'projectN-skills-policy';
-      $('#skillsInstallPrompt').textContent = identity && /^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(repo) ? t('从 {repo} 安装 skills-e2e-single@0.0.1 到 skills/download 目录。').replaceAll('{repo}', repo) : t('请先在第一页填写本人账号和对应 Project。');
-      if (!/^[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(repo) || !identity) {
-        $('#skillsPublishCode').textContent = t("请先完成第一页初始化，并填写本人仓库的完整 Repository Key。");
-        return;
-      }
+      const repo = identity.project + '-workshop-skills';
+      $('#skillsCreatePrompt').textContent = t('在 {project} 中创建 skills 仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', repo);
+      $('#skillsPolicyName').textContent = identity.project + '-skills-policy';
+      $('#skillsInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.1 到 skills/download 目录。').replaceAll('{repo}', repo);
       $('#skillsPublishCode').textContent = 'jf agent skills publish user/skills/skills-e2e-single --repo ' + repo;
+    }
+    async function loadCodespacesIdentity() {
+      try {
+        const data = await api('/api/status');
+        if (data.codespacesProject) codespacesIdentity.project = data.codespacesProject;
+        if (data.codespacesUser) codespacesIdentity.user = data.codespacesUser;
+        updateSkillsCommand();
+      } catch {}
     }
     function canAdvance() {
       if (currentPage === 1) return setupComplete();
@@ -1676,6 +1631,7 @@ opencode</code></pre>
       else if (localSetupVisible()) status(t('请通过 start-workshop 启动器打开页面，随后即可使用初始化按钮。'));
       updateCodespacesSetup();
       showPage(currentPage);
+      loadCodespacesIdentity();
     });
   </script>
 </body>
