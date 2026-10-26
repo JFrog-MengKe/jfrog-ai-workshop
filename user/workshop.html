@@ -1512,11 +1512,14 @@ opencode</code></pre>
     }
     async function loadCodespacesIdentity() {
       try {
-        const data = await api('/api/status');
-        if (data.codespacesProject) codespacesIdentity.project = data.codespacesProject;
-        if (data.codespacesUser) codespacesIdentity.user = data.codespacesUser;
-        updateSkillsCommand();
-      } catch {}
+        const response = await fetch('/api/workshop-context', {cache: 'no-store'});
+        if (!response.ok) throw Error('Workshop context HTTP ' + response.status);
+        const data = await response.json();
+        if (data.project) codespacesIdentity.project = data.project;
+        if (data.user) codespacesIdentity.user = data.user;
+      } catch (error) {
+        console.warn('Could not load JF_PROJECT from the workshop launcher:', error.message);
+      }
     }
     function canAdvance() {
       if (currentPage === 1) return setupComplete();
@@ -1625,13 +1628,13 @@ opencode</code></pre>
       $('#labProgress').textContent = document.querySelectorAll('.labcheck:checked').length + ' / ' + document.querySelectorAll('.labcheck').length + t(' 项完成');
       $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(' / 4 项完成');
     };
-    window.WorkshopI18n.ready.then(() => {
+    window.WorkshopI18n.ready.then(async () => {
+      await loadCodespacesIdentity();
       table();
       if (localSetupVisible() && session && location.protocol === 'http:' && location.hostname === '127.0.0.1') poll();
       else if (localSetupVisible()) status(t('请通过 start-workshop 启动器打开页面，随后即可使用初始化按钮。'));
       updateCodespacesSetup();
       showPage(currentPage);
-      loadCodespacesIdentity();
     });
   </script>
 </body>
