@@ -9,7 +9,7 @@
 
    ```bash
    cd user
-   ./start-workshop.sh
+   ./start-workshop.command
    ```
 
 3. 腳本會啟動並開啟 Workshop HTML 操作說明；如果沒有自動開啟，請使用終端輸出的連結存取。
