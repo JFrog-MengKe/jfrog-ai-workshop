@@ -60,7 +60,7 @@ const server=http.createServer(async(req,res)=>{
   }
   return json(res,404,{error:'Not found'});
 });
-server.listen(0,'127.0.0.1',()=>{
+server.listen(0,process.env.CODESPACES==='true'?'0.0.0.0':'127.0.0.1',()=>{
  const port=server.address().port,localOrigin=`http://127.0.0.1:${port}`,localhostOrigin=`http://localhost:${port}`,forwardedOrigin=codespacesOrigin(port);
  origin=forwardedOrigin||localOrigin;
  for(const allowedOrigin of [localOrigin,localhostOrigin,forwardedOrigin].filter(Boolean)){const parsed=new URL(allowedOrigin);allowedHosts.add(parsed.host.toLowerCase());allowedOrigins.add(parsed.origin)}
