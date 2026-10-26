@@ -98,12 +98,14 @@ fi
 jf --version
 
 if [ -n "${JF_PROJECT:-}" ]; then
-  node - "$JF_PROJECT" <<'NODE'
+  WORKSPACE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+  node - "$JF_PROJECT" "$WORKSPACE_ROOT" <<'NODE'
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 
 const project = process.argv[2];
+const workspaceRoot = process.argv[3];
 if (!/^[A-Za-z0-9][A-Za-z0-9_.-]*$/.test(project)) {
   console.error('[JFrog] JF_PROJECT 格式无效，跳过 agents-conf.json 配置。');
   process.exit(0);
@@ -132,6 +134,26 @@ fs.mkdirSync(directory, {recursive: true, mode: 0o700});
 fs.writeFileSync(file, JSON.stringify(config, null, 2) + '\n', {mode: 0o600});
 fs.chmodSync(file, 0o600);
 console.log(`[JFrog] 已根据 JF_PROJECT=${project} 配置 ${file}`);
+
+const bindingDirectory = path.join(workspaceRoot, '.jfrog', 'local');
+const bindingFile = path.join(bindingDirectory, 'package-resolution.json');
+let binding = {};
+try {
+  if (fs.existsSync(bindingFile)) binding = JSON.parse(fs.readFileSync(bindingFile, 'utf8'));
+} catch (error) {
+  console.error(`[JFrog] 无法读取 ${bindingFile}，跳过工程级绑定：${error.message}`);
+  process.exit(0);
+}
+
+binding.repositories = {
+  ...(binding.repositories || {}),
+  npm: `${project}-npm-virtual`,
+  pypi: `${project}-pypi-virtual`
+};
+fs.mkdirSync(bindingDirectory, {recursive: true, mode: 0o700});
+fs.writeFileSync(bindingFile, JSON.stringify(binding, null, 2) + '\n', {mode: 0o600});
+fs.chmodSync(bindingFile, 0o600);
+console.log(`[JFrog] 已配置工程级绑定 ${bindingFile}`);
 NODE
 else
   echo "[JFrog] JF_PROJECT 未设置，跳过 agents-conf.json 配置。"
