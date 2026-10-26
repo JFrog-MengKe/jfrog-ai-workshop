@@ -97,6 +97,46 @@ if ! command -v jf >/dev/null 2>&1; then
 fi
 jf --version
 
+if [ -n "${JF_PROJECT:-}" ]; then
+  node - "$JF_PROJECT" <<'NODE'
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+
+const project = process.argv[2];
+if (!/^[A-Za-z0-9][A-Za-z0-9_.-]*$/.test(project)) {
+  console.error('[JFrog] JF_PROJECT 格式无效，跳过 agents-conf.json 配置。');
+  process.exit(0);
+}
+
+const directory = path.join(os.homedir(), '.jfrog');
+const file = path.join(directory, 'agents-conf.json');
+let config = {};
+try {
+  if (fs.existsSync(file)) config = JSON.parse(fs.readFileSync(file, 'utf8'));
+} catch (error) {
+  console.error(`[JFrog] 无法读取 ${file}，跳过自动配置：${error.message}`);
+  process.exit(0);
+}
+
+config.packageResolution = {
+  ...(config.packageResolution || {}),
+  enabled: true,
+  defaultGlobalRepos: {
+    ...(config.packageResolution?.defaultGlobalRepos || {}),
+    npm: `${project}-npm-virtual`,
+    pypi: `${project}-pypi-virtual`
+  }
+};
+fs.mkdirSync(directory, {recursive: true, mode: 0o700});
+fs.writeFileSync(file, JSON.stringify(config, null, 2) + '\n', {mode: 0o600});
+fs.chmodSync(file, 0o600);
+console.log(`[JFrog] 已根据 JF_PROJECT=${project} 配置 ${file}`);
+NODE
+else
+  echo "[JFrog] JF_PROJECT 未设置，跳过 agents-conf.json 配置。"
+fi
+
 if [ -z "${JFROG_ACCESS_TOKEN:-}" ]; then
   printf '%s\n' '找不到 JFROG_ACCESS_TOKEN；請確認 Codespaces Secret 已授權此 Repository，然後重建 Codespace。'
 else
