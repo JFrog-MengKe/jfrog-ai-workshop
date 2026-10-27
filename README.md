@@ -3,6 +3,13 @@
 本 Workshop 透過 GitHub Codespaces 學習 JFrog AI Security 的基本流程：設定 MCP Server 及工具權限、使用客戶端 Agent 驗證授權效果、上傳並掃描 Skills，並透過 Package Resolution 攔截惡意元件安裝。
 
 ## 環境準備
+### 00 JPD 信息
+JPD Workshop 平台訪問地址和帳號信息由 JFrog 講師發放。信息包括：
+- JPD URL
+- User Name
+- Password
+- Project Key
+
 ### 01 Fork Workshop 儲存庫
 開啟以下 Workshop 儲存庫，使用本人的 GitHub 帳號並 Fork：
 <https://github.com/slash-l/jfrog-ai-workshop>
