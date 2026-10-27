@@ -1141,200 +1141,6 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenC
         </section>
         <section class="section"><div class="section-head"><span class="number">05</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div><div class="body"><div class="checks"><label class="check"><input type="checkbox" class="labcheck"><span data-i18n="授权使用的 filesystem-mcp 可安装可使用">授权使用的 filesystem-mcp 可安装可使用</span></label><label class="check"><input type="checkbox" class="labcheck"><span data-i18n="未授权的 MongoDB MCP 安装被拒绝">未授权的 MongoDB MCP 安装被拒绝</span></label><label class="check"><input type="checkbox" class="labcheck"><span data-i18n="未授权写操作 tools 的 filesystem-mcp 无法创建文件">未授权写操作 tools 的 filesystem-mcp 无法创建文件</span></label><label class="check"><input type="checkbox" class="labcheck"><span data-i18n="开放 filesystem-mcp 全部 tools 后，可读写操作文件">开放 filesystem-mcp 全部 tools 后，可读写操作文件</span></label></div><div class="expect" id="labProgress"><span data-i18n="0 / 4 项完成">0 / 4 项完成</span></div></div></section>
       </main>
-      <main class="content" id="page2-legacy" hidden>
-        <div class="eyebrow">LAB 01 / MCP GOVERNANCE</div>
-        <h1 tabindex="-1" id="nextHeading"><span data-i18n="Lab 01: MCP Server 治理">Lab 01: MCP Server 治理</span></h1>
-        <p class="lead"><span data-i18n="将 filesystem-mcp 加入本人项目，仅开放 view；通过 OpenCode 和 Agent Guard 验证服务器准入与工具权限。">将 filesystem-mcp 加入本人项目，仅开放 view；通过 OpenCode 和 Agent Guard 验证服务器准入与工具权限。</span></p>
-        <div class="notice" id="labIdentity"><span data-i18n="使用讲师分配的本人账号和对应 Project。">使用讲师分配的本人账号和对应 Project。</span></div>
-        <section class="section">
-          <div class="section-head"><span class="number">01</span>
-            <h2><span data-i18n="MCP Marketplace 准入配置">MCP Marketplace 准入配置</span></h2>
-          </div>
-          <div class="body">
-            <p><span class="tag"><span data-i18n="用户操作">用户操作</span></span><span data-i18n="使用当前用户账号登录 JFrog。">使用当前用户账号登录 JFrog。</span></p>
-            <ol>
-              <li><span data-i18n="进入">进入 </span><b>AI/ML → AI Security → Marketplace → MCP Servers</b>。</li>
-              <li><span data-i18n="搜索">搜索 </span><code>filesystem-mcp</code><span data-i18n="，点击">，点击 </span><b>Add to Registry</b>。
-              </li>
-            </ol>
-            <figure class="labfigure"><a href="instructions/images/mcp-server.png" target="_blank"
-                rel="noopener"><img src="instructions/images/mcp-server.png"
-                  alt="搜索 filesystem-mcp 并添加到 Registry" loading="lazy" data-i18n-alt="搜索 filesystem-mcp 并添加到 Registry"></a>
-              <figcaption><span data-i18n="搜索 filesystem-mcp 并添加到 Registry · 点击查看大图">搜索 filesystem-mcp 并添加到 Registry · 点击查看大图</span></figcaption>
-            </figure>
-            <ol start="3">
-              <li><span data-i18n="选择本人对应的">选择本人对应的 </span><code>projectN</code><span data-i18n="，不要选择其他项目。">，不要选择其他项目。</span></li>
-              <li><span data-i18n="选择">选择 </span><b>Select tools manually → Allow List</b><span data-i18n="，仅填写或选择">，仅填写或选择 </span><code>view</code><span data-i18n="；不要选择 Allow all tools。">；不要选择 Allow all tools。</span></li>
-            </ol>
-            <figure class="labfigure labfigure-small">
-              <a href="instructions/images/tools_read.png" target="_blank" rel="noopener">
-                <img src="instructions/images/tools_read.png" alt="仅允许 view 工具" loading="lazy" data-i18n-alt="仅允许 view 工具">
-              </a>
-              <figcaption><span data-i18n="仅允许 view 工具 · 点击查看大图">仅允许 view 工具 · 点击查看大图</span></figcaption>
-            </figure>
-            <ol start="5">
-              <li><span data-i18n="按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放">按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放 </span><code>view</code>。</li>
-            </ol>
-            <figure class="labfigure">
-              <a href="instructions/images/registry.png" target="_blank" rel="noopener">
-                <img src="instructions/images/registry.png" alt="在 Registry 中确认 filesystem-mcp 准入配置" loading="lazy" data-i18n-alt="在 Registry 中确认 filesystem-mcp 准入配置">
-              </a>
-              <figcaption><span data-i18n="在 Registry 中确认准入配置 · 点击查看大图">在 Registry 中确认准入配置 · 点击查看大图</span></figcaption>
-            </figure>
-            <p class="notice"><span data-i18n="完成 MCP Marketplace 准入配置后，退出浏览器中当前登录的 JPD（JFrog 平台）账号，再进行下一步学员认证。">完成 MCP Marketplace 准入配置后，退出浏览器中当前登录的 JPD（JFrog 平台）账号，再进行下一步学员认证。</span></p>
-            <div class="expect"><span data-i18n="检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。">检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。</span></div>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head"><span class="number">02</span>
-            <h2><span data-i18n="配置 OpenCode 与 JFrog Agent Guard">配置 OpenCode 与 JFrog Agent Guard</span></h2>
-          </div>
-          <div class="body">
-            <h3><span data-i18n="Step 1 · 打开实验目录并选择模型">Step 1 · 打开实验目录并选择模型</span></h3>
-            <p><span data-i18n="新开终端，进入">新开终端，进入 </span><code>jfrog-ai-workshop/user</code><span data-i18n="目录。将下面的路径替换为本机实际路径；Windows 可在该文件夹打开 PowerShell 后执行"> 目录。将下面的路径替换为本机实际路径；Windows 可在该文件夹打开
-              PowerShell 后执行 </span><code>opencode</code>。</p>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="终端 · macOS / Linux">终端 · macOS / Linux</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code>cd &quot;<span data-i18n="/您的工作路径/jfrog-ai-workshop/user">/您的工作路径/jfrog-ai-workshop/user</span>&quot;
-opencode</code></pre>
-            </div>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 内输入">OpenCode 内输入</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code>/models</code></pre>
-            </div>
-            <p><span data-i18n="参考以下截图选择指定模型；。模型不可用时先联系讲师，确认能正常对话后再继续。">参考以下截图选择指定模型；。模型不可用时先联系讲师，确认能正常对话后再继续。</span></p>
-            <p><span data-i18n="如您有自用模型，可以自行选择。">如您有自用模型，可以自行选择。</span></p>
-            <figure class="labfigure labfigure-small"><a href="instructions/images/opencode.png" target="_blank"
-                rel="noopener"><img src="instructions/images/opencode.png" alt="在 OpenCode 中选择实验模型"
-                  loading="lazy" data-i18n-alt="在 OpenCode 中选择实验模型"></a>
-              <figcaption><span data-i18n="在 OpenCode 中选择实验模型 · 点击查看大图">在 OpenCode 中选择实验模型 · 点击查看大图</span></figcaption>
-            </figure>
-            <h3><span data-i18n="Step 2 · 添加项目级配置 JFrog Agent Guard">Step 2 · 添加项目级配置 JFrog Agent Guard</span></h3>
-            <p><span data-i18n="退出 OpenCode，在">退出 OpenCode，在 </span><code>user</code><span data-i18n="目录创建"> 目录创建 </span><code>opencode.json</code><span data-i18n="，填写以下内容。已有配置时，将插件合并到现有">，填写以下内容。已有配置时，将插件合并到现有
-              </span><code>plugin</code><span data-i18n="数组，保留其他配置。"> 数组，保留其他配置。</span></p>
-            <div class="codebox">
-              <div class="codehead">opencode.json<button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code>{
-  &quot;plugin&quot;: [&quot;@jfrog/opencode-jfrog-plugin&quot;]
-}</code></pre>
-            </div>
-            <p><span data-i18n="保存后，在同一目录的终端执行认证命令；按浏览器提示使用本人 JFrog 账号登录并授权。这一步是插件的 MCP 认证，与第一页 CLI 配置分别验证。">保存后，在同一目录的终端执行认证命令；按浏览器提示使用本人 JFrog 账号登录并授权。这一步是插件的 MCP 认证，与第一页 CLI 配置分别验证。</span></p>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code>opencode mcp auth jfrog</code></pre>
-            </div>
-            <p class="notice" id="mcpAuthIdentity"></p>
-            <p><span data-i18n="认证成功后重新启动 OpenCode，接受需要的插件或工作区信任提示。分别查看以下列表。">认证成功后重新启动 OpenCode，接受需要的插件或工作区信任提示。分别查看以下列表。</span></p>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="终端">终端</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code>opencode</code></pre>
-            </div>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 内输入 · 分别执行">OpenCode 内输入 · 分别执行</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code>/skills
-
-/mcps</code></pre>
-            </div>
-            <figure class="labfigure labfigure-small"><a href="instructions/images/jfrog-mcp.png" target="_blank"
-                rel="noopener"><img src="instructions/images/jfrog-mcp.png"
-                  alt="检查 JFrog 插件、Skills 与 MCP 状态" loading="lazy" data-i18n-alt="检查 JFrog 插件、Skills 与 MCP 状态"></a>
-              <figcaption><span data-i18n="检查 JFrog 插件、Skills 与 MCP 状态 · 点击查看大图">检查 JFrog 插件、Skills 与 MCP 状态 · 点击查看大图</span></figcaption>
-            </figure>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head"><span class="number">03</span>
-            <h2><span data-i18n="通过提示词验证 MCP 治理">通过提示词验证 MCP 治理</span></h2>
-          </div>
-          <div class="body">
-            <p><span data-i18n="以下提示词依次输入 OpenCode，每条完成后再执行下一条。涉及文件的操作只允许使用">以下提示词依次输入 OpenCode，每条完成后再执行下一条。涉及文件的操作只允许使用 </span><code>filesystem-mcp</code><span data-i18n="，不要改用内置文件工具或 shell 完成。">，不要改用内置文件工具或
-              shell 完成。</span></p>
-            <h3><span data-i18n="1. 查看本人项目可用的服务器">1. 查看本人项目可用的服务器</span></h3>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="我所在项目有哪些 MCP server 可以使用？">我所在项目有哪些 MCP server 可以使用？</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：确认当前项目为本人 projectN，列表包含 filesystem-mcp。项目不正确时先联系讲师修正，不继续安装。">预期结果：确认当前项目为本人 projectN，列表包含 filesystem-mcp。项目不正确时先联系讲师修正，不继续安装。
-            </span></div>
-            <h3><span data-i18n="2. 安装已准入的服务器">2. 安装已准入的服务器</span></h3>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="为当前项目安装 filesystem-mcp">为当前项目安装 filesystem-mcp</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：安装成功。按插件提示重启 OpenCode，并确认服务器实际提供 view 工具。">预期结果：安装成功。按插件提示重启 OpenCode，并确认服务器实际提供 view 工具。</span></div>
-            <h3><span data-i18n="3. 验证服务器准入限制">3. 验证服务器准入限制</span></h3>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="为当前项目安装 mongodb MCP server">为当前项目安装 mongodb MCP server</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：应拒绝安装。此测试的前提是讲师确认本人项目未准入 MongoDB MCP；如果已准入，先让讲师检查实验配置。">预期结果：应拒绝安装。此测试的前提是讲师确认本人项目未准入 MongoDB MCP；如果已准入，先让讲师检查实验配置。</span></div>
-            <h3><span data-i18n="4. 验证读取成功">4. 验证读取成功</span></h3>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="读取 lab_dir/workshop.md，显示实际文件内容。">读取 lab_dir/workshop.md，显示实际文件内容。</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：读取成功，内容包含 Welcome to the JFrog Workshop 和 Hello JFrog AI Platform。">预期结果：读取成功，内容包含 Welcome to the JFrog Workshop 和 Hello JFrog AI
-              Platform。</span></div>
-            <h3><span data-i18n="5. 验证写入被拒绝">5. 验证写入被拒绝</span></h3>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：create 未开放，应被拒绝或提示工具不可用，test.txt 不应被创建。这是预期结果。">预期结果：create 未开放，应被拒绝或提示工具不可用，test.txt 不应被创建。这是预期结果。</span></div>
-            
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head"><span class="number">04</span>
-            <h2><span data-i18n="开放 MCP 所有 tools">开放 MCP 所有 tools</span></h2>
-          </div>
-          <div class="body">
-            <h3><span data-i18n="Step 1 · 用户开放全部工具">Step 1 · 用户开放全部工具</span></h3>
-            <ol>
-              <li><span data-i18n="使用当前用户账号登录平台，进入">使用当前用户账号登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li>
-              <li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li>
-              <li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li>
-            </ol>
-            <figure class="labfigure labfigure-small">
-              <a href="instructions/images/tools_all.png" target="_blank" rel="noopener">
-                <img src="instructions/images/tools_all.png" alt="用户为本人项目开放 filesystem-mcp 所有 tools" loading="lazy" data-i18n-alt="用户为本人项目开放 filesystem-mcp 所有 tools">
-              </a>
-              <figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption>
-            </figure>
-            <h3><span data-i18n="Step 2 · 客户端再次验证创建文件">Step 2 · 客户端再次验证创建文件</span></h3>
-            <p><span data-i18n="回到本人 OpenCode，在同一实验目录再次输入下面的提示词。保留此前的文件路由规则和内置工具限制，不需要在提示词中指定 MCP 名称。">回到本人 OpenCode，在同一实验目录再次输入下面的提示词。保留此前的文件路由规则和内置工具限制，不需要在提示词中指定 MCP 名称。</span></p>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：通过 Agent Guard 调用 filesystem-mcp 的创建工具成功，生成 lab_dir/test.txt。检查调用记录，不能是内置 write、edit 或 bash 创建。">预期结果：通过 Agent Guard 调用 filesystem-mcp 的创建工具成功，生成 lab_dir/test.txt。检查调用记录，不能是内置 write、edit 或 bash 创建。</span></div>
-            <p class="help"><span data-i18n="如果仍提示没有创建工具，重启 OpenCode 后重新查看 MCP 工具列表，再执行同一提示词；无需取消客户端的内置工具限制。若 test.txt 已存在，先联系讲师确认并恢复实验状态。">如果仍提示没有创建工具，重启 OpenCode 后重新查看 MCP 工具列表，再执行同一提示词；无需取消客户端的内置工具限制。若 test.txt 已存在，先联系讲师确认并恢复实验状态。</span></p>
-            <p><span data-i18n="继续读取文件，确认实际内容：">继续读取文件，确认实际内容：</span></p>
-            <div class="codebox">
-              <div class="codehead"><span data-i18n="OpenCode 提示词">OpenCode 提示词</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code><span data-i18n="读取 lab_dir/test.txt，显示实际文件内容。">读取 lab_dir/test.txt，显示实际文件内容。</span></code></pre>
-            </div>
-            <div class="expect"><span data-i18n="预期结果：通过 filesystem-mcp 读回 Hello JFrog Workshop。同一创建请求在只开放 view 时不可执行，开放全部 tools 后执行成功。">预期结果：通过 filesystem-mcp 读回 Hello JFrog Workshop。同一创建请求在只开放 view 时不可执行，开放全部 tools 后执行成功。</span></div>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head"><span class="number">05</span>
-            <h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2>
-          </div>
-          <div class="body">
-            <div class="checks"><label class="check"><input type="checkbox"
-                  class="labcheck"><span><span data-i18n="第一轮 filesystem-mcp 已加入本人项目，且只开放 view">第一轮 filesystem-mcp 已加入本人项目，且只开放 view</span></span></label><label
-                class="check"><input type="checkbox" class="labcheck"><span><span data-i18n="OpenCode 的 JFrog 集成可用，服务器通过 Agent Guard 安装">OpenCode 的 JFrog
-                  集成可用，服务器通过 Agent Guard 安装</span></span></label><label class="check"><input
-                  type="checkbox" class="labcheck"><span><span data-i18n="未准入的 MongoDB MCP 安装被拒绝">未准入的 MongoDB MCP 安装被拒绝</span></span></label><label
-                class="check"><input type="checkbox" class="labcheck"><span><span data-i18n="workshop.md 读取成功，创建 test.txt 被拒绝">workshop.md 读取成功，创建
-                  test.txt 被拒绝</span></span></label>
-              <label class="check"><input type="checkbox" class="labcheck"><span><span data-i18n="开放全部 tools 后，同一提示词通过 filesystem-mcp 创建 test.txt 成功，并读回确认内容">开放全部 tools 后，同一提示词通过 filesystem-mcp 创建 test.txt 成功，并读回确认内容</span></span></label>
-            </div>
-            <div class="expect" id="labProgress"><span data-i18n="0 / 5 项完成">0 / 5 项完成</span></div>
-          </div>
-        </section>
-      </main>
       <main class="content" id="page3" hidden>
         <div class="eyebrow">LAB 02 / SKILLS MANAGEMENT</div>
         <h1 tabindex="-1" id="skillsHeading"><span data-i18n="Lab 02 Skills 管理">Lab 02 Skills 管理</span></h1>
@@ -1346,7 +1152,7 @@ opencode</code></pre>
             <p><span data-i18n="在 Chat 中输入以下内容，创建本人项目的 Skills 仓库。项目和仓库名根据第一页填写的信息自动生成。">在 Chat 中输入以下内容，创建本人项目的 Skills 仓库。项目和仓库名根据第一页填写的信息自动生成。</span></p>
             <div class="codebox">
               <div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code id="skillsCreatePrompt"></code></pre>
+              <pre><code id="skillsCreatePrompt">在 projectKey 中创建 skills 类型仓库，名称 projectKey-workshop-skills，并开启 Xray 扫描功能。</code></pre>
             </div>
             <p><span data-i18n="执行成功后，在平台确认仓库类型为 Local / Skills，且归属本人项目，再继续上传。">执行成功后，在平台确认仓库类型为 Local / Skills，且归属本人项目，再继续上传。</span></p>
             <figure class="labfigure">
@@ -1366,7 +1172,7 @@ opencode</code></pre>
             <p><span data-i18n="在 Codespaces 终端中使用 JFrog CLI，将本地 Skill 上传到第一步创建的仓库。">在 Codespaces 终端中使用 JFrog CLI，将本地 Skill 上传到第一步创建的仓库。</span></p>
             <div class="codebox">
               <div class="codehead"><span>JFrog CLI</span><button class="copy"><span data-i18n="复制">复制</span></button></div>
-              <pre><code id="skillsPublishCode"><span data-i18n="请先填写本人仓库的完整 Repository Key。">请先填写本人仓库的完整 Repository Key。</span></code></pre>
+              <pre><code id="skillsPublishCode">jf agent skills publish user/skills/skills-e2e-single --repo projectKey-workshop-skills</code></pre>
             </div>
             <figure class="labfigure">
               <a href="instructions/images/skills-upload.png" target="_blank" rel="noopener">
@@ -1422,7 +1228,7 @@ opencode</code></pre>
 <p><span data-i18n="点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。">点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。</span></p>
 <figure class="labfigure"><a href="instructions/images/skills-applicable-policy.png" target="_blank" rel="noopener"><img src="instructions/images/skills-applicable-policy.png" alt="Skill 适用策略 · 点击查看大图" data-i18n-alt="Skill 适用策略 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skill 适用策略 · 点击查看大图">Skill 适用策略 · 点击查看大图</span></figcaption></figure>
 <p><span data-i18n="完成配置后，在 Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。">完成配置后，在 Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。</span></p>
-<div class="codebox"><div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsInstallPrompt"></code></pre></div>
+<div class="codebox"><div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsInstallPrompt">从 projectKey-workshop-skills 安装 skills-e2e-single@0.0.1 到 skills/download 目录。</code></pre></div>
 <div class="expect"><span data-i18n="预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。">预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。</span></div></div></section>
         <section class="section">
           <div class="section-head"><span class="number">05</span>
@@ -1482,7 +1288,11 @@ opencode</code></pre>
     function localSetupVisible() { return !$('#setup-local').hidden; }
     function codespacesSetupVisible() { return !$('#setup-codespaces').hidden; }
     function workshopIdentity() {
-      return last?.identity || codespacesIdentity || null;
+      const identity = last?.identity || codespacesIdentity || {};
+      return {
+        user: identity.user || 'userN',
+        project: identity.project || 'projectKey'
+      };
     }
     function setupComplete() {
       if (!localSetupVisible() && !codespacesSetupVisible()) return false;
@@ -1509,7 +1319,6 @@ opencode</code></pre>
     }
     function updateSkillsCommand() {
       const identity = workshopIdentity() || {user: 'userN', project: 'projectKey'};
-      $('#mcpAuthIdentity').textContent = t('弹出 JPD 登录页面后，请使用当前学员账号 {user} 登录并授权。').replaceAll('{user}', identity?.user || 'userN');
       const repo = identity.project + '-workshop-skills';
       $('#skillsCreatePrompt').textContent = t('在 {project} 中创建 skills 类型仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', repo);
       $('#skillsPolicyName').textContent = identity.project + '-skills-policy';
@@ -1541,21 +1350,28 @@ opencode</code></pre>
         ? (canAdvance() ? '' : t("请先勾选本页全部实际验证结果")) : '';
       if (currentPage === 1 && codespacesSetupVisible()) {
         $('#footNote').textContent = setupComplete() ? t('Codespaces 准备完成，可以继续') : t('请完成 Codespaces 准备并勾选全部验证结果');
+      } else if (currentPage >= 2 && currentPage <= 4) {
+        $('#footNote').textContent = canAdvance() ? t('按顺序完成本页操作与验证') : t('请先勾选本页全部实际验证结果');
       }
     }
     function showPage(page) {
       const pageChanged = currentPage !== page;
       currentPage = page;
-      for (let i = 1; i <= 5; i++) $('#page' + i).hidden = i !== page;
+      const pages = Array.from({length: 5}, (_, index) => $('#page' + (index + 1)));
+      pages.forEach(element => { element.hidden = true; });
+      void document.body.offsetHeight;
+      const activePage = pages[page - 1];
+      activePage.hidden = false;
+      void activePage.offsetHeight;
       $('#back').hidden = page === 1;
-      $('#footerInfo').hidden = page !== 1;
+      $('#footerInfo').hidden = page === 5;
       $('#next').hidden = page === 5;
       $('#next').textContent = page === 4 ? t("完成 ✓") : t("Next · 下一步 →");
-      updateNavigation();
       const names = [t("环境准备"), t("Lab 01 MCP Server 治理"), t("Lab 02 Skills 管理"), "Lab 03 Agents Package Resolution", t("Workshop 完成")];
       $('#crumb').textContent = names[page - 1];
       $('#footTitle').textContent = names[page - 1];
       $('#footNote').textContent = page === 1 ? (setupComplete() ? (codespacesSetupVisible() ? t('Codespaces 准备完成，可以继续') : t("初始化成功，可以继续")) : codespacesSetupVisible() ? t('请完成 Codespaces 准备并勾选全部验证结果') : t("初始化成功后继续")) : t("按顺序完成本页操作与验证");
+      updateNavigation();
       document.querySelectorAll('.navstep').forEach((e, i) => {
         e.classList.toggle('active', i === page - 1);
         e.classList.toggle('future', i > page - 1);
@@ -1566,8 +1382,9 @@ opencode</code></pre>
       $('#skillsIdentity').textContent = description;
       applyIdentityPlaceholders(identity);
       updateSkillsCommand();
+      const heading = $(page === 1 && codespacesSetupVisible() ? '#codespacesHeading' : ['#heading', '#nextHeading', '#skillsHeading', '#resolutionHeading', '#congratulationsHeading'][page - 1]);
+      heading.focus({preventScroll: true});
       window.scrollTo(0, 0);
-      $(page === 1 && codespacesSetupVisible() ? '#codespacesHeading' : ['#heading', '#nextHeading', '#skillsHeading', '#resolutionHeading', '#congratulationsHeading'][page - 1]).focus();
       if (page === 5 && pageChanged) celebrate();
       else $('#confettiLayer').replaceChildren();
     }
