@@ -2,10 +2,10 @@
   "name": "JFrog Workshop",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
   "remoteEnv": {
-    "JFROG_URL": "$JFROG_URL",
-    "JFROG_ACCESS_TOKEN": "$JFROG_ACCESS_TOKEN",
+    "JFROG_URL": "${containerEnv:JFROG_URL}",
+    "JFROG_ACCESS_TOKEN": "${containerEnv:JFROG_ACCESS_TOKEN}",
     "JFROG_SERVER_ID": "workshop",
-    "JF_PROJECT": "$JF_PROJECT"
+    "JF_PROJECT": "${containerEnv:JF_PROJECT}"
   },
   "customizations": {
     "vscode": {

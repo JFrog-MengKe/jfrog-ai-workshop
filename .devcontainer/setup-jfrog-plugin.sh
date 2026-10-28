@@ -99,7 +99,19 @@ const roots = [
   path.join(os.homedir(), '.config', 'Code', 'agentPlugins')
 ];
 const mcpFile = /(?:^|[.])mcp[.]json$/i;
-const jfrogUrl = new RegExp('https://' + '\\$' + '\\{env:[^}]*jfrog[^}]*\\}/mcp', 'gi');
+const jfrogUrl = new RegExp(
+  '(?:https://' + '\\$' + '\\{env:[^}]*jfrog[^}]*\\}|' + '\\$' + '\\{env:JFROG_URL\\})/mcp',
+  'gi'
+);
+let platformUrl = String(process.env.JFROG_URL || '');
+while (platformUrl.endsWith('/')) platformUrl = platformUrl.slice(0, -1);
+let parsedUrl;
+try { parsedUrl = new URL(platformUrl); } catch { parsedUrl = null; }
+if (!parsedUrl || parsedUrl.protocol !== 'https:' || parsedUrl.username || parsedUrl.password || parsedUrl.pathname !== '/' || parsedUrl.search || parsedUrl.hash) {
+  console.error('[JFrog] JFROG_URL 无效，无法生成 JFrog MCP 地址。');
+  process.exit(1);
+}
+const mcpUrl = platformUrl + '/mcp';
 let changed = 0;
 
 function visit(directory) {
@@ -115,7 +127,7 @@ function visit(directory) {
     if (!mcpFile.test(entry.name)) continue;
     let content;
     try { content = fs.readFileSync(file, 'utf8'); } catch { continue; }
-    const updated = content.replace(jfrogUrl, '${env:JFROG_URL}/mcp');
+    const updated = content.replace(jfrogUrl, mcpUrl);
     if (updated === content) continue;
     fs.writeFileSync(file, updated);
     changed += 1;
