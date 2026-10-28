@@ -23,7 +23,7 @@ JPD Workshop 平台訪問地址和帳號信息由 JFrog 講師發放。信息包
 | `JFROG_URL` | JPD 平台完整位址，例如 `https://your-company.jfrog.io` |
 | `JF_PROJECT` | 講師提供的 Project Key，例如 `project1` |
 
-需要不帶協議的 JPD 平台位址時，直接使用 `JFROG_URL` 並去除前綴 `https://`；不需要另行配置 `JFROG_PLATFORM_URL`。
+需要平台完整位址時使用 `JFROG_URL`；Codespaces 啟動腳本會讓 JFrog 插件直接使用該完整位址，不需要另行配置其他平台 URL Secret。
 
 ### 03 啟動 GitHub Codespaces
 1. 開啟 Fork 後的 Workshop 儲存庫，點擊 **Code**。

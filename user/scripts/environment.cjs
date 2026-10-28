@@ -88,12 +88,11 @@ log('INSTALLED curl '+version(output).join('.'));
 }
 function configure(){
 const identity={url:process.env.WORKSHOP_PLATFORM_URL||'',user:process.env.WORKSHOP_USER||'',project:process.env.WORKSHOP_PROJECT||''};
-const platformHost=url=>url.replace(/^https:\/\//,'');
 const quote=s=>"'"+s.replaceAll("'","'\\''")+"'";
 let identityEnv='';
 if(identity.url||identity.user){
  if(!/^https:\/\/[^/?#@]+$/.test(identity.url)||!/^user[1-9][0-9]*$/.test(identity.user)||identity.project!=='project'+identity.user.slice(4))throw Error('Invalid workshop identity');
- const entries={JFROG_PLATFORM_URL:platformHost(identity.url),WORKSHOP_USER:identity.user,WORKSHOP_PROJECT:identity.project,JFROG_CLI_SERVER_ID:'workshop-'+identity.user};
+ const entries={JFROG_URL:identity.url,WORKSHOP_USER:identity.user,WORKSHOP_PROJECT:identity.project,JFROG_CLI_SERVER_ID:'workshop-'+identity.user};
  identityEnv=Object.entries(entries).map(([k,v])=>process.platform==='win32'?`$env:${k} = '${v.replaceAll("'","''")}'`:`export ${k}=${quote(v)}`).join('\n')+'\n';
  fs.writeFileSync(path.join(BASE,'workshop.json'),JSON.stringify(identity,null,2),{mode:0o600});
 }

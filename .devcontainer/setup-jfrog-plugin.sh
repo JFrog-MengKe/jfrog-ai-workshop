@@ -4,14 +4,6 @@ set -euo pipefail
 
 echo "[JFrog] Checking prerequisites..."
 
-# JFROG_URL is the only platform Secret. Keep the legacy host-only value
-# available to tools that still expect JFROG_PLATFORM_URL, without requiring a
-# second Secret.
-if [ -n "${JFROG_URL:-}" ]; then
-  JFROG_PLATFORM_URL="${JFROG_URL#https://}"
-  export JFROG_PLATFORM_URL
-fi
-
 if ! command -v node >/dev/null 2>&1; then
   echo "ERROR: Node.js is missing."
   exit 1
@@ -88,6 +80,57 @@ if ! plugin_enabled; then
   echo "[JFrog] Enabling plugin..."
   copilot plugin enable jfrog
 fi
+
+# The marketplace plugin currently ships its MCP template with a host-only
+# variable and prepends https://. Codespaces provides the complete platform
+# URL as JFROG_URL, so rewrite the installed JFrog-owned MCP files to use it
+# directly. This also covers Copilot's runtime copy of the plugin when it is
+# already present.
+rewrite_plugin_mcp_configs() {
+  node <<'NODE'
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+
+const roots = [
+  path.join(os.homedir(), '.copilot', 'installed-plugins'),
+  path.join(os.homedir(), '.vscode', 'agent-plugins'),
+  path.join(os.homedir(), 'Library', 'Application Support', 'Code', 'agentPlugins'),
+  path.join(os.homedir(), '.config', 'Code', 'agentPlugins')
+];
+const mcpFile = /(?:^|[.])mcp[.]json$/i;
+const jfrogUrl = new RegExp('https://' + '\\$' + '\\{env:[^}]*jfrog[^}]*\\}/mcp', 'gi');
+let changed = 0;
+
+function visit(directory) {
+  if (!fs.existsSync(directory)) return;
+  let entries;
+  try { entries = fs.readdirSync(directory, {withFileTypes: true}); } catch { return; }
+  for (const entry of entries) {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      visit(file);
+      continue;
+    }
+    if (!mcpFile.test(entry.name)) continue;
+    let content;
+    try { content = fs.readFileSync(file, 'utf8'); } catch { continue; }
+    const updated = content.replace(jfrogUrl, '${env:JFROG_URL}/mcp');
+    if (updated === content) continue;
+    fs.writeFileSync(file, updated);
+    changed += 1;
+    console.log(`[JFrog] 已将 MCP 地址切换为 JFROG_URL：${file}`);
+  }
+}
+
+for (const root of roots) visit(root);
+if (changed === 0) {
+  console.log('[JFrog] 未发现需要改写的插件 MCP 模板；插件可能尚未复制到运行时目录。');
+}
+NODE
+}
+
+rewrite_plugin_mcp_configs
 
 echo "[JFrog] Final plugin status:"
 copilot plugin list
