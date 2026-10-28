@@ -71,7 +71,7 @@ server.listen(0,process.env.CODESPACES==='true'?'0.0.0.0':'127.0.0.1',()=>{
  const port=server.address().port,localOrigin=`http://127.0.0.1:${port}`,localhostOrigin=`http://localhost:${port}`,forwardedOrigin=codespacesOrigin(port);
  origin=forwardedOrigin||localOrigin;
  for(const allowedOrigin of [localOrigin,localhostOrigin,forwardedOrigin].filter(Boolean)){const parsed=new URL(allowedOrigin);allowedHosts.add(parsed.host.toLowerCase());allowedOrigins.add(parsed.origin)}
- const localUrl=localOrigin+'/#session='+token,forwardedUrl=forwardedOrigin?forwardedOrigin+'/#session='+token:'';
+ const localUrl=localOrigin+'/instructions/workshop.html#session='+token,forwardedUrl=forwardedOrigin?forwardedOrigin+'/instructions/workshop.html#session='+token:'';
  const url=forwardedUrl||localUrl;
  console.log(forwardedOrigin?'\nJFrog Workshop Codespaces 页面\n'+forwardedUrl+'\n\nJFrog Workshop 本机页面\n'+localUrl+'\n\n保持此窗口打开。按 Ctrl+C 停止。服务仅监听本机，并通过 Codespaces 转发。请勿分享含 session 的链接。\n':'\nJFrog Workshop 本机页面\n'+localUrl+'\n\n保持此窗口打开。按 Ctrl+C 停止。仅监听本机，请勿分享含 session 的链接。\n');
  if(!process.argv.includes('--no-open')){
