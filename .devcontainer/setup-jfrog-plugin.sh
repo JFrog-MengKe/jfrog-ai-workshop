@@ -4,6 +4,14 @@ set -euo pipefail
 
 echo "[JFrog] Checking prerequisites..."
 
+# JFROG_URL is the only platform Secret. Keep the legacy host-only value
+# available to tools that still expect JFROG_PLATFORM_URL, without requiring a
+# second Secret.
+if [ -n "${JFROG_URL:-}" ]; then
+  JFROG_PLATFORM_URL="${JFROG_URL#https://}"
+  export JFROG_PLATFORM_URL
+fi
+
 if ! command -v node >/dev/null 2>&1; then
   echo "ERROR: Node.js is missing."
   exit 1
@@ -162,6 +170,10 @@ fi
 if [ -z "${JFROG_ACCESS_TOKEN:-}" ]; then
   printf '%s\n' '找不到 JFROG_ACCESS_TOKEN；請確認 Codespaces Secret 已授權此 Repository，然後重建 Codespace。'
 else
+  if [ -z "${JFROG_URL:-}" ]; then
+    printf '%s\n' '找不到 JFROG_URL；請確認 Codespaces Secret 已授權此 Repository，然後重建 Codespace。'
+    exit 1
+  fi
   printf '%s' "$JFROG_ACCESS_TOKEN" | jf config add workshop \
     --url "$JFROG_URL" \
     --access-token-stdin --interactive=false --overwrite &&

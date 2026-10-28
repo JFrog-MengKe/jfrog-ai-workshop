@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <base href="/instructions/">
   <title data-i18n="JFrog AI Security Workshop">JFrog AI Security Workshop</title>
   <style>
     :root {
@@ -949,7 +950,7 @@
 <div class="navstep future"><span class="navnum">04</span><div><strong>Lab 03: Agents Package Resolution</strong><small><span data-i18n="恶意包识别 · 安装拦截">恶意包识别 · 安装拦截</span></small></div></div>
       </nav>
       <div class="sidefoot">
-        <img class="sidefoot-logo" src="instructions/images/jfrog.png" alt="JFrog">
+        <img class="sidefoot-logo" src="images/jfrog.png" alt="JFrog">
         <a class="copyright" href="https://www.jfrog.com/" target="_blank" rel="noopener noreferrer"><strong>© Copyright 2026 JFrog Ltd</strong></a>
       </div>
     </aside>
@@ -1069,20 +1070,16 @@ cd jfrog-ai-workshop/user</code></pre>
 <p class="lead"><span data-i18n="本次 Workshop 通过 GitHub Codespaces 实验环境完成。">本次 Workshop 通过 GitHub Codespaces 实验环境完成。</span></p>
           <section class="section">
             <div class="section-head"><span class="number">01</span><h2><span data-i18n="检查环境和工具">检查环境和工具</span></h2></div>
-            <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>node --version
-npx --version
-jf --version
-jf c show
-jf rt ping</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
+            <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>jf c show
+jf rt ping</code></pre></div><p><span data-i18n="使用 jf c show 查看 CLI 配置，并使用 jf rt ping 验证 JFrog 平台连接。">使用 jf c show 查看 CLI 配置，并使用 jf rt ping 验证 JFrog 平台连接。</span></p></div>
           </section>
           <section class="section" hidden>
-            <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 只检查是否已设置">Codespaces 终端 · 只检查是否已设置</span><button class="copy"><span data-i18n="复制">复制</span></div><pre><code>node -e &#x27;for (const k of [&quot;JFROG_URL&quot;,&quot;JFROG_PLATFORM_URL&quot;,&quot;JFROG_ACCESS_TOKEN&quot;,&quot;JF_PROJECT&quot;]) console.log(k + &quot;: &quot; + (process.env[k] ? &quot;SET&quot; : &quot;MISSING&quot;))&#x27;</code></pre></div><p class="expect"><span data-i18n="预期四个变量都显示 SET。该命令不会打印变量值。若显示 MISSING，检查 Secret 名称、仓库授权，然后停止并重新启动 Codespace。">预期四个变量都显示 SET。该命令不会打印变量值。若显示 MISSING，检查 Secret 名称、仓库授权，然后停止并重新启动 Codespace。</span></p><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>node --version
-npx --version
-jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
+            <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 只检查是否已设置">Codespaces 终端 · 只检查是否已设置</span><button class="copy"><span data-i18n="复制">复制</span></div><pre><code>node -e &#x27;for (const k of [&quot;JFROG_URL&quot;,&quot;JFROG_ACCESS_TOKEN&quot;,&quot;JF_PROJECT&quot;]) console.log(k + &quot;: &quot; + (process.env[k] ? &quot;SET&quot; : &quot;MISSING&quot;))&#x27;</code></pre></div><p class="expect"><span data-i18n="预期三个变量都显示 SET。该命令不会打印变量值。若显示 MISSING，检查 Secret 名称、仓库授权，然后停止并重新启动 Codespace。">预期三个变量都显示 SET。该命令不会打印变量值。若显示 MISSING，检查 Secret 名称、仓库授权，然后停止并重新启动 Codespace。</span></p><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>jf c show
+jf rt ping</code></pre></div><p><span data-i18n="使用 jf c show 查看 CLI 配置，并使用 jf rt ping 验证 JFrog 平台连接。">使用 jf c show 查看 CLI 配置，并使用 jf rt ping 验证 JFrog 平台连接。</span></p></div>
           </section>
           <section class="section">
             <div class="section-head"><span class="number">02</span><h2><span data-i18n="验证 JFrog Agent Guard">验证 JFrog Agent Guard</span></h2></div>
-            <div class="body"><ol><li><span data-i18n="在 Codespaces 左上角三横线主菜单中打开 Command Palette...，搜索并选择 Browse MCP Servers。">在 Codespaces 左上角三横线主菜单中打开 Command Palette...，搜索并选择 Browse MCP Servers。</span></li><li><span data-i18n="找到 JFrog Plugin，点击 Start。">找到 JFrog Plugin，点击 Start。</span></li><li><span data-i18n="按页面跳转到 JPD，使用本人账号完成认证授权。">按页面跳转到 JPD，使用本人账号完成认证授权。</span></li></ol><figure class="labfigure"><a href="instructions/images/agent-guard-browse-mcp.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-browse-mcp.png" alt="Browse MCP Servers 中启动 JFrog Plugin" loading="lazy"></a><figcaption><span data-i18n="Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图">Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="判断安装并启动完成：在 MCP Server 列表中看到 jfrog，状态显示 Running，说明 JFrog Agent Plugin 已安装并启动。">判断安装并启动完成：在 MCP Server 列表中看到 jfrog，状态显示 Running，说明 JFrog Agent Plugin 已安装并启动。</span></p><figure class="labfigure labfigure-small"><a href="instructions/images/agent-guard-running.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-running.png" alt="JFrog Agent Plugin 状态为 Running" loading="lazy"></a><figcaption><span data-i18n="JFrog Agent Plugin 显示 Running · 点击查看大图">JFrog Agent Plugin 显示 Running · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="判断服务连接并获取 tools：打开 JFrog Plugin 的 show log，看到日志出现 Discovered tools（例如 Discovered 84 tools），说明服务端已连接并成功获取 tools。">判断服务连接并获取 tools：打开 JFrog Plugin 的 show log，看到日志出现 Discovered tools（例如 Discovered 84 tools），说明服务端已连接并成功获取 tools。</span></p><figure class="labfigure labfigure-small"><a href="instructions/images/agent-guard-discovered-tools.png" target="_blank" rel="noopener"><img src="instructions/images/agent-guard-discovered-tools.png" alt="JFrog Agent Plugin 日志显示 Discovered tools" loading="lazy"></a><figcaption><span data-i18n="日志显示 Discovered tools · 点击查看大图">日志显示 Discovered tools · 点击查看大图</span></figcaption></figure></div>
+            <div class="body"><ol><li><span data-i18n="在 Codespaces 左上角菜单中选择 View → Command Palette...，然后搜索并选择 Browse MCP Servers。">在 Codespaces 左上角菜单中选择 View → Command Palette...，然后搜索并选择 Browse MCP Servers。</span></li><li><span data-i18n="找到 JFrog Plugin，点击 Start。">找到 JFrog Plugin，点击 Start。</span></li><li><span data-i18n="按页面跳转到 JPD，使用本人账号完成认证授权。">按页面跳转到 JPD，使用本人账号完成认证授权。</span></li></ol><figure class="labfigure"><a href="images/agent-guard-browse-mcp.png" target="_blank" rel="noopener"><img src="images/agent-guard-browse-mcp.png" alt="Browse MCP Servers 中启动 JFrog Plugin" loading="lazy"></a><figcaption><span data-i18n="Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图">Browse MCP Servers 中启动 JFrog Plugin · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="判断安装并启动完成：在 MCP Server 列表中看到 jfrog，状态显示 Running，说明 JFrog Agent Plugin 已安装并启动。">判断安装并启动完成：在 MCP Server 列表中看到 jfrog，状态显示 Running，说明 JFrog Agent Plugin 已安装并启动。</span></p><figure class="labfigure labfigure-small"><a href="images/agent-guard-running.png" target="_blank" rel="noopener"><img src="images/agent-guard-running.png" alt="JFrog Agent Plugin 状态为 Running" loading="lazy"></a><figcaption><span data-i18n="JFrog Agent Plugin 显示 Running · 点击查看大图">JFrog Agent Plugin 显示 Running · 点击查看大图</span></figcaption></figure><p class="expect"><span data-i18n="判断服务连接并获取 tools：打开 JFrog Plugin 的 show log，看到日志出现 Discovered tools（例如 Discovered 84 tools），说明服务端已连接并成功获取 tools。">判断服务连接并获取 tools：打开 JFrog Plugin 的 show log，看到日志出现 Discovered tools（例如 Discovered 84 tools），说明服务端已连接并成功获取 tools。</span></p><figure class="labfigure labfigure-small"><a href="images/agent-guard-discovered-tools.png" target="_blank" rel="noopener"><img src="images/agent-guard-discovered-tools.png" alt="JFrog Agent Plugin 日志显示 Discovered tools" loading="lazy"></a><figcaption><span data-i18n="日志显示 Discovered tools · 点击查看大图">日志显示 Discovered tools · 点击查看大图</span></figcaption></figure></div>
           </section>
           <section class="section">
             <div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div>
@@ -1093,16 +1090,15 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
       <main class="content" id="page2" hidden>
         <div class="eyebrow">LAB 01 / MCP GOVERNANCE</div>
         <h1 tabindex="-1" id="nextHeading"><span data-i18n="Lab 01: MCP Server 治理">Lab 01: MCP Server 治理</span></h1>
-        <p class="lead"><span data-i18n="管理员将 filesystem MCP Server 不同 tools 授权加入项目，客户端 Agents 根据授权使用 MCP">管理员将 filesystem MCP Server 不同 tools 授权加入项目，客户端 Agents 根据授权使用 MCP</span></p>
-        <div class="notice" id="labIdentity"><span data-i18n="使用讲师分配的本人账号和对应 Project。">使用讲师分配的本人账号和对应 Project。</span></div>
+        <p class="lead"><span data-i18n="将 filesystem MCP Server 不同 tools 授权加入项目，客户端 Agents 根据授权使用 MCP">将 filesystem MCP Server 不同 tools 授权加入项目，客户端 Agents 根据授权使用 MCP</span></p>
         <section class="section">
           <div class="section-head"><span class="number">01</span><h2><span data-i18n="MCP Marketplace 准入配置">MCP Marketplace 准入配置</span></h2></div>
           <div class="body">
             <p><span class="tag"><span data-i18n="用户操作">用户操作</span></span><span data-i18n="使用当前用户账号登录 JFrog。">使用当前用户账号登录 JFrog。</span></p>
             <ol><li><span data-i18n="进入">进入 </span><b>AI/ML → AI Security → Marketplace → MCP Servers</b>。</li><li><span data-i18n="搜索">搜索 </span><code>filesystem-mcp</code><span data-i18n="，点击">，点击 </span><b>Add to Registry</b>。</li><li><span data-i18n="选择本人对应的">选择本人对应的 </span><code>projectN</code><span data-i18n="，不要选择其他项目。">，不要选择其他项目。</span></li><li><span data-i18n="选择">选择 </span><b>Select tools manually → Allow List</b><span data-i18n="，仅填写或选择">，仅填写或选择 </span><code>view</code><span data-i18n="；不要选择 Allow all tools。">；不要选择 Allow all tools。</span></li><li><span data-i18n="按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放">按界面完成后续配置并保存。在 Registry 中确认该服务器已允许用于本人项目，且仅开放 </span><code>view</code>。</li></ol>
-            <figure class="labfigure"><a href="instructions/images/mcp-server.png" target="_blank" rel="noopener"><img src="instructions/images/mcp-server.png" alt="搜索 filesystem-mcp 并添加到 Registry" loading="lazy"></a><figcaption><span data-i18n="搜索 filesystem-mcp 并添加到 Registry · 点击查看大图">搜索 filesystem-mcp 并添加到 Registry · 点击查看大图</span></figcaption></figure>
-            <figure class="labfigure labfigure-small"><a href="instructions/images/tools_read.png" target="_blank" rel="noopener"><img src="instructions/images/tools_read.png" alt="仅允许 view 工具" loading="lazy"></a><figcaption><span data-i18n="仅允许 view 工具 · 点击查看大图">仅允许 view 工具 · 点击查看大图</span></figcaption></figure>
-            <figure class="labfigure"><a href="instructions/images/registry.png" target="_blank" rel="noopener"><img src="instructions/images/registry.png" alt="在 Registry 中确认 filesystem-mcp 准入配置" loading="lazy"></a><figcaption><span data-i18n="在 Registry 中确认准入配置 · 点击查看大图">在 Registry 中确认准入配置 · 点击查看大图</span></figcaption></figure>
+            <figure class="labfigure"><a href="images/mcp-server.png" target="_blank" rel="noopener"><img src="images/mcp-server.png" alt="搜索 filesystem-mcp 并添加到 Registry" loading="lazy"></a><figcaption><span data-i18n="搜索 filesystem-mcp 并添加到 Registry · 点击查看大图">搜索 filesystem-mcp 并添加到 Registry · 点击查看大图</span></figcaption></figure>
+            <figure class="labfigure labfigure-small"><a href="images/tools_read.png" target="_blank" rel="noopener"><img src="images/tools_read.png" alt="仅允许 view 工具" loading="lazy"></a><figcaption><span data-i18n="仅允许 view 工具 · 点击查看大图">仅允许 view 工具 · 点击查看大图</span></figcaption></figure>
+            <figure class="labfigure"><a href="images/registry.png" target="_blank" rel="noopener"><img src="images/registry.png" alt="在 Registry 中确认 filesystem-mcp 准入配置" loading="lazy"></a><figcaption><span data-i18n="在 Registry 中确认准入配置 · 点击查看大图">在 Registry 中确认准入配置 · 点击查看大图</span></figcaption></figure>
             <div class="expect"><span data-i18n="检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。">检查点：filesystem-mcp 已在本人项目中准入；create、insert、str_replace 未开放。</span></div>
           </div>
         </section>
@@ -1125,14 +1121,14 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
         </section>
         <section class="section">
           <div class="section-head"><span class="number">03</span><h2><span data-i18n="开放 MCP 所有 tools">开放 MCP 所有 tools</span></h2></div>
-          <div class="body"><ol><li><span data-i18n="使用当前用户账号登录平台，进入">使用当前用户账号登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li><li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li><li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li></ol><figure class="labfigure labfigure-small"><a href="instructions/images/tools_all.png" target="_blank" rel="noopener"><img src="instructions/images/tools_all.png" alt="用户为本人项目开放 filesystem-mcp 所有 tools" loading="lazy"></a><figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption></figure></div>
+          <div class="body"><ol><li><span data-i18n="使用当前用户账号登录平台，进入">使用当前用户账号登录平台，进入 </span><b>AI/ML → AI Security → Registry → MCP Servers</b>。</li><li><span data-i18n="打开">打开 </span><code>filesystem-mcp</code><span data-i18n="，选择本人的">，选择本人的 </span><code>projectN</code><span data-i18n="，点击">，点击 </span><b>Edit</b>。</li><li><span data-i18n="将仅允许">将仅允许 </span><code>view</code><span data-i18n="的配置改为"> 的配置改为 </span><b>Allow all tools</b><span data-i18n="，按界面完成后续步骤并保存配置。">，按界面完成后续步骤并保存配置。</span></li></ol><figure class="labfigure labfigure-small"><a href="images/tools_all.png" target="_blank" rel="noopener"><img src="images/tools_all.png" alt="用户为本人项目开放 filesystem-mcp 所有 tools" loading="lazy"></a><figcaption><span data-i18n="选择 Allow all tools 并保存配置 · 点击查看大图">选择 Allow all tools 并保存配置 · 点击查看大图</span></figcaption></figure></div>
         </section>
         <section class="section">
           <div class="section-head"><span class="number">04</span><h2><span data-i18n="客户端 Agent 使用 tools 全开放的 MCP">客户端 Agent 使用 tools 全开放的 MCP</span></h2></div>
           <div class="body">
             <p><span data-i18n="在 Chat 中输入以下内容，验证客户端 Agent 可以使用用户开放的写入 tools。">在 Chat 中输入以下内容，验证客户端 Agent 可以使用用户开放的写入 tools。</span></p>
             <p><span data-i18n="保存授权后，在客户端 MCP Server 列表中重启 filesystem-mcp。查看日志，确认出现 tools: 4 和 Discovered 4 tools，表示客户端已重新读取授权并检测到 4 个工具。">保存授权后，在客户端 MCP Server 列表中重启 filesystem-mcp。查看日志，确认出现 tools: 4 和 Discovered 4 tools，表示客户端已重新读取授权并检测到 4 个工具。</span></p>
-            <figure class="labfigure labfigure-small"><a href="instructions/images/filesystem-mcp-four-tools.png" target="_blank" rel="noopener"><img src="instructions/images/filesystem-mcp-four-tools.png" alt="filesystem-mcp 重启后日志检测到 4 个 tools" loading="lazy"></a><figcaption><span data-i18n="filesystem-mcp 日志显示已检测到 4 个 tools · 点击查看大图">filesystem-mcp 日志显示已检测到 4 个 tools · 点击查看大图</span></figcaption></figure>
+            <figure class="labfigure labfigure-small"><a href="images/filesystem-mcp-four-tools.png" target="_blank" rel="noopener"><img src="images/filesystem-mcp-four-tools.png" alt="filesystem-mcp 重启后日志检测到 4 个 tools" loading="lazy"></a><figcaption><span data-i18n="filesystem-mcp 日志显示已检测到 4 个 tools · 点击查看大图">filesystem-mcp 日志显示已检测到 4 个 tools · 点击查看大图</span></figcaption></figure>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入">Chat 输入</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="重新检测 filesystem-mcp 授权，在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">重新检测 filesystem-mcp 授权，在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：客户端 Agent 通过 filesystem-mcp 的创建工具成功创建 lab_dir/test.txt，并可继续读取文件确认内容为 Hello JFrog Workshop。">验证效果：客户端 Agent 通过 filesystem-mcp 的创建工具成功创建 lab_dir/test.txt，并可继续读取文件确认内容为 Hello JFrog Workshop。</span></p>
           </div>
@@ -1143,7 +1139,6 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
         <div class="eyebrow">LAB 02 / SKILLS MANAGEMENT</div>
         <h1 tabindex="-1" id="skillsHeading"><span data-i18n="Lab 02 Skills 管理">Lab 02 Skills 管理</span></h1>
         <p class="lead"><span data-i18n="创建 Skills 仓库，上传 Skills，检测是否是恶意 Skills，拦截其下载安装。">创建 Skills 仓库，上传 Skills，检测是否是恶意 Skills，拦截其下载安装。</span></p>
-        <div class="notice" id="skillsIdentity"><span data-i18n="使用本人 userN 账号和 projectN 项目。">使用本人 userN 账号和 projectN 项目。</span></div>
         <section class="section">
           <div class="section-head"><span class="number">01</span><h2><span data-i18n="创建 skills 仓库">创建 skills 仓库</span></h2></div>
           <div class="body">
@@ -1154,8 +1149,8 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
             </div>
             <p><span data-i18n="执行成功后，在平台确认仓库类型为 Local / Skills，且归属本人项目，再继续上传。">执行成功后，在平台确认仓库类型为 Local / Skills，且归属本人项目，再继续上传。</span></p>
             <figure class="labfigure">
-              <a href="instructions/images/skills-repo.png" target="_blank" rel="noopener">
-                <img src="instructions/images/skills-repo.png" alt="在本人项目中创建 Skills 类型仓库" loading="lazy" data-i18n-alt="在本人项目中创建 Skills 类型仓库">
+              <a href="images/skills-repo.png" target="_blank" rel="noopener">
+                <img src="images/skills-repo.png" alt="在本人项目中创建 Skills 类型仓库" loading="lazy" data-i18n-alt="在本人项目中创建 Skills 类型仓库">
               </a>
               <figcaption><span data-i18n="创建 Skills 类型仓库 · 点击查看大图">创建 Skills 类型仓库 · 点击查看大图</span></figcaption>
             </figure>
@@ -1173,8 +1168,8 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
               <pre><code id="skillsPublishCode">jf agent skills publish user/skills/skills-e2e-single --repo projectKey-workshop-skills</code></pre>
             </div>
             <figure class="labfigure">
-              <a href="instructions/images/skills-upload.png" target="_blank" rel="noopener">
-                <img src="instructions/images/skills-upload.png" alt="上传 skills-e2e-single 到本人 Skills 仓库" loading="lazy" data-i18n-alt="上传 skills-e2e-single 到本人 Skills 仓库">
+              <a href="images/skills-upload.png" target="_blank" rel="noopener">
+                <img src="images/skills-upload.png" alt="上传 skills-e2e-single 到本人 Skills 仓库" loading="lazy" data-i18n-alt="上传 skills-e2e-single 到本人 Skills 仓库">
               </a>
               <figcaption><span data-i18n="上传 Skill · 点击查看大图">上传 Skill · 点击查看大图</span></figcaption>
             </figure>
@@ -1190,8 +1185,8 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
               <li><span data-i18n="阅读命中行为、扫描器判定原因和证据，重点检查是否识别到敏感信息外泄或提示词注入。记录实际结果，不预设一定命中某条规则。">阅读命中行为、扫描器判定原因和证据，重点检查是否识别到敏感信息外泄或提示词注入。记录实际结果，不预设一定命中某条规则。</span></li>
             </ol>
             <figure class="labfigure">
-              <a href="instructions/images/skills-scan.png" target="_blank" rel="noopener">
-                <img src="instructions/images/skills-scan.png" alt="Skills 扫描结果：恶意指令与敏感信息外泄风险" loading="lazy" data-i18n-alt="Skills 扫描结果：恶意指令与敏感信息外泄风险">
+              <a href="images/skills-scan.png" target="_blank" rel="noopener">
+                <img src="images/skills-scan.png" alt="Skills 扫描结果：恶意指令与敏感信息外泄风险" loading="lazy" data-i18n-alt="Skills 扫描结果：恶意指令与敏感信息外泄风险">
               </a>
               <figcaption><span data-i18n="Skills 扫描结果示例 · 点击查看大图">Skills 扫描结果示例 · 点击查看大图</span></figcaption>
             </figure>
@@ -1213,23 +1208,40 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
 <p><span data-i18n="使用当前用户账号登录 JFrog 平台，再进行以下策略配置操作。">使用当前用户账号登录 JFrog 平台，再进行以下策略配置操作。</span></p>
 <p><b>1. </b><span data-i18n="进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。">进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。</span></p>
 <p><code id="skillsPolicyName">projectN-skills-policy</code></p>
-<figure class="labfigure"><a href="instructions/images/skills-policy-1.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-1.png" alt="Policy — 1" loading="lazy"></a></figure>
+<figure class="labfigure"><a href="images/skills-policy-1.png" target="_blank" rel="noopener"><img src="images/skills-policy-1.png" alt="Policy — 1" loading="lazy"></a></figure>
 <p><b>2. </b><span data-i18n="Scope：AI assets 选择 Skills；范围选择 Projects，仅勾选本人项目，不选择 Global，然后点击 Next。">Scope：AI assets 选择 Skills；范围选择 Projects，仅勾选本人项目，不选择 Global，然后点击 Next。</span></p>
-<figure class="labfigure"><a href="instructions/images/skills-policy-2.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-2.png" alt="Policy — 2" loading="lazy"></a></figure>
+<figure class="labfigure"><a href="images/skills-policy-2.png" target="_blank" rel="noopener"><img src="images/skills-policy-2.png" alt="Policy — 2" loading="lazy"></a></figure>
 <p><b>3. </b><span data-i18n="Rule：选择 Block malicious（Scan result = Malicious），点击 Next。">Rule：选择 Block malicious（Scan result = Malicious），点击 Next。</span></p>
-<figure class="labfigure"><a href="instructions/images/skills-policy-3.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-3.png" alt="Policy — 3" loading="lazy"></a></figure>
+<figure class="labfigure"><a href="images/skills-policy-3.png" target="_blank" rel="noopener"><img src="images/skills-policy-3.png" alt="Policy — 3" loading="lazy"></a></figure>
 <p><b>4. </b><span data-i18n="Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。">Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。</span></p>
-<figure class="labfigure"><a href="instructions/images/skills-policy-4.png" target="_blank" rel="noopener"><img src="instructions/images/skills-policy-4.png" alt="Policy — 4" loading="lazy"></a></figure>
+<figure class="labfigure"><a href="images/skills-policy-4.png" target="_blank" rel="noopener"><img src="images/skills-policy-4.png" alt="Policy — 4" loading="lazy"></a></figure>
 <h3><span data-i18n="查看 Skill 适用的 Policy">查看 Skill 适用的 Policy</span></h3>
 <p><span data-i18n="策略配置完成后，继续使用本人用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。">策略配置完成后，继续使用本人用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。</span></p>
-<figure class="labfigure"><a href="instructions/images/skills-catalog-list.png" target="_blank" rel="noopener"><img src="instructions/images/skills-catalog-list.png" alt="Skills 列表 · 点击查看大图" data-i18n-alt="Skills 列表 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skills 列表 · 点击查看大图">Skills 列表 · 点击查看大图</span></figcaption></figure>
+<figure class="labfigure"><a href="images/skills-catalog-list.png" target="_blank" rel="noopener"><img src="images/skills-catalog-list.png" alt="Skills 列表 · 点击查看大图" data-i18n-alt="Skills 列表 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skills 列表 · 点击查看大图">Skills 列表 · 点击查看大图</span></figcaption></figure>
 <p><span data-i18n="点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。">点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。</span></p>
-<figure class="labfigure"><a href="instructions/images/skills-applicable-policy.png" target="_blank" rel="noopener"><img src="instructions/images/skills-applicable-policy.png" alt="Skill 适用策略 · 点击查看大图" data-i18n-alt="Skill 适用策略 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skill 适用策略 · 点击查看大图">Skill 适用策略 · 点击查看大图</span></figcaption></figure>
+<figure class="labfigure"><a href="images/skills-applicable-policy.png" target="_blank" rel="noopener"><img src="images/skills-applicable-policy.png" alt="Skill 适用策略 · 点击查看大图" data-i18n-alt="Skill 适用策略 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skill 适用策略 · 点击查看大图">Skill 适用策略 · 点击查看大图</span></figcaption></figure>
 <p><span data-i18n="完成配置后，在 Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。">完成配置后，在 Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。</span></p>
 <div class="codebox"><div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsInstallPrompt">从 projectKey-workshop-skills 安装 skills-e2e-single@0.0.1 到 skills/download 目录。</code></pre></div>
 <div class="expect"><span data-i18n="预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。">预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。</span></div></div></section>
         <section class="section">
-          <div class="section-head"><span class="number">05</span>
+          <div class="section-head"><span class="number">05</span><h2><span data-i18n="修复恶意 Skills，重新上传并使用">修复恶意 Skills，重新上传并使用</span></h2></div>
+          <div class="body">
+            <ol>
+              <li><span data-i18n="删除 user/skills/skills-e2e-single/SKILL.md Line6 important 行中的恶意外发指令。">删除 <code>user/skills/skills-e2e-single/SKILL.md Line6</code> <code>important</code> 行中的恶意外发指令。</span></li>
+              <li><span data-i18n="在 Codespaces 终端重新上传修复后的 Skill：">在 Codespaces 终端重新上传修复后的 Skill：</span></li>
+            </ol>
+            <div class="codebox"><div class="codehead"><span>JFrog CLI</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsRepairPublishCode">jf agent skills publish user/skills/skills-e2e-single --repo projectKey-workshop-skills --version 0.0.2</code></pre></div>
+            <p><span data-i18n="上传完成后，在 Artifactory → Artifacts 中打开本人项目的 workshop-skills 仓库，确认 skills-e2e-single/0.0.2 下已生成 skills-e2e-single-0.0.2.zip。">上传完成后，在 Artifactory → Artifacts 中打开本人项目的 workshop-skills 仓库，确认 skills-e2e-single/0.0.2 下已生成 skills-e2e-single-0.0.2.zip。</span></p>
+            <figure class="labfigure"><a href="images/skills-repaired-published.png" target="_blank" rel="noopener"><img src="images/skills-repaired-published.png" alt="Artifactory 中已上传 skills-e2e-single 0.0.2" loading="lazy" data-i18n-alt="Artifactory 中已上传 skills-e2e-single 0.0.2"></a><figcaption><span data-i18n="Artifactory 中已上传 skills-e2e-single 0.0.2 · 点击查看大图">Artifactory 中已上传 skills-e2e-single 0.0.2 · 点击查看大图</span></figcaption></figure>
+            <p class="help"><span data-i18n="截图示例显示仓库为 project8-workshop-skills，制品为 skills-e2e-single-0.0.2.zip，属性 skill.version 为 0.0.2；skills.xray.status 显示 unscanned 时，继续等待 Xray 扫描。">截图示例显示仓库为 project8-workshop-skills，制品为 skills-e2e-single-0.0.2.zip，属性 skill.version 为 0.0.2；skills.xray.status 显示 unscanned 时，继续等待 Xray 扫描。</span></p>
+            <p><span data-i18n="等待 Xray 重新扫描完成，然后确认 0.0.2 的扫描结果。">等待 Xray 重新扫描完成，然后确认 0.0.2 的扫描结果。</span></p>
+            <p><span data-i18n="下载 Skills：">下载 Skills：</span></p>
+            <div class="codebox"><div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsRepairInstallPrompt">从 projectKey-workshop-skills 安装 skills-e2e-single@0.0.2 到 skills/download 目录。</code></pre></div>
+            <div class="expect"><span data-i18n="预期结果：修复后的 0.0.2 可以通过扫描，并成功下载到 skills/download。">预期结果：修复后的 0.0.2 可以通过扫描，并成功下载到 skills/download。</span></div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">06</span>
             <h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2>
           </div>
           <div class="body">
@@ -1238,14 +1250,15 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已上传 skills-e2e-single 0.0.1，并确认制品所在仓库">已上传 skills-e2e-single 0.0.1，并确认制品所在仓库</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据">已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已配置本人项目的 Block malicious 策略，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截">已配置本人项目的 Block malicious 策略，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截</span></span></label>
+              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已删除恶意指令，重新上传 0.0.2，并确认修复后的 Skill 可以下载">已删除恶意指令，重新上传 0.0.2，并确认修复后的 Skill 可以下载</span></span></label>
             </div>
-            <div class="expect" id="skillsProgress"><span data-i18n="0 / 4 项完成">0 / 4 项完成</span></div>
+            <div class="expect" id="skillsProgress"><span data-i18n="0 / 5 项完成">0 / 5 项完成</span></div>
           </div>
         </section>
       </main>
       <main class="content" id="page4" hidden><div class="hero"><div><div class="eyebrow">STEP 04 / LAB 03</div><h1 id="resolutionHeading" tabindex="-1">Lab 03: Agents Package Resolution</h1><p class="lead"><span data-i18n="通过 JFrog Catalog 可以查看恶意组件信息，再通过客户端 Agent 验证 JFrog 对安装恶意包请求是否被拦截。">通过 JFrog Catalog 可以查看恶意组件信息，再通过客户端 Agent 验证 JFrog 对安装恶意包请求是否被拦截。</span></p></div></div>
-<section class="section"><div class="section-head"><span class="number">01</span><h2><span data-i18n="在 Catalog 中查看恶意包">在 Catalog 中查看恶意包</span></h2></div><div class="body"><ol><li><span data-i18n="打开 Catalog → Explore，搜索 npm 包 axios。">打开 Catalog → Explore，搜索 npm 包 axios。</span></li><li><span data-i18n="Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。">Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。</span></li></ol><figure class="labfigure"><a href="instructions/images/axios-catalog.png" target="_blank" rel="noopener"><img src="instructions/images/axios-catalog.png" alt="Catalog — axios 1.14.1" loading="lazy"></a><figcaption><span data-i18n="axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图">axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图</span></figcaption></figure></div></section>
-<section class="section"><div class="section-head"><span class="number">02</span><h2><span data-i18n="通过 Agent 验证安装拦截">通过 Agent 验证安装拦截</span></h2></div><div class="body"><p><span data-i18n="在 Chat 中输入以下内容">在 Chat 中输入以下内容</span></p><div class="codebox"><div class="codehead"><span>Chat / Client Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="axios 1.14.1 是否可以使用">axios 1.14.1 是否可以使用</span></code></pre></div><div class="expect"><span data-i18n="预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。">预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。</span></div><p class="help"><span data-i18n="预期结果示例：Agent 完成检查后不会安装 axios@1.14.1，并提示 JFrog Catalog 已将该版本标记为恶意（knownToBeMalicious: true）；由于该版本未出现在 Artifactory 的套件索引中，Agent 会停止安装。">预期结果示例：Agent 完成检查后不会安装 axios@1.14.1，并提示 JFrog Catalog 已将该版本标记为恶意（knownToBeMalicious: true）；由于该版本未出现在 Artifactory 的套件索引中，Agent 会停止安装。</span></p><figure class="labfigure labfigure-half"><a href="instructions/images/axios-agent-blocked.png" target="_blank" rel="noopener"><img src="instructions/images/axios-agent-blocked.png" alt="Agent 拦截 axios 1.14.1 安装" loading="lazy"></a><figcaption><span data-i18n="Agent 拦截 axios 1.14.1 安装 · 点击查看大图">Agent 拦截 axios 1.14.1 安装 · 点击查看大图</span></figcaption></figure></div></section>
+<section class="section"><div class="section-head"><span class="number">01</span><h2><span data-i18n="在 Catalog 中查看恶意包">在 Catalog 中查看恶意包</span></h2></div><div class="body"><ol><li><span data-i18n="打开 Catalog → Explore，搜索 npm 包 axios。">打开 Catalog → Explore，搜索 npm 包 axios。</span></li><li><span data-i18n="Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。">Version 选择 1.14.1，查看 Malicious Info 中的恶意判定及详情。</span></li></ol><figure class="labfigure"><a href="images/axios-catalog.png" target="_blank" rel="noopener"><img src="images/axios-catalog.png" alt="Catalog — axios 1.14.1" loading="lazy"></a><figcaption><span data-i18n="axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图">axios 1.14.1 恶意包与下载阻断示例 · 点击查看大图</span></figcaption></figure></div></section>
+<section class="section"><div class="section-head"><span class="number">02</span><h2><span data-i18n="通过 Agent 验证安装拦截">通过 Agent 验证安装拦截</span></h2></div><div class="body"><p><span data-i18n="在 Chat 中输入以下内容">在 Chat 中输入以下内容</span></p><div class="codebox"><div class="codehead"><span>Chat / Client Agent</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="axios 1.14.1 是否可以使用">axios 1.14.1 是否可以使用</span></code></pre></div><div class="expect"><span data-i18n="预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。">预期结果：客户端 Agent 的安装请求被 JFrog 拦截，提示版本受策略限制或下载被阻止，axios 1.14.1 未成功安装。</span></div><p class="help"><span data-i18n="预期结果示例：Agent 完成检查后不会安装 axios@1.14.1，并提示 JFrog Catalog 已将该版本标记为恶意（knownToBeMalicious: true）；由于该版本未出现在 Artifactory 的套件索引中，Agent 会停止安装。">预期结果示例：Agent 完成检查后不会安装 axios@1.14.1，并提示 JFrog Catalog 已将该版本标记为恶意（knownToBeMalicious: true）；由于该版本未出现在 Artifactory 的套件索引中，Agent 会停止安装。</span></p><figure class="labfigure labfigure-half"><a href="images/axios-agent-blocked.png" target="_blank" rel="noopener"><img src="images/axios-agent-blocked.png" alt="Agent 拦截 axios 1.14.1 安装" loading="lazy"></a><figcaption><span data-i18n="Agent 拦截 axios 1.14.1 安装 · 点击查看大图">Agent 拦截 axios 1.14.1 安装 · 点击查看大图</span></figcaption></figure></div></section>
 <section class="section"><div class="section-head"><span class="number">03</span><h2><span data-i18n="完成后勾选实际验证结果">完成后勾选实际验证结果</span></h2></div><div class="body"><div class="checks"><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已在 Catalog 查看 axios 1.14.1 的恶意判定">已在 Catalog 查看 axios 1.14.1 的恶意判定</span></span></label><label class="check"><input class="resolutioncheck" type="checkbox"><span><span data-i18n="已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios 1.14.1 的安装请求">已确认 npm 安装经过 Artifactory，并看到 JFrog 明确拦截 axios 1.14.1 的安装请求</span></span></label></div><div class="expect" id="resolutionProgress">0 / 2</div></div></section></main>
 <main class="content celebration-page" id="page5" hidden>
         <section class="celebration-card">
@@ -1322,6 +1335,8 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
       $('#skillsPolicyName').textContent = identity.project + '-skills-policy';
       $('#skillsInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.1 到 skills/download 目录。').replaceAll('{repo}', repo);
       $('#skillsPublishCode').textContent = 'jf agent skills publish user/skills/skills-e2e-single --repo ' + repo;
+      $('#skillsRepairPublishCode').textContent = 'jf agent skills publish user/skills/skills-e2e-single --repo ' + repo + ' --version 0.0.2';
+      $('#skillsRepairInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.2 到 skills/download 目录。').replaceAll('{repo}', repo);
     }
     async function loadCodespacesIdentity() {
       try {
@@ -1375,9 +1390,6 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
         e.classList.toggle('future', i > page - 1);
       });
       const identity = workshopIdentity();
-      const description = identity ? t("当前账号：") + identity.user + ' · Project：' + identity.project : t("使用讲师分配的本人账号和对应 Project。");
-      $('#labIdentity').textContent = description;
-      $('#skillsIdentity').textContent = description;
       applyIdentityPlaceholders(identity);
       updateSkillsCommand();
       const heading = $(page === 1 && codespacesSetupVisible() ? '#codespacesHeading' : ['#heading', '#nextHeading', '#skillsHeading', '#resolutionHeading', '#congratulationsHeading'][page - 1]);
@@ -1410,7 +1422,7 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
     document.querySelectorAll('.resolutioncheck').forEach(check => check.addEventListener('change', () => { $('#resolutionProgress').textContent = document.querySelectorAll('.resolutioncheck:checked').length + ' / 2'; updateNavigation(); }));
     $('#back').onclick = () => { if (currentPage > 1) showPage(currentPage - 1); };
     document.querySelectorAll('.skillscheck').forEach(c => c.addEventListener('change', () => {
-      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(" / 4 项完成");
+      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(" / 5 项完成");
       updateNavigation();
     }));
     const copyResetTimers = new WeakMap();
@@ -1447,7 +1459,7 @@ jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog
       updateCodespacesSetup();
       showPage(currentPage);
       $('#labProgress').textContent = document.querySelectorAll('.labcheck:checked').length + ' / ' + document.querySelectorAll('.labcheck').length + t(' 项完成');
-      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(' / 4 项完成');
+      $('#skillsProgress').textContent = document.querySelectorAll('.skillscheck:checked').length + t(' / 5 项完成');
     };
     window.WorkshopI18n.ready.then(async () => {
       await loadCodespacesIdentity();

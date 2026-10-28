@@ -3,7 +3,6 @@
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
   "remoteEnv": {
     "JFROG_URL": "$JFROG_URL",
-    "JFROG_PLATFORM_URL": "$JFROG_PLATFORM_URL",
     "JFROG_SERVER_ID": "workshop",
     "JF_PROJECT": "$JF_PROJECT"
   },
