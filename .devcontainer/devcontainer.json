@@ -22,5 +22,6 @@
       }
     }
   },
-  "postCreateCommand": "bash .devcontainer/setup-jfrog-plugin.sh"
+  "postCreateCommand": "bash .devcontainer/setup-jfrog-plugin.sh",
+  "postAttachCommand": "bash .devcontainer/configure-jfrog-workspace-mcp.sh"
 }
