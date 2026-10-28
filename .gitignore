@@ -25,5 +25,3 @@ Thumbs.db
 # Local cleanup execution records
 /manager/cleanup-*.jsonl
 
-.vscode/*
-!.vscode/mcp.json

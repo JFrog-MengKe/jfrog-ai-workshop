@@ -1,0 +1,9 @@
+{
+  "inputs": [],
+  "servers": {
+    "jfrog": {
+      "type": "http",
+      "url": "${env:JFROG_URL}/mcp"
+    }
+  }
+}

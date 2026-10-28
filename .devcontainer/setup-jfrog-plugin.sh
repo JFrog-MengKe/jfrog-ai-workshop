@@ -81,11 +81,9 @@ if ! plugin_enabled; then
   copilot plugin enable jfrog
 fi
 
-# The marketplace plugin currently ships its MCP template with a host-only
-# variable and prepends https://. Codespaces provides the complete platform
-# URL as JFROG_URL, so rewrite the installed JFrog-owned MCP files to use it
-# directly. This also covers Copilot's runtime copy of the plugin when it is
-# already present.
+# Keep the plugin's Skills and Hooks, but let the workspace own the JFrog MCP
+# registration. Remove the plugin-owned MCP copies so an unresolved template
+# cannot register a second broken `jfrog` server.
 rewrite_plugin_mcp_configs() {
   node <<'NODE'
 const fs = require('node:fs');
@@ -99,10 +97,6 @@ const roots = [
   path.join(os.homedir(), '.config', 'Code', 'agentPlugins')
 ];
 const mcpFile = /(?:^|[.])mcp[.]json$/i;
-const jfrogUrl = new RegExp(
-  '(?:https://' + '\\$' + '\\{env:[^}]*jfrog[^}]*\\}|' + '\\$' + '\\{env:JFROG_URL\\})/mcp',
-  'gi'
-);
 let platformUrl = String(process.env.JFROG_URL || '');
 while (platformUrl.endsWith('/')) platformUrl = platformUrl.slice(0, -1);
 let parsedUrl;
@@ -127,11 +121,10 @@ function visit(directory) {
     if (!mcpFile.test(entry.name)) continue;
     let content;
     try { content = fs.readFileSync(file, 'utf8'); } catch { continue; }
-    const updated = content.replace(jfrogUrl, mcpUrl);
-    if (updated === content) continue;
-    fs.writeFileSync(file, updated);
+    if (!content.includes('"jfrog"')) continue;
+    fs.unlinkSync(file);
     changed += 1;
-    console.log(`[JFrog] 已将 MCP 地址切换为 JFROG_URL：${file}`);
+    console.log(`[JFrog] 已移除插件自带 MCP 配置：${file}`);
   }
 }
 
@@ -139,6 +132,15 @@ for (const root of roots) visit(root);
 if (changed === 0) {
   console.log('[JFrog] 未发现需要改写的插件 MCP 模板；插件可能尚未复制到运行时目录。');
 }
+
+const workspaceRoot = path.resolve(process.cwd());
+const workspaceMcp = path.join(workspaceRoot, '.vscode', 'mcp.json');
+fs.mkdirSync(path.dirname(workspaceMcp), {recursive: true});
+fs.writeFileSync(workspaceMcp, JSON.stringify({
+  inputs: [],
+  servers: {jfrog: {type: 'http', url: mcpUrl}}
+}, null, 2) + '\n');
+console.log(`[JFrog] 已生成工作区 MCP 配置：${workspaceMcp}`);
 NODE
 }
 
