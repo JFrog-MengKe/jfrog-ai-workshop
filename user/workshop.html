@@ -1008,7 +1008,7 @@ cd jfrog-ai-workshop/user</code></pre>
             <details>
               <summary><span data-i18n="按钮会自动做哪些操作？">按钮会自动做哪些操作？</span></summary>
               <ol>
-                <li><span data-i18n="检查 OpenCode、Node.js、npx、JFrog CLI、jq、curl 的版本。">检查 OpenCode、Node.js、npx、JFrog CLI、jq、curl 的版本。</span></li>
+                <li><span data-i18n="检查 Node.js、npx、JFrog CLI、jq、curl 的版本。">检查 Node.js、npx、JFrog CLI、jq、curl 的版本。</span></li>
                 <li><span data-i18n="跳过符合要求的工具；需要安装时先查 tools，本地有包直接使用，缺包则从官网下载并缓存到 tools，校验 SHA256 后安装。">跳过符合要求的工具；需要安装时先查 tools，本地有包直接使用，缺包则从官网下载并缓存到 tools，校验 SHA256 后安装。</span></li>
                 <li><span data-i18n="配置用户 PATH；准备实验目录与">配置用户 PATH；准备实验目录与 </span><code>readme.txt</code><span data-i18n="（保留已有文件）。">（保留已有文件）。</span></li>
                 <li><span data-i18n="保存本人的平台 URL、userN 与 projectN 配置；配置中不包含密码或 Token。">保存本人的平台 URL、userN 与 projectN 配置；配置中不包含密码或 Token。</span></li>
@@ -1071,16 +1071,14 @@ cd jfrog-ai-workshop/user</code></pre>
             <div class="section-head"><span class="number">01</span><h2><span data-i18n="检查环境和工具">检查环境和工具</span></h2></div>
             <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>node --version
 npx --version
-opencode --version
 jf --version
 jf c show
-jf rt ping</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenCode ≥ 1.17.7、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、OpenCode ≥ 1.17.7、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
+jf rt ping</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
           </section>
           <section class="section" hidden>
             <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 只检查是否已设置">Codespaces 终端 · 只检查是否已设置</span><button class="copy"><span data-i18n="复制">复制</span></div><pre><code>node -e &#x27;for (const k of [&quot;JFROG_URL&quot;,&quot;JFROG_PLATFORM_URL&quot;,&quot;JFROG_ACCESS_TOKEN&quot;,&quot;JF_PROJECT&quot;]) console.log(k + &quot;: &quot; + (process.env[k] ? &quot;SET&quot; : &quot;MISSING&quot;))&#x27;</code></pre></div><p class="expect"><span data-i18n="预期四个变量都显示 SET。该命令不会打印变量值。若显示 MISSING，检查 Secret 名称、仓库授权，然后停止并重新启动 Codespace。">预期四个变量都显示 SET。该命令不会打印变量值。若显示 MISSING，检查 Secret 名称、仓库授权，然后停止并重新启动 Codespace。</span></p><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>node --version
 npx --version
-opencode --version
-jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、OpenCode ≥ 1.17.7、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、OpenCode ≥ 1.17.7、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
+jf --version</code></pre></div><p><span data-i18n="要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。">要求 Node.js ≥ 18、JFrog CLI ≥ 2.100.0。本页使用讲师准备的工具环境；若工具缺失或版本不足，先联系讲师补齐，再继续。</span></p></div>
           </section>
           <section class="section">
             <div class="section-head"><span class="number">02</span><h2><span data-i18n="验证 JFrog Agent Guard">验证 JFrog Agent Guard</span></h2></div>
