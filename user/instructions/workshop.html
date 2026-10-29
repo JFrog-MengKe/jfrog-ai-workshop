@@ -1070,7 +1070,7 @@ cd jfrog-ai-workshop/user</code></pre>
 <p class="lead"><span data-i18n="本次 Workshop 通过 GitHub Codespaces 实验环境完成。">本次 Workshop 通过 GitHub Codespaces 实验环境完成。</span></p>
           <section class="section">
             <div class="section-head"><span class="number">01</span><h2><span data-i18n="检查环境和工具">检查环境和工具</span></h2></div>
-            <div class="body"><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>jf c show
+            <div class="body"><p><span data-i18n="打开 Codespaces Terminal，再执行下面的环境检查命令。">打开 Codespaces Terminal，再执行下面的环境检查命令。</span></p><figure class="labfigure"><a href="images/codespaces-terminal.png" target="_blank" rel="noopener"><img src="images/codespaces-terminal.png" alt="打开 Codespaces Terminal" loading="lazy"></a><figcaption><span data-i18n="打开 Codespaces Terminal · 点击查看大图">打开 Codespaces Terminal · 点击查看大图</span></figcaption></figure><div class="codebox"><div class="codehead"><span data-i18n="Codespaces 终端 · 检查预装工具">Codespaces 终端 · 检查预装工具</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code>jf c show
 jf rt ping
 echo $JFROG_URL
 echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 CLI 配置，使用 jf rt ping 验证 JFrog 平台连接，并使用 echo 命令确认平台地址和项目变量已注入。">使用 jf c show 查看 CLI 配置，使用 jf rt ping 验证 JFrog 平台连接，并使用 echo 命令确认平台地址和项目变量已注入。</span></p></div>
@@ -1112,10 +1112,10 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
             <p><span data-i18n="在 Chat 中依次输入以下内容，并根据返回结果确认客户端只能使用用户授权的 MCP tools。">在 Chat 中依次输入以下内容，并根据返回结果确认客户端只能使用用户授权的 MCP tools。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 1">Chat 输入 1</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="我的项目有哪些 mcp server 可以使用">我的项目有哪些 mcp server 可以使用</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：返回本人项目已授权的 MCP Server，包含 filesystem-mcp；未授权的服务器不应出现在可用列表中。">验证效果：返回本人项目已授权的 MCP Server，包含 filesystem-mcp；未授权的服务器不应出现在可用列表中。</span></p>
-            <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 2">Chat 输入 2</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="安装 filesystem-mcp">安装 filesystem-mcp</span></code></pre></div>
+            <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 2">Chat 输入 2</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="我的项目安装filesystem-mcp">我的项目安装filesystem-mcp</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：filesystem-mcp 安装成功，并且客户端只能看到用户授权的 view tool。">验证效果：filesystem-mcp 安装成功，并且客户端只能看到用户授权的 view tool。</span></p>
             <p class="help"><span data-i18n="启动说明：安装成功后，客户端 Agent 会根据项目授权自动加载并启动 filesystem-mcp，无需在终端中单独运行服务器命令。等待客户端报告服务器已连接后，查看可用 tools，确认只有 view；如果服务器未连接，重新执行安装指令并检查 Agent Guard 的授权结果。">启动说明：安装成功后，客户端 Agent 会根据项目授权自动加载并启动 filesystem-mcp，无需在终端中单独运行服务器命令。等待客户端报告服务器已连接后，查看可用 tools，确认只有 view；如果服务器未连接，重新执行安装指令并检查 Agent Guard 的授权结果。</span></p>
-            <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 3">Chat 输入 3</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="安装 mongodb mcp server">安装 mongodb mcp server</span></code></pre></div>
+            <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 3">Chat 输入 3</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="我的项目安裝 mongodb mcp server">我的项目安裝 mongodb mcp server</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：安装被拒绝，因为 mongodb MCP Server 未获得管理员授权。">验证效果：安装被拒绝，因为 mongodb MCP Server 未获得管理员授权。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 4">Chat 输入 4</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="读取 user/lab_dir/workshop.md，显示实际文件内容。">读取 user/lab_dir/workshop.md，显示实际文件内容。</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：客户端通过 filesystem-mcp 的 view tool 读取并显示文件内容。">验证效果：客户端通过 filesystem-mcp 的 view tool 读取并显示文件内容。</span></p>
