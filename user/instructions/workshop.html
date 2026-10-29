@@ -1119,7 +1119,7 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
             <p class="expect"><span data-i18n="验证效果：安装被拒绝，因为 mongodb MCP Server 未获得管理员授权。">验证效果：安装被拒绝，因为 mongodb MCP Server 未获得管理员授权。</span></p>
             <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 4">Chat 输入 4</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="读取 user/lab_dir/workshop.md，显示实际文件内容。">读取 user/lab_dir/workshop.md，显示实际文件内容。</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：客户端通过 filesystem-mcp 的 view tool 读取并显示文件内容。">验证效果：客户端通过 filesystem-mcp 的 view tool 读取并显示文件内容。</span></p>
-            <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 5">Chat 输入 5</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">在 lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre></div>
+            <div class="codebox"><div class="codehead"><span data-i18n="Chat 输入 5">Chat 输入 5</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code><span data-i18n="在 user/lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。">在 user/lab_dir 中创建 test.txt，内容为 Hello JFrog Workshop。</span></code></pre></div>
             <p class="expect"><span data-i18n="验证效果：创建操作被拒绝，因为当前项目只授权了 view，未授权 create 等写入 tools。">验证效果：创建操作被拒绝，因为当前项目只授权了 view，未授权 create 等写入 tools。</span></p>
           </div>
         </section>
@@ -1162,7 +1162,25 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
           </div>
         </section>
         <section class="section">
-          <div class="section-head"><span class="number">02</span><h2><span data-i18n="上传 skills">上传 skills</span></h2></div>
+          <div class="section-head"><span class="number">02</span><h2><span data-i18n="配置安全策略 Block 恶意 Skills">配置安全策略 Block 恶意 Skills</span></h2></div>
+          <div class="body">
+            <p><span data-i18n="使用当前用户账号登录 JFrog 平台，进入 Xray → Watches & Policies。">使用当前用户账号登录 JFrog 平台，进入 Xray → Watches & Policies。</span></p>
+            <ol>
+              <li><span data-i18n="先创建 Policy 和 Rule，Policy Name：projectKey-skills-policy；Rule Name：projectKey-skills-rule">先创建 Policy 和 Rule，Policy Name：projectKey-skills-policy；Rule Name：projectKey-skills-rule</span></li>
+              <li><span data-i18n="创建 Policy Rule 时，Rule type 选择 Malicious Packages。">创建 Policy Rule 时，Rule type 选择 Malicious Packages。</span></li>
+            </ol>
+            <ol start="3">
+              <li><span data-i18n="在 Block 中勾选 Block download 和 Block unscanned artifacts，然后保存 Rule。">在 Block 中勾选 Block download 和 Block unscanned artifacts，然后保存 Rule。</span></li>
+              <li><span data-i18n="再创建 Watch，在 Repositories 中加入 projectKey-workshop-skills 仓库。">再创建 Watch，在 Repositories 中加入 projectKey-workshop-skills 仓库。</span></li>
+              <li><span data-i18n="在 Assigned Policies 中点击 Manage Policies，选择刚才创建的本人项目 projectKey-skills-policy。">在 Assigned Policies 中点击 Manage Policies，选择刚才创建的本人项目 projectKey-skills-policy。</span></li>
+            </ol>
+            <figure class="labfigure"><a href="images/xray-policy-rule.png" target="_blank" rel="noopener"><img src="images/xray-policy-rule.png" alt="Xray Policy Rule 阻止恶意和未扫描制品下载" loading="lazy"></a><figcaption><span data-i18n="Xray Policy Rule 阻止恶意和未扫描制品下载 · 点击查看大图">Xray Policy Rule 阻止恶意和未扫描制品下载 · 点击查看大图</span></figcaption></figure>
+            <figure class="labfigure"><a href="images/xray-watch.png" target="_blank" rel="noopener"><img src="images/xray-watch.png" alt="Xray Watch 添加 Skills 仓库并管理 Policies" loading="lazy"></a><figcaption><span data-i18n="Xray Watch 添加 Skills 仓库并管理 Policies · 点击查看大图">Xray Watch 添加 Skills 仓库并管理 Policies · 点击查看大图</span></figcaption></figure>
+            <p><span data-i18n="保存 Watch 后，确认本人项目的 workshop-skills 仓库已关联上面的 Xray Policy。">保存 Watch 后，确认本人项目的 workshop-skills 仓库已关联上面的 Xray Policy。</span></p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head"><span class="number">03</span><h2><span data-i18n="上传 skills">上传 skills</span></h2></div>
           <div class="body">
             <p><span data-i18n="本次使用的 Skills demo 目录：">本次使用的 Skills demo 目录：</span><code>skills/skills-e2e-single</code><span data-i18n="，名称为">，名称为 </span><code>skills-e2e-single</code><span data-i18n="，版本为">，版本为 </span><code>0.0.1</code>。</p>
             <div class="notice"><span data-i18n="此样例含要求将 .env 发送到外部地址的风险指令，用于扫描演示。只上传并查看报告，不安装、不执行，也不要让 Agent 按该 Skill 的正文操作。">此样例含要求将 .env 发送到外部地址的风险指令，用于扫描演示。只上传并查看报告，不安装、不执行，也不要让 Agent 按该 Skill 的正文操作。</span></div>
@@ -1178,11 +1196,11 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
               </a>
               <figcaption><span data-i18n="上传 Skill · 点击查看大图">上传 Skill · 点击查看大图</span></figcaption>
             </figure>
-            <p><span data-i18n="CLI 会打包、上传，并等待或报告安全扫描结果。若显示风险或扫描失败，先在仓库确认包是否已经上传，再进入第 03 部分查看报告，不要通过跳过扫描或删除制品来隐藏结果。">CLI 会打包、上传，并等待或报告安全扫描结果。若显示风险或扫描失败，先在仓库确认包是否已经上传，再进入第 03 部分查看报告，不要通过跳过扫描或删除制品来隐藏结果。</span></p>
+            <p><span data-i18n="CLI 会打包、上传，并等待或报告安全扫描结果。若显示风险或扫描失败，先在仓库确认包是否已经上传，再进入第 04 部分查看报告，不要通过跳过扫描或删除制品来隐藏结果。">CLI 会打包、上传，并等待或报告安全扫描结果。若显示风险或扫描失败，先在仓库确认包是否已经上传，再进入第 04 部分查看报告，不要通过跳过扫描或删除制品来隐藏结果。</span></p>
           </div>
         </section>
         <section class="section">
-          <div class="section-head"><span class="number">03</span><h2><span data-i18n="Skills 扫描">Skills 扫描</span></h2></div>
+          <div class="section-head"><span class="number">04</span><h2><span data-i18n="Skills 安全扫描、阻断 Agent 使用恶意 Skills">Skills 安全扫描、阻断 Agent 使用恶意 Skills</span></h2></div>
           <div class="body">
             <ol>
               <li><span data-i18n="进入">进入 </span><b>Xray → Scans List</b><span data-i18n="，按本人 Repository Key 和">，按本人 Repository Key 和 </span><code>skills-e2e-single</code><span data-i18n="查找刚上传的包。"> 查找刚上传的包。</span></li>
@@ -1205,29 +1223,11 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
               </tbody>
             </table></div>
             <details><summary><span data-i18n="一直没有扫描结果怎么办？">一直没有扫描结果怎么办？</span></summary><p><span data-i18n="请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。">请讲师检查 Skills 扫描服务是否已启用、仓库是否开启 Xray 索引。</span></p></details>
+            <p><span data-i18n="扫描完成看到结果后，在 Codespaces Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。">扫描完成看到结果后，在 Codespaces Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。</span></p>
+            <div class="codebox"><div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsInstallPrompt">从 projectKey-workshop-skills 安装 skills-e2e-single@0.0.1 到 user/skills/download 目录。</code></pre></div>
+            <div class="expect"><span data-i18n="预期结果：安装下载因 Xray Watch / Malicious Packages Policy 被拒绝，未成功安装到 user/skills/download。">预期结果：安装下载因 Xray Watch / Malicious Packages Policy 被拒绝，未成功安装到 user/skills/download。</span></div>
           </div>
         </section>
-<section class="section">
-<div class="section-head"><span class="number">04</span><h2><span data-i18n="Block 恶意 Skills">Block 恶意 Skills</span></h2></div>
-<div class="body">
-<p><span data-i18n="使用当前用户账号登录 JFrog 平台，再进行以下策略配置操作。">使用当前用户账号登录 JFrog 平台，再进行以下策略配置操作。</span></p>
-<p><b>1. </b><span data-i18n="进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。">进入 AI/ML → Policies，添加策略。Policy name 和 Description 填写下方名称，点击 Next。</span></p>
-<p><code id="skillsPolicyName">projectN-skills-policy</code></p>
-<figure class="labfigure"><a href="images/skills-policy-1.png" target="_blank" rel="noopener"><img src="images/skills-policy-1.png" alt="Policy — 1" loading="lazy"></a></figure>
-<p><b>2. </b><span data-i18n="Scope：AI assets 选择 Skills；范围选择 Projects，仅勾选本人项目，不选择 Global，然后点击 Next。">Scope：AI assets 选择 Skills；范围选择 Projects，仅勾选本人项目，不选择 Global，然后点击 Next。</span></p>
-<figure class="labfigure"><a href="images/skills-policy-2.png" target="_blank" rel="noopener"><img src="images/skills-policy-2.png" alt="Policy — 2" loading="lazy"></a></figure>
-<p><b>3. </b><span data-i18n="Rule：选择 Block malicious（Scan result = Malicious），点击 Next。">Rule：选择 Block malicious（Scan result = Malicious），点击 Next。</span></p>
-<figure class="labfigure"><a href="images/skills-policy-3.png" target="_blank" rel="noopener"><img src="images/skills-policy-3.png" alt="Policy — 3" loading="lazy"></a></figure>
-<p><b>4. </b><span data-i18n="Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。">Actions & waivers：确认动作为 Block，Waiver request settings 选择 Not allowed，点击 Next 并完成保存，确认策略已生效。</span></p>
-<figure class="labfigure"><a href="images/skills-policy-4.png" target="_blank" rel="noopener"><img src="images/skills-policy-4.png" alt="Policy — 4" loading="lazy"></a></figure>
-<h3><span data-i18n="查看 Skill 适用的 Policy">查看 Skill 适用的 Policy</span></h3>
-<p><span data-i18n="策略配置完成后，继续使用本人用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。">策略配置完成后，继续使用本人用户账号登录 JPD，并选择本人的 Project。进入 AI/ML → AI Security → Registry → Skills，找到已上传的 skills-e2e-single。</span></p>
-<figure class="labfigure"><a href="images/skills-catalog-list.png" target="_blank" rel="noopener"><img src="images/skills-catalog-list.png" alt="Skills 列表 · 点击查看大图" data-i18n-alt="Skills 列表 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skills 列表 · 点击查看大图">Skills 列表 · 点击查看大图</span></figcaption></figure>
-<p><span data-i18n="点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。">点击 skills-e2e-single，选择版本 0.0.1，打开 Policies 标签，查看适用于当前项目的策略，确认 Policy name、Scope、Rule 和 Action，其中 Action 应为 Block。</span></p>
-<figure class="labfigure"><a href="images/skills-applicable-policy.png" target="_blank" rel="noopener"><img src="images/skills-applicable-policy.png" alt="Skill 适用策略 · 点击查看大图" data-i18n-alt="Skill 适用策略 · 点击查看大图" loading="lazy"></a><figcaption><span data-i18n="Skill 适用策略 · 点击查看大图">Skill 适用策略 · 点击查看大图</span></figcaption></figure>
-<p><span data-i18n="完成配置后，在 Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。">完成配置后，在 Chat 中输入以下内容，验证恶意 Skill 的安装下载被策略拦截。</span></p>
-<div class="codebox"><div class="codehead"><span>Chat</span><button class="copy"><span data-i18n="复制">复制</span></button></div><pre><code id="skillsInstallPrompt">从 projectKey-workshop-skills 安装 skills-e2e-single@0.0.1 到 skills/download 目录。</code></pre></div>
-<div class="expect"><span data-i18n="预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。">预期结果：安装下载明确因 Policy / Block malicious 被拒绝，未成功安装到 skills/download。</span></div></div></section>
         <section class="section">
           <div class="section-head"><span class="number">05</span><h2><span data-i18n="修复恶意 Skills，重新上传并使用">修复恶意 Skills，重新上传并使用</span></h2></div>
           <div class="body">
@@ -1253,7 +1253,7 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="本人项目中已创建 Local / Skills 仓库，并确认实际 Repository Key">本人项目中已创建 Local / Skills 仓库，并确认实际 Repository Key</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已上传 skills-e2e-single 0.0.1，并确认制品所在仓库">已上传 skills-e2e-single 0.0.1，并确认制品所在仓库</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据">已查看完成的扫描结果，记录实际状态；有发现时已阅读风险详情和证据</span></span></label>
-              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已配置本人项目的 Block malicious 策略，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截">已配置本人项目的 Block malicious 策略，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截</span></span></label>
+              <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已配置本人项目的 Xray Watch 和 Malicious Packages Policy，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截">已配置本人项目的 Xray Watch 和 Malicious Packages Policy，并确认 skills-e2e-single@0.0.1 安装下载被策略拦截</span></span></label>
               <label class="check"><input class="skillscheck" type="checkbox"><span><span data-i18n="已删除恶意指令，重新上传 0.0.2，并确认修复后的 Skill 可以下载">已删除恶意指令，重新上传 0.0.2，并确认修复后的 Skill 可以下载</span></span></label>
             </div>
             <div class="expect" id="skillsProgress"><span data-i18n="0 / 5 项完成">0 / 5 项完成</span></div>
@@ -1336,8 +1336,7 @@ echo $JF_PROJECT</code></pre></div><p><span data-i18n="使用 jf c show 查看 C
       const identity = workshopIdentity() || {user: 'userN', project: 'projectKey'};
       const repo = identity.project + '-workshop-skills';
       $('#skillsCreatePrompt').textContent = t('在 {project} 中创建 skills 类型仓库，名称 {repo}，并开启 Xray 扫描功能。').replaceAll('{project}', identity.project).replaceAll('{repo}', repo);
-      $('#skillsPolicyName').textContent = identity.project + '-skills-policy';
-      $('#skillsInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.1 到 skills/download 目录。').replaceAll('{repo}', repo);
+      $('#skillsInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.1 到 user/skills/download 目录。').replaceAll('{repo}', repo);
       $('#skillsPublishCode').textContent = 'jf agent skills publish user/skills/skills-e2e-single --repo ' + repo;
       $('#skillsRepairPublishCode').textContent = 'jf agent skills publish user/skills/skills-e2e-single --repo ' + repo + ' --version 0.0.2';
       $('#skillsRepairInstallPrompt').textContent = t('从 {repo} 安装 skills-e2e-single@0.0.2 到 skills/download 目录。').replaceAll('{repo}', repo);
