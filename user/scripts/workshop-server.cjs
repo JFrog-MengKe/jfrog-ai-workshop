@@ -1,5 +1,5 @@
 'use strict';
-// Serves the workshop HTML and explicitly allowlisted instruction screenshots. Instructor XLSX, scripts and secrets are never served.
+// Serves the workshop instructions and explicitly allowlisted screenshots. Instructor XLSX, scripts and secrets are never served.
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),cp=require('node:child_process');
 const env=require('./environment.cjs');
 const token=crypto.randomBytes(32).toString('hex');
@@ -20,25 +20,30 @@ const server=http.createServer(async(req,res)=>{
   if(!requestHost(req))return json(res,403,{error:'Invalid host'});
   if(req.headers.origin&&!isAllowedOrigin(req.headers.origin))return json(res,403,{error:'Cross-origin request denied'});
   const languageFiles = {
-    '/locales/zh-CN.json': ['locales/zh-CN.json', 'application/json; charset=utf-8'],
-    '/locales/zh-TW.json': ['locales/zh-TW.json', 'application/json; charset=utf-8'],
-    '/locales/en.json': ['locales/en.json', 'application/json; charset=utf-8'],
-    '/scripts/i18n.js': ['scripts/i18n.js', 'text/javascript; charset=utf-8']
+    '/instructions/locales/zh-CN.json': ['instructions/locales/zh-CN.json', 'application/json; charset=utf-8'],
+    '/instructions/locales/zh-TW.json': ['instructions/locales/zh-TW.json', 'application/json; charset=utf-8'],
+    '/instructions/locales/en.json': ['instructions/locales/en.json', 'application/json; charset=utf-8'],
+    '/instructions/scripts/i18n.js': ['instructions/scripts/i18n.js', 'text/javascript; charset=utf-8'],
+    // Keep root-relative aliases working for cached or directly opened page variants.
+    '/locales/zh-CN.json': ['instructions/locales/zh-CN.json', 'application/json; charset=utf-8'],
+    '/locales/zh-TW.json': ['instructions/locales/zh-TW.json', 'application/json; charset=utf-8'],
+    '/locales/en.json': ['instructions/locales/en.json', 'application/json; charset=utf-8'],
+    '/scripts/i18n.js': ['instructions/scripts/i18n.js', 'text/javascript; charset=utf-8']
   };
   if (req.method === 'GET' && Object.hasOwn(languageFiles, req.url)) {
     const [file, type] = languageFiles[req.url];
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
     return fs.createReadStream(path.join(env.ROOT, file)).pipe(res);
   }
-  const imageNames=['mcp-server.png','tools_read.png','tools_all.png','registry.png','skills-repo.png','skills-upload.png','skills-scan.png','axios-catalog.png','axios-agent-blocked.png','skills-policy-1.png','skills-policy-2.png','skills-policy-3.png','skills-policy-4.png','skills-catalog-list.png','skills-applicable-policy.png','jfrog-mcp.png','jfrog.png','opencode.png','settings.png','codespaces-secrets-repository.png','codespaces-launch.png','agent-guard-browse-mcp.png','agent-guard-running.png','agent-guard-discovered-tools.png','filesystem-mcp-four-tools.png'];
-  if(req.method==='GET'&&imageNames.some(name=>req.url==='/instructions/images/'+name)){
+  const imageNames=['mcp-server.png','tools_read.png','tools_all.png','registry.png','skills-repo.png','skills-upload.png','skills-scan.png','skills-repaired-published.png','skills-catalog-published.png','xray-policy-rule.png','xray-watch.png','axios-catalog.png','axios-agent-blocked.png','skills-policy-1.png','skills-policy-2.png','skills-policy-3.png','skills-policy-4.png','skills-catalog-list.png','skills-applicable-policy.png','jfrog-mcp.png','jfrog.png','opencode.png','settings.png','codespaces-secrets-repository.png','codespaces-launch.png','codespaces-terminal.png','command-palette.png','agent-guard-browse-mcp.png','agent-guard-running.png','agent-guard-discovered-tools.png','filesystem-mcp-four-tools.png'];
+  if(req.method==='GET'&&imageNames.some(name=>req.url==='/instructions/images/'+name||req.url==='/images/'+name)){
     res.writeHead(200,{'Content-Type':'image/png','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});
     return fs.createReadStream(path.join(env.ROOT,'instructions','images',req.url.split('/').pop())).pipe(res);
   }
-  if(req.url==='/'||req.url==='/workshop.html'){
+  if(req.url==='/'||req.url==='/workshop.html'||req.url==='/instructions/workshop.html'){
     if(req.method!=='GET')return json(res,405,{error:'Method not allowed'});
     res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Content-Security-Policy':"default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",'Referrer-Policy':'no-referrer'});
-    return fs.createReadStream(path.join(env.ROOT,'workshop.html')).pipe(res);
+    return fs.createReadStream(path.join(env.ROOT,'instructions','workshop.html')).pipe(res);
   }
   // Non-secret page context also works when opened from the Codespaces Ports panel.
   if(req.method==='GET'&&req.url==='/api/workshop-context')return json(res,200,{project:(process.env.JF_PROJECT||'').trim(),user:(process.env.JFROG_USERNAME||process.env.JFROG_USER||'').trim()});
@@ -66,7 +71,7 @@ server.listen(0,process.env.CODESPACES==='true'?'0.0.0.0':'127.0.0.1',()=>{
  const port=server.address().port,localOrigin=`http://127.0.0.1:${port}`,localhostOrigin=`http://localhost:${port}`,forwardedOrigin=codespacesOrigin(port);
  origin=forwardedOrigin||localOrigin;
  for(const allowedOrigin of [localOrigin,localhostOrigin,forwardedOrigin].filter(Boolean)){const parsed=new URL(allowedOrigin);allowedHosts.add(parsed.host.toLowerCase());allowedOrigins.add(parsed.origin)}
- const localUrl=localOrigin+'/#session='+token,forwardedUrl=forwardedOrigin?forwardedOrigin+'/#session='+token:'';
+ const localUrl=localOrigin+'/instructions/workshop.html#session='+token,forwardedUrl=forwardedOrigin?forwardedOrigin+'/instructions/workshop.html#session='+token:'';
  const url=forwardedUrl||localUrl;
  console.log(forwardedOrigin?'\nJFrog Workshop Codespaces 页面\n'+forwardedUrl+'\n\nJFrog Workshop 本机页面\n'+localUrl+'\n\n保持此窗口打开。按 Ctrl+C 停止。服务仅监听本机，并通过 Codespaces 转发。请勿分享含 session 的链接。\n':'\nJFrog Workshop 本机页面\n'+localUrl+'\n\n保持此窗口打开。按 Ctrl+C 停止。仅监听本机，请勿分享含 session 的链接。\n');
  if(!process.argv.includes('--no-open')){

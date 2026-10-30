@@ -81,6 +81,71 @@ if ! plugin_enabled; then
   copilot plugin enable jfrog
 fi
 
+# Keep the plugin's Skills and Hooks, but let the workspace own the JFrog MCP
+# registration. Remove the plugin-owned MCP copies so an unresolved template
+# cannot register a second broken `jfrog` server.
+rewrite_plugin_mcp_configs() {
+  node <<'NODE'
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+
+const roots = [
+  path.join(os.homedir(), '.copilot', 'installed-plugins'),
+  path.join(os.homedir(), '.vscode', 'agent-plugins'),
+  path.join(os.homedir(), 'Library', 'Application Support', 'Code', 'agentPlugins'),
+  path.join(os.homedir(), '.config', 'Code', 'agentPlugins')
+];
+const mcpFile = /(?:^|[.])mcp[.]json$/i;
+let platformUrl = String(process.env.JFROG_URL || '');
+while (platformUrl.endsWith('/')) platformUrl = platformUrl.slice(0, -1);
+let parsedUrl;
+try { parsedUrl = new URL(platformUrl); } catch { parsedUrl = null; }
+if (!parsedUrl || parsedUrl.protocol !== 'https:' || parsedUrl.username || parsedUrl.password || parsedUrl.pathname !== '/' || parsedUrl.search || parsedUrl.hash) {
+  console.error('[JFrog] JFROG_URL 无效，无法生成 JFrog MCP 地址。');
+  process.exit(1);
+}
+const mcpUrl = platformUrl + '/mcp';
+let changed = 0;
+
+function visit(directory) {
+  if (!fs.existsSync(directory)) return;
+  let entries;
+  try { entries = fs.readdirSync(directory, {withFileTypes: true}); } catch { return; }
+  for (const entry of entries) {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      visit(file);
+      continue;
+    }
+    if (!mcpFile.test(entry.name)) continue;
+    let content;
+    try { content = fs.readFileSync(file, 'utf8'); } catch { continue; }
+    if (!content.includes('"jfrog"')) continue;
+    fs.unlinkSync(file);
+    changed += 1;
+    console.log(`[JFrog] 已移除插件自带 MCP 配置：${file}`);
+  }
+}
+
+for (const root of roots) visit(root);
+if (changed === 0) {
+  console.log('[JFrog] 未发现需要改写的插件 MCP 模板；插件可能尚未复制到运行时目录。');
+}
+
+const workspaceRoot = path.resolve(process.cwd());
+const workspaceMcp = path.join(workspaceRoot, '.vscode', 'mcp.json');
+fs.mkdirSync(path.dirname(workspaceMcp), {recursive: true});
+fs.writeFileSync(workspaceMcp, JSON.stringify({
+  inputs: [],
+  servers: {jfrog: {type: 'http', url: mcpUrl}}
+}, null, 2) + '\n');
+console.log(`[JFrog] 已生成工作区 MCP 配置：${workspaceMcp}`);
+NODE
+}
+
+rewrite_plugin_mcp_configs
+
 echo "[JFrog] Final plugin status:"
 copilot plugin list
 
@@ -162,6 +227,10 @@ fi
 if [ -z "${JFROG_ACCESS_TOKEN:-}" ]; then
   printf '%s\n' '找不到 JFROG_ACCESS_TOKEN；請確認 Codespaces Secret 已授權此 Repository，然後重建 Codespace。'
 else
+  if [ -z "${JFROG_URL:-}" ]; then
+    printf '%s\n' '找不到 JFROG_URL；請確認 Codespaces Secret 已授權此 Repository，然後重建 Codespace。'
+    exit 1
+  fi
   printf '%s' "$JFROG_ACCESS_TOKEN" | jf config add workshop \
     --url "$JFROG_URL" \
     --access-token-stdin --interactive=false --overwrite &&

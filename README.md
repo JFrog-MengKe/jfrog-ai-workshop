@@ -15,14 +15,15 @@ JPD Workshop 平台訪問地址和帳號信息由 JFrog 講師發放。信息包
 <https://github.com/slash-l/jfrog-ai-workshop>
 
 ### 02 設定 Codespaces Secrets
-在本人 Fork 儲存庫中開啟 `Settings → Secrets and variables → Codespaces`，點擊 **New repository secret**，新增以下四個 Repository secrets：
+在本人 Fork 儲存庫中開啟 `Settings → Secrets and variables → Codespaces`，點擊 **New repository secret**，新增以下三個 Repository secrets：
 
 | Secret | 填寫內容 |
 | --- | --- |
 | `JFROG_ACCESS_TOKEN` | 本人的 JFrog Access Token，不要填寫登入密碼 |
-| `JFROG_PLATFORM_URL` | JPD 平台位址，去除 `https://`，例如 `your-company.jfrog.io` |
 | `JFROG_URL` | JPD 平台完整位址，例如 `https://your-company.jfrog.io` |
 | `JF_PROJECT` | 講師提供的 Project Key，例如 `project1` |
+
+需要平台完整位址時使用 `JFROG_URL`；Codespaces 啟動腳本會讓 JFrog 插件直接使用該完整位址，不需要另行配置其他平台 URL Secret。
 
 ### 03 啟動 GitHub Codespaces
 1. 開啟 Fork 後的 Workshop 儲存庫，點擊 **Code**。
